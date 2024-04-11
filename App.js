@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView, View, Text } from "react-native";
+import { StyleSheet, SafeAreaView, View, Text, StatusBar } from "react-native";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 // import Constants from "expo-constants";
 import Login from "./App/Screens/Login";
@@ -11,6 +11,7 @@ export default function App() {
       publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <SafeAreaView style={styles.container}>
+        <StatusBar hidden />
         <SignedIn>
           <NavigationContainer>
             <TabNavigation />
