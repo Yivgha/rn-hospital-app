@@ -1,14 +1,17 @@
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { useAuth } from "@clerk/clerk-expo";
 import Colors from "../../assets/Shared/Colors";
 
-export default function SignOutGoogle({ signOut }) {
+export default function SignOutGoogle() {
+  const { isLoaded, signOut } = useAuth();
+  if (!isLoaded) {
+    return null;
+  }
   return (
     <TouchableOpacity
       style={styles.buttonBox}
       title="Sign Out"
-      onPress={() => {
-        signOut();
-      }}
+      onPress={() => signOut()}
     >
       <Text style={styles.buttonText}>Sign Out</Text>
     </TouchableOpacity>
@@ -17,16 +20,19 @@ export default function SignOutGoogle({ signOut }) {
 
 const styles = StyleSheet.create({
   buttonBox: {
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: "auto",
     borderRadius: 90,
+    minWidth: 90,
     alignItems: "center",
-    width: 130,
     marginHorizontal: "auto",
-    backgroundColor: Colors.black,
+    backgroundColor: Colors.white,
     alignSelf: "flex-end",
   },
   buttonText: {
-    fontSize: 16,
-    color: Colors.white,
+    fontSize: 12,
+    color: Colors.celestial,
+    textTransform: "uppercase",
+    fontWeight: "700",
   },
 });

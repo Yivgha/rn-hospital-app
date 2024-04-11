@@ -1,20 +1,17 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
-import { useAuth } from "@clerk/clerk-expo";
+import { useState } from "react";
 import Colors from "../../assets/Shared/Colors";
-import SignOutGoogle from "../Components/SignOutGoogle";
+import { Header } from "../Components/Home/Header";
+import { Search } from "../Components/Home/Search";
 
 export function Home() {
-  const { isLoaded, signOut } = useAuth();
-  if (!isLoaded) {
-    return null;
-  }
+  const [searchText, setSearchText] = useState("");
+  console.log("searchText", searchText.length);
   return (
     <View style={styles.homeBox}>
-      <SignOutGoogle signOut={signOut} />
-      <View>
-        <Text style={styles.textColor}>Home</Text>
-      </View>
+      <Header />
+      <Search setSearchText={setSearchText} />
+      <Text>This is search text: {searchText}</Text>
     </View>
   );
 }
@@ -24,12 +21,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 20,
-    paddingVertical: 50,
-    gap: 10,
+    paddingVertical: 30,
+    gap: 30,
     backgroundColor: Colors.celestial,
-  },
-  textColor: {
-    fontSize: 16,
-    color: Colors.white,
   },
 });

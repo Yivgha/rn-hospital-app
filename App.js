@@ -1,9 +1,8 @@
-import { StyleSheet, SafeAreaView, View, Text, StatusBar } from "react-native";
+import { StyleSheet, SafeAreaView, StatusBar } from "react-native";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
-// import Constants from "expo-constants";
-import Login from "./App/Screens/Login";
 import { NavigationContainer } from "@react-navigation/native";
 import { TabNavigation } from "./App/Navigations/TabNavigation";
+import Login from "./App/Screens/Login";
 
 export default function App() {
   return (
