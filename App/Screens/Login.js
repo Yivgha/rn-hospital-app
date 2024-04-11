@@ -1,7 +1,9 @@
-import { View, Image, StyleSheet, Text } from "react-native";
+import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import SplashLogo from "../../assets/images/splash.png";
 import Colors from "../../assets/Shared/Colors";
 import SignInWithOAuth from "../Components/SignInWithOAuth";
+// import SignInWithEmail from "../Components/SignInWithEmail";
+// import SignUpScreen from "../Components/SignUpScreen";
 
 export default function Login() {
   return (
@@ -11,8 +13,18 @@ export default function Login() {
         <Text style={styles.headingText}>Welcome</Text>
         <Text style={styles.additionalText}>Find your doctor in this app</Text>
       </View>
-
-      <SignInWithOAuth />
+      <View style={styles.loginBox}>
+        <SignInWithOAuth />
+        {/* <Text style={styles.headingText}>or</Text> */}
+        {/* <TouchableOpacity
+          style={styles.buttonBox}
+          title="Sign in with Email"
+          // onPress={() => navigation.navigate("SignInWithEmail")}
+        >
+          <Text style={styles.buttonText}>Sign in with Email</Text>
+        </TouchableOpacity> */}
+        {/* <SignUpScreen /> */}
+      </View>
     </View>
   );
 }
@@ -41,5 +53,11 @@ const styles = StyleSheet.create({
   additionalText: {
     fontSize: 16,
     color: Colors.white,
+  },
+  loginBox: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 5,
   },
 });

@@ -1,18 +1,20 @@
-import { StyleSheet, View, SafeAreaView, Text } from "react-native";
+import { StyleSheet, SafeAreaView, View, Text } from "react-native";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
-import Constants from "expo-constants";
+// import Constants from "expo-constants";
 import Login from "./App/Screens/Login";
-import Home from "./App/Screens/Home";
+import { NavigationContainer } from "@react-navigation/native";
+import { TabNavigation } from "./App/Navigations/TabNavigation";
 
 export default function App() {
   return (
     <ClerkProvider
-      publishableKey={"pk_test_ZWFnZXItcmFjZXItNTQuY2xlcmsuYWNjb3VudHMuZGV2JA"}
+      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <SafeAreaView style={styles.container}>
-        {/* <Home /> */}
         <SignedIn>
-          <Home />
+          <NavigationContainer>
+            <TabNavigation />
+          </NavigationContainer>
         </SignedIn>
         <SignedOut>
           <Login />
