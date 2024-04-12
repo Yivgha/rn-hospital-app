@@ -8,4 +8,5 @@ module.exports = {
     scheme: "hospital-app",
   },
   assets: ["./assets/fonts"],
+  plugins: ["expo-font"],
 };
