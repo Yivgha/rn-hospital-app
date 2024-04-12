@@ -34,5 +34,6 @@ const styles = StyleSheet.create({
     color: Colors.celestial,
     textTransform: "uppercase",
     fontWeight: "700",
+    fontFamily: "appfont",
   },
 });

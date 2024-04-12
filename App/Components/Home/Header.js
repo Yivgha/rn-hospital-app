@@ -45,5 +45,6 @@ const styles = StyleSheet.create({
   textColor: {
     fontSize: 18,
     color: Colors.white,
+    fontFamily: "appfont",
   },
 });

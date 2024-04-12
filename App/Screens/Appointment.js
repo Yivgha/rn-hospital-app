@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
 import Colors from "../../assets/Shared/Colors";
-import {Header }from "../Components/Home/Header";
+import { Header } from "../Components/Home/Header";
 
 export function Appointment() {
   return (
     <View style={styles.homeBox}>
       <Header />
-      <Text>Appointment</Text>
+      <Text style={styles.textColor}>Appointment</Text>
     </View>
   );
 }
@@ -23,5 +23,6 @@ const styles = StyleSheet.create({
   textColor: {
     fontSize: 16,
     color: Colors.white,
+    fontFamily: "appfont",
   },
 });

@@ -6,12 +6,12 @@ import { Search } from "../Components/Home/Search";
 
 export function Home() {
   const [searchText, setSearchText] = useState("");
-  console.log("searchText", searchText.length);
+
   return (
     <View style={styles.homeBox}>
       <Header />
       <Search setSearchText={setSearchText} />
-      <Text>This is search text: {searchText}</Text>
+      <Text style={styles.textColor}>This is search text: {searchText}</Text>
     </View>
   );
 }
@@ -24,5 +24,10 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     gap: 30,
     backgroundColor: Colors.celestial,
+  },
+  textColor: {
+    fontFamily: "appfont",
+    fontSize: 16,
+    color: Colors.white,
   },
 });

@@ -7,4 +7,5 @@ module.exports = {
   expo: {
     scheme: "hospital-app",
   },
+  assets: ["./assets/fonts"],
 };

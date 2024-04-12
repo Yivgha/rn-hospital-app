@@ -6,7 +6,7 @@ export function Profile() {
   return (
     <View style={styles.homeBox}>
       <Header />
-      <Text>Profile</Text>
+      <Text style={styles.textColor}>Profile</Text>
     </View>
   );
 }
@@ -23,5 +23,6 @@ const styles = StyleSheet.create({
   textColor: {
     fontSize: 16,
     color: Colors.white,
+    fontFamily: "appfont",
   },
 });

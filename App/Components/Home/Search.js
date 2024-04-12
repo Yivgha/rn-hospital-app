@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     flexGrow: 2,
     position: "relative",
+    fontFamily: "appfont",
   },
   searchBox: {
     flexDirection: "row",

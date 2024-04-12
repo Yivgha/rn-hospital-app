@@ -47,12 +47,13 @@ const styles = StyleSheet.create({
   },
   headingText: {
     fontSize: 24,
-    fontWeight: "700",
     color: Colors.white,
+    fontFamily: "appfontBold",
   },
   additionalText: {
     fontSize: 16,
     color: Colors.white,
+    fontFamily: "appfontSemibold",
   },
   loginBox: {
     flexDirection: "column",

@@ -19,6 +19,10 @@ export function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="home" size={size} color={color} />
           ),
+          tabBarLabelStyle: {
+            fontFamily: "appfont",
+            fontSize: 14,
+          },
         }}
       />
       <Tab.Screen
@@ -33,6 +37,10 @@ export function TabNavigation() {
               color={color}
             />
           ),
+          tabBarLabelStyle: {
+            fontFamily: "appfont",
+            fontSize: 14,
+          },
         }}
       />
       <Tab.Screen
@@ -43,6 +51,10 @@ export function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person" size={size} color={color} />
           ),
+          tabBarLabelStyle: {
+            fontFamily: "appfont",
+            fontSize: 14,
+          },
         }}
       />
     </Tab.Navigator>
