@@ -12,7 +12,11 @@ export function Home() {
     <View style={styles.homeBox}>
       <Header />
       <Search setSearchText={setSearchText} />
-      <Text style={styles.textColor}>This is search text: {searchText}</Text>
+      <View style={styles.textSearchInfo}>
+        <Text style={styles.textColor}>This is what you're looking for:</Text>
+        <Text style={styles.textSearchResult}>{searchText}</Text>
+      </View>
+
       <Slider />
     </View>
   );
@@ -27,9 +31,21 @@ const styles = StyleSheet.create({
     gap: 20,
     backgroundColor: Colors.celestial,
   },
+  textSearchInfo: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "baseline",
+    justifyContent: "center",
+    flexWrap: "wrap",
+  },
   textColor: {
     fontFamily: "appfont",
     fontSize: 16,
     color: Colors.white,
+  },
+  textSearchResult: {
+    fontFamily: "appfontBold",
+    fontSize: 16,
+    color: Colors.peach,
   },
 });

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,33 +8,29 @@ import {
   Dimensions,
 } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
-
-const sliderData = [
-  {
-    id: 1,
-    name: "Doctor 2",
-    imageUrl:
-      "https://cdn.pixabay.com/photo/2021/02/15/16/01/woman-6018388_1280.jpg",
-  },
-  {
-    id: 2,
-    name: "Doctor 1",
-    imageUrl:
-      "https://cdn.pixabay.com/photo/2020/11/02/19/52/doctor-5707722_1280.jpg",
-  },
-];
+import GlobalApi from "../../Services/GlobalApi";
 
 export function Slider() {
+  const [fetchedSliderData, setFetchedSliderData] = useState([]);
+  useEffect(() => {
+    fetchSlider();
+  }, []);
+  const fetchSlider = () => {
+    GlobalApi.getSlider().then((res) => setFetchedSliderData(res.data.data));
+  };
+
   return (
     <View style={styles.sliderBox}>
-      <Text style={styles.textColor}>Slider</Text>
+      <Text style={styles.textColor}>
+        Slide to the right to see our employees
+      </Text>
       <FlatList
-        data={sliderData}
+        data={fetchedSliderData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <Image
-            source={{ uri: item?.imageUrl }}
+            source={{ uri: item?.attributes.Image.data.attributes.url }}
             alt={item.name}
             style={styles.sliderImg}
             key={index}
@@ -47,11 +44,12 @@ export function Slider() {
 const styles = StyleSheet.create({
   sliderBox: {
     flexDirection: "column",
+    gap: 7,
   },
   textColor: {
     fontFamily: "appfont",
-    color: Colors.white,
-    fontSize: 16,
+    color: Colors.peach,
+    fontSize: 18,
   },
   sliderImg: {
     height: 170,

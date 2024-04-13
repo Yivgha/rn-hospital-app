@@ -17,6 +17,7 @@ export function Search({ setSearchText }) {
       <View style={styles.searchBox}>
         <TextInput
           placeholder="Search"
+          maxLength={50}
           placeholderTextColor={Colors.peach}
           style={styles.searchInput}
           value={searchValue}
