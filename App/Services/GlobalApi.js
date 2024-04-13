@@ -16,4 +16,8 @@ const getSlider = () => {
   return AxiosInstance.get("/sliders?populate=*");
 };
 
-export default { getSlider };
+const getCategories = () => {
+  return AxiosInstance.get("/categories?populate=*");
+};
+
+export default { getSlider, getCategories };

@@ -4,6 +4,7 @@ import Colors from "../../assets/Shared/Colors";
 import { Header } from "../Components/Home/Header";
 import { Search } from "../Components/Home/Search";
 import { Slider } from "../Components/Home/Slider";
+import Categories from "../Components/Home/Categories";
 
 export function Home() {
   const [searchText, setSearchText] = useState("");
@@ -12,12 +13,15 @@ export function Home() {
     <View style={styles.homeBox}>
       <Header />
       <Search setSearchText={setSearchText} />
-      <View style={styles.textSearchInfo}>
-        <Text style={styles.textColor}>This is what you're looking for:</Text>
-        <Text style={styles.textSearchResult}>{searchText}</Text>
-      </View>
+      {searchText.length > 0 && (
+        <View style={styles.textSearchInfo}>
+          <Text style={styles.textColor}>This is what you're looking for:</Text>
+          <Text style={styles.textSearchResult}>{searchText}</Text>
+        </View>
+      )}
 
       <Slider />
+      <Categories />
     </View>
   );
 }
@@ -28,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingHorizontal: 20,
     paddingVertical: 30,
-    gap: 20,
+    gap: 25,
     backgroundColor: Colors.celestial,
   },
   textSearchInfo: {

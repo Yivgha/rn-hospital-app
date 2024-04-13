@@ -11,13 +11,17 @@ import Colors from "../../../assets/Shared/Colors";
 import GlobalApi from "../../Services/GlobalApi";
 
 export function Slider() {
-  const [fetchedSliderData, setFetchedSliderData] = useState([]);
+  const [sliderData, setSliderData] = useState([]);
   useEffect(() => {
     fetchSlider();
   }, []);
   const fetchSlider = () => {
-    GlobalApi.getSlider().then((res) => setFetchedSliderData(res.data.data));
+    GlobalApi.getSlider().then((res) => setSliderData(res.data.data));
   };
+
+  if (!sliderData) {
+    return null;
+  }
 
   return (
     <View style={styles.sliderBox}>
@@ -25,7 +29,7 @@ export function Slider() {
         Slide to the right to see our employees
       </Text>
       <FlatList
-        data={fetchedSliderData}
+        data={sliderData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
