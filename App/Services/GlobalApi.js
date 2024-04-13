@@ -20,4 +20,8 @@ const getCategories = () => {
   return AxiosInstance.get("/categories?populate=*");
 };
 
-export default { getSlider, getCategories };
+const getPremiumHospitals = () => {
+  return AxiosInstance.get("/hospitals?filters[Premium][$eq]=true&populate=*");
+};
+
+export default { getSlider, getCategories, getPremiumHospitals };

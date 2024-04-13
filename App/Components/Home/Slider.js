@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 import GlobalApi from "../../Services/GlobalApi";
+import { SubHeading } from "./SubHeading";
 
 export function Slider() {
   const [sliderData, setSliderData] = useState([]);
@@ -25,9 +26,7 @@ export function Slider() {
 
   return (
     <View style={styles.sliderBox}>
-      <Text style={styles.textColor}>
-        Slide to the right to see our employees
-      </Text>
+      <SubHeading subHeading={"Slide to the right to see more"} />
       <FlatList
         data={sliderData}
         horizontal={true}
@@ -49,11 +48,6 @@ const styles = StyleSheet.create({
   sliderBox: {
     flexDirection: "column",
     gap: 7,
-  },
-  textColor: {
-    fontFamily: "appfont",
-    color: Colors.peach,
-    fontSize: 18,
   },
   sliderImg: {
     height: 170,

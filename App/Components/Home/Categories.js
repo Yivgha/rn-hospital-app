@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 import GlobalApi from "../../Services/GlobalApi";
+import { SubHeading } from "./SubHeading";
 
-export default function Categories() {
+export function Categories() {
   const [categories, setCategories] = useState([]);
 
   const fetchCategories = () => {
@@ -20,10 +21,7 @@ export default function Categories() {
 
   return (
     <View style={styles.categoriesBox}>
-      <View style={styles.captionBox}>
-        <Text style={styles.captionText}>Doctor's Speciality</Text>
-        <Text style={styles.textColor}>See All</Text>
-      </View>
+      <SubHeading subHeading={"Doctors' Specialities"} lightText={"See All"} />
       <FlatList
         data={categories}
         numColumns={4}
@@ -50,21 +48,6 @@ const styles = StyleSheet.create({
   categoriesBox: {
     flexDirection: "column",
     gap: 7,
-  },
-  captionBox: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "space-between",
-  },
-  captionText: {
-    fontFamily: "appfontSemibold",
-    color: Colors.white,
-    fontSize: 18,
-  },
-  textColor: {
-    fontFamily: "appfontLight",
-    color: Colors.white,
-    fontSize: 18,
   },
   categoryText: {
     fontFamily: "appfont",

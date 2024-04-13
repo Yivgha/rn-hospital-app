@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useState } from "react";
 import Colors from "../../assets/Shared/Colors";
 import { Header } from "../Components/Home/Header";
 import { Search } from "../Components/Home/Search";
 import { Slider } from "../Components/Home/Slider";
-import Categories from "../Components/Home/Categories";
+import { Categories } from "../Components/Home/Categories";
+import { PremiumHospitals } from "../Components/Home/PremiumHospitals";
 
 export function Home() {
   const [searchText, setSearchText] = useState("");
@@ -12,16 +13,22 @@ export function Home() {
   return (
     <View style={styles.homeBox}>
       <Header />
-      <Search setSearchText={setSearchText} />
-      {searchText.length > 0 && (
-        <View style={styles.textSearchInfo}>
-          <Text style={styles.textColor}>This is what you're looking for:</Text>
-          <Text style={styles.textSearchResult}>{searchText}</Text>
-        </View>
-      )}
+      <ScrollView horizontal={false}>
+        <Search setSearchText={setSearchText} />
+        {searchText.length > 0 && (
+          <View style={styles.textSearchInfo}>
+            <Text style={styles.textColor}>
+              This is what you're looking for:
+            </Text>
+            <Text style={styles.textSearchResult}>{searchText}</Text>
+          </View>
+        )}
 
-      <Slider />
-      <Categories />
+        <Slider />
+        <Categories />
+
+        <PremiumHospitals />
+      </ScrollView>
     </View>
   );
 }
