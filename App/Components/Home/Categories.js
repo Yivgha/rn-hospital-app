@@ -44,6 +44,7 @@ export function Categories() {
                 navigation.navigate("HospitalDoctorsListScreen", {
                   categoryName: item?.attributes.Name,
                   categoryId: item?.id,
+                  categoryIcon: item?.attributes.Icon.data.attributes.url,
                 })
               }
             >

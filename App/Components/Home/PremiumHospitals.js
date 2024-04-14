@@ -26,7 +26,7 @@ export function PremiumHospitals() {
       <View style={{ flex: 1, flexGrow: 1 }}>
         <FlatList
           data={hospitals}
-          horizontal={true}
+          horizontal
           showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => (
             <HospitalItem hospital={item} key={index} />
