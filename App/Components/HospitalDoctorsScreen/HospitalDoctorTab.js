@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Colors from "../../../assets/Shared/Colors";
 
-export function HospitalDoctorTab() {
+export function HospitalDoctorTab({ activeTab }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -14,7 +14,10 @@ export function HospitalDoctorTab() {
             activeIndex === 0 ? styles.activeTab : styles.inactiveTab,
             styles.buttonStyle,
           ]}
-          onPress={() => setActiveIndex(0)}
+          onPress={() => {
+            setActiveIndex(0);
+            activeTab("Doctors");
+          }}
         >
           <Text
             style={[
@@ -29,7 +32,10 @@ export function HospitalDoctorTab() {
             activeIndex === 1 ? styles.activeTab : styles.inactiveTab,
             styles.buttonStyle,
           ]}
-          onPress={() => setActiveIndex(1)}
+          onPress={() => {
+            setActiveIndex(1);
+            activeTab("Hospitals");
+          }}
         >
           <Text
             style={[

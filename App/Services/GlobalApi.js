@@ -30,9 +30,16 @@ const getHospitalsByCategory = (category) => {
   );
 };
 
+const getDoctorsByCategory = (category) => {
+  return AxiosInstance.get(
+    `/doctors?filters[categories][Name][$in]=${category}&populate=*`
+  );
+};
+
 export default {
   getSlider,
   getCategories,
   getPremiumHospitals,
   getHospitalsByCategory,
+  getDoctorsByCategory,
 };

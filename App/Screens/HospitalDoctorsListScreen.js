@@ -1,20 +1,25 @@
 import { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { useRoute } from "@react-navigation/native";
 import { PageHeader } from "../Components/PageHeader";
 import { HospitalDoctorTab } from "../Components/HospitalDoctorsScreen/HospitalDoctorTab";
 import { HospitalsListByCategory } from "../Components/HospitalDoctorsScreen/HospitalsListByCategory";
+import { DoctorListByCategory } from "../Components/HospitalDoctorsScreen/DoctorListByCategory";
 import GlobalApi from "../Services/GlobalApi";
 
 export function HospitalDoctorsListScreen() {
   const param = useRoute();
-  const { categoryName, categoryId, categoryIcon } = param?.params;
+  const { categoryName, categoryIcon } = param?.params;
 
   const [selectedHospitals, setSelectedHospitals] = useState([]);
+  const [selectedDoctors, setSelectedDoctors] = useState([]);
+
+  const [activeTab, setActiveTab] = useState("Doctors");
 
   useEffect(() => {
     getSelectedHospitals();
+    getSelectedDoctors();
   }, []);
 
   const getSelectedHospitals = () => {
@@ -22,18 +27,26 @@ export function HospitalDoctorsListScreen() {
       setSelectedHospitals(res.data.data)
     );
   };
+
+  const getSelectedDoctors = () => {
+    GlobalApi.getDoctorsByCategory(categoryName).then((res) =>
+      setSelectedDoctors(res.data.data)
+    );
+  };
+
   return (
     <View style={styles.pageBox}>
       <PageHeader categoryName={categoryName} categoryIcon={categoryIcon} />
+      <HospitalDoctorTab activeTab={(value) => setActiveTab(value)} />
 
-      <HospitalDoctorTab />
-
-      {!selectedHospitals?.length ? (
+      {!selectedDoctors?.length ? (
         <ActivityIndicator
           size={"large"}
           color={Colors.celestial}
           style={{ marginTop: "50%" }}
         />
+      ) : activeTab === "Doctors" ? (
+        <DoctorListByCategory selectedDoctors={selectedDoctors} />
       ) : (
         <HospitalsListByCategory selectedHospitals={selectedHospitals} />
       )}
