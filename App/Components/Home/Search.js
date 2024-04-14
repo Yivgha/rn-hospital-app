@@ -12,6 +12,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 export function Search({ setSearchText }) {
   const [searchValue, setSearchValue] = useState("");
+
   return (
     <View>
       <View style={styles.searchBox}>

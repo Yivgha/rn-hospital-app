@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home } from "../Screens/Home";
 import { Appointment } from "../Screens/Appointment";
 import { Profile } from "../Screens/Profile";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { HomeNavigation } from "./HomeNavigation";
 
 export function TabNavigation() {
   const Tab = createBottomTabNavigator();
@@ -13,7 +13,7 @@ export function TabNavigation() {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeNavigation}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (

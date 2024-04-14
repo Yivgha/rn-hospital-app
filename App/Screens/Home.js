@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   textSearchInfo: {
     flexDirection: "row",
     gap: 10,
+    marginTop: 10,
     alignItems: "baseline",
     justifyContent: "center",
     flexWrap: "wrap",

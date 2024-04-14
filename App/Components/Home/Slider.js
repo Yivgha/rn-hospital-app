@@ -7,15 +7,16 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import Colors from "../../../assets/Shared/Colors";
 import GlobalApi from "../../Services/GlobalApi";
 import { SubHeading } from "./SubHeading";
 
 export function Slider() {
   const [sliderData, setSliderData] = useState([]);
+
   useEffect(() => {
     fetchSlider();
   }, []);
+
   const fetchSlider = () => {
     GlobalApi.getSlider().then((res) => setSliderData(res.data.data));
   };
