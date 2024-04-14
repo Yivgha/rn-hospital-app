@@ -1,9 +1,15 @@
-import { View, Text, StyleSheet, Image, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import Colors from "../../assets/Shared/Colors";
-import { Entypo } from "@expo/vector-icons";
 
 export function DoctorCardItem({ doctorInfo }) {
-  const { Address, Name, categories } = doctorInfo.attributes;
+  const { Name, categories, Years_Of_Experience } = doctorInfo.attributes;
   return (
     <View style={styles.hospitalCardBox}>
       <Image
@@ -12,15 +18,9 @@ export function DoctorCardItem({ doctorInfo }) {
       />
       <View style={styles.innerBox}>
         <Text style={styles.hospitalTitle}>{Name}</Text>
-        <View style={styles.addressBox}>
-          <Entypo name="location-pin" size={20} color={Colors.black} />
-          <Text style={styles.hospitalAddress}>{Address}</Text>
-        </View>
-        <View style={styles.addressBox}>
-          <Entypo name="eye" size={18} color={Colors.black} />
-          <Text style={styles.hospitalAddress}>number of Views</Text>
-        </View>
-
+        <Text style={styles.yearsText}>
+          Years of experience: {Years_Of_Experience}
+        </Text>
         <FlatList
           data={categories.data}
           horizontal={false}
@@ -34,6 +34,12 @@ export function DoctorCardItem({ doctorInfo }) {
           )}
         />
       </View>
+      <TouchableOpacity
+        style={styles.appointmentBtn}
+        onPress={() => console.log("clicked", Name)}
+      >
+        <Text style={styles.appointmentBtnText}>Make an appointment</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -44,10 +50,8 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     justifyContent: "space-evenly",
     gap: 5,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderRadius: 10,
     backgroundColor: Colors.white,
-    paddingBottom: 10,
   },
   hospitalImg: {
     height: 170,
@@ -60,17 +64,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.celestial,
   },
-  addressBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    gap: 5,
-  },
-  hospitalAddress: {
-    fontFamily: "appfontLight",
-    fontStyle: "italic",
+  yearsText: {
+    fontFamily: "appfont",
     fontSize: 16,
-    color: Colors.gray,
+    color: Colors.celestial,
   },
   categoriesText: {
     fontFamily: "appfontLight",
@@ -84,5 +81,20 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-evenly",
     gap: 5,
+  },
+  appointmentBtn: {
+    width: "100%",
+    height: 50,
+    backgroundColor: Colors.celestial,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 10,
+    paddingHorizontal: "auto",
+    borderRadius: 10,
+  },
+  appointmentBtnText: {
+    fontFamily: "appfontLight",
+    fontSize: 16,
+    color: Colors.white,
   },
 });

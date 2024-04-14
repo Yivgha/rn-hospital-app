@@ -1,9 +1,4 @@
-import {
-  ScrollView,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { ScrollView, FlatList, StyleSheet } from "react-native";
 import { DoctorCardItem } from "../DoctorCardItem";
 
 export function DoctorListByCategory({ selectedDoctors }) {
@@ -14,13 +9,11 @@ export function DoctorListByCategory({ selectedDoctors }) {
         scrollEnabled={false}
         data={selectedDoctors}
         renderItem={({ item, index }) => (
-          <TouchableOpacity
+          <DoctorCardItem
+            doctorInfo={item}
             key={index}
-            onPress={() => console.log("clicked", item.attributes.Name)}
             style={styles.doctorItem}
-          >
-            <DoctorCardItem doctorInfo={item} />
-          </TouchableOpacity>
+          />
         )}
       />
     </ScrollView>
