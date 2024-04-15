@@ -5,8 +5,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { HospitalCardItem } from "../HospitalCardItem";
+import { useNavigation } from "@react-navigation/native";
 
 export function HospitalsListByCategory({ selectedHospitals }) {
+  const navigation = useNavigation();
+
   return (
     <ScrollView style={styles.hospitalsListBox} horizontal={false}>
       <FlatList
@@ -16,7 +19,9 @@ export function HospitalsListByCategory({ selectedHospitals }) {
         renderItem={({ item, index }) => (
           <TouchableOpacity
             key={index}
-            onPress={() => console.log("clicked", item.attributes.Name)}
+            onPress={() =>
+              navigation.navigate("HospitalDetails", { hospitalDetails: item })
+            }
             style={styles.hospitalItem}
           >
             <HospitalCardItem hospitalInfo={item} />

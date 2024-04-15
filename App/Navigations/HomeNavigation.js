@@ -2,6 +2,7 @@ import "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Home } from "../Screens/Home";
 import { HospitalDoctorsListScreen } from "../Screens/HospitalDoctorsListScreen";
+import { HospitalDetails } from "../Screens/HospitalDetails";
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,7 @@ export function HomeNavigation() {
         name="HospitalDoctorsListScreen"
         component={HospitalDoctorsListScreen}
       />
+      <Stack.Screen name="HospitalDetails" component={HospitalDetails} />
     </Stack.Navigator>
   );
 }

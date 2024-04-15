@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 
-export function SubHeading({ subHeading, lightText }) {
+export function SubHeading({ subHeading, lightText, style }) {
   return (
-    <View style={styles.captionBox}>
+    <View style={(style, styles.captionBox)}>
       <Text style={styles.captionText}>{subHeading}</Text>
       <Text style={styles.textColor}>{lightText}</Text>
     </View>
@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "baseline",
     justifyContent: "space-between",
-    marginTop: 15,
   },
   captionText: {
     fontFamily: "appfontSemibold",

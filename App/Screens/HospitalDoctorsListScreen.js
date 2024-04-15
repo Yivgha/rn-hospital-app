@@ -36,7 +36,7 @@ export function HospitalDoctorsListScreen() {
 
   return (
     <View style={styles.pageBox}>
-      <PageHeader categoryName={categoryName} categoryIcon={categoryIcon} />
+      <PageHeader title={categoryName} categoryIcon={categoryIcon} />
       <HospitalDoctorTab activeTab={(value) => setActiveTab(value)} />
 
       {!selectedDoctors?.length ? (

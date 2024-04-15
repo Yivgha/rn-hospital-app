@@ -24,5 +24,4 @@ const styles = StyleSheet.create({
   doctorListBox: {
     flexDirection: "column",
   },
-  doctorItem: { marginBottom: 15 },
 });

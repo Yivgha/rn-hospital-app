@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 import { CustomHospitalInfoBlock } from "./CustomHospitalInfoBlock";
 
 export function HospitalItem({ hospital }) {
-  const [hospitalCategories, setHospitalCategories] = useState([]);
   return (
     <View style={styles.hospital}>
       <Image
@@ -12,34 +10,7 @@ export function HospitalItem({ hospital }) {
         style={styles.hospitalImage}
       />
       <Text style={styles.hospitalCaption}>{hospital?.attributes.Name}</Text>
-      {/* <Text style={styles.hospitalText} textBreakStrategy={"simple"}>
-        {hospital?.attributes.Description}
-      </Text> */}
-      <CustomHospitalInfoBlock
-        // title={"Address:"}
-        text={hospital?.attributes.Address}
-      />
-      {/* <CustomHospitalInfoBlock
-        title={"Email:"}
-        text={hospital?.attributes.Email}
-      />
-      <CustomHospitalInfoBlock
-        title={"Website:"}
-        text={hospital?.attributes.Website}
-      />
-      <CustomHospitalInfoBlock
-        title={"Phone:"}
-        text={hospital?.attributes.Phone}
-      /> */}
-
-      {/* <View>
-        <Text>Categories</Text>
-        <View style={{ flexDirection: "column" }}>
-          {hospital.attributes.categories.data.map((el) => (
-                  <Text>{el}</Text>
-                ))}
-        </View> */}
-      {/* </View> */}
+      <CustomHospitalInfoBlock text={hospital?.attributes.Address} />
     </View>
   );
 }

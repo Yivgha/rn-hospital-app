@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     gap: 5,
     borderRadius: 10,
     backgroundColor: Colors.white,
+    marginBottom: 15,
   },
   hospitalImg: {
     height: 170,

@@ -14,20 +14,22 @@ export function Home() {
     <View style={styles.homeBox}>
       <Header />
       <ScrollView horizontal={false}>
-        <Search setSearchText={setSearchText} />
-        {searchText.length > 0 && (
-          <View style={styles.textSearchInfo}>
-            <Text style={styles.textColor}>
-              This is what you're looking for:
-            </Text>
-            <Text style={styles.textSearchResult}>{searchText}</Text>
-          </View>
-        )}
+        <View style={{ gap: 25 }}>
+          <Search setSearchText={setSearchText} />
+          {searchText.length > 0 && (
+            <View style={styles.textSearchInfo}>
+              <Text style={styles.textColor}>
+                This is what you're looking for:
+              </Text>
+              <Text style={styles.textSearchResult}>{searchText}</Text>
+            </View>
+          )}
 
-        <Slider />
-        <Categories />
+          <Slider />
+          <Categories />
 
-        <PremiumHospitals />
+          <PremiumHospitals />
+        </View>
       </ScrollView>
     </View>
   );
@@ -45,7 +47,6 @@ const styles = StyleSheet.create({
   textSearchInfo: {
     flexDirection: "row",
     gap: 10,
-    marginTop: 10,
     alignItems: "baseline",
     justifyContent: "center",
     flexWrap: "wrap",

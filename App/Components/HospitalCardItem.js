@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image, FlatList } from "react-native";
 import Colors from "../../assets/Shared/Colors";
-import { Entypo } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 export function HospitalCardItem({ hospitalInfo }) {
   const { Address, Name, categories } = hospitalInfo.attributes;
@@ -13,11 +13,11 @@ export function HospitalCardItem({ hospitalInfo }) {
       <View style={styles.innerBox}>
         <Text style={styles.hospitalTitle}>{Name}</Text>
         <View style={styles.addressBox}>
-          <Entypo name="location-pin" size={20} color={Colors.black} />
+          <AntDesign name="enviroment" size={21} color={Colors.celestial} />
           <Text style={styles.hospitalAddress}>{Address}</Text>
         </View>
         <View style={styles.addressBox}>
-          <Entypo name="eye" size={18} color={Colors.black} />
+          <AntDesign name="eye" size={21} color={Colors.celestial} />
           <Text style={styles.hospitalAddress}>number of Views</Text>
         </View>
 
