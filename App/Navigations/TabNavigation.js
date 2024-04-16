@@ -3,6 +3,7 @@ import { Appointment } from "../Screens/Appointment";
 import { Profile } from "../Screens/Profile";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { HomeNavigation } from "./HomeNavigation";
+import { Explores } from "../Screens/Explores";
 
 export function TabNavigation() {
   const Tab = createBottomTabNavigator();
@@ -18,6 +19,20 @@ export function TabNavigation() {
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="home" size={size} color={color} />
+          ),
+          tabBarLabelStyle: {
+            fontFamily: "appfont",
+            fontSize: 14,
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Explores"
+        component={Explores}
+        options={{
+          tabBarLabel: "Explore",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="search" size={size} color={color} />
           ),
           tabBarLabelStyle: {
             fontFamily: "appfont",

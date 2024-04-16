@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 
 export function HospitalDoctorTab({ activeTab }) {

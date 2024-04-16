@@ -33,7 +33,7 @@ export function HospitalDetails() {
         <ScrollView horizontal={false} vertical={true}>
           <View style={styles.infoBox}>
             <View style={styles.pageHeader}>
-              <PageHeader title={hospital.Name} />
+              <PageHeader title={hospital?.attributes?.Name} />
             </View>
 
             <Image

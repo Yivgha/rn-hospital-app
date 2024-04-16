@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { GoBackBtn } from "../Components/GoBackBtn";
 import Colors from "../../assets/Shared/Colors";
 
-export function PageHeader({ title, categoryIcon }) {
+export function PageHeader({ title, categoryIcon, style }) {
   return (
     <View style={styles.pageHeaderBox}>
       <GoBackBtn />
@@ -11,7 +11,7 @@ export function PageHeader({ title, categoryIcon }) {
           source={{ uri: categoryIcon }}
           style={{ height: 30, width: 30 }}
         />
-        <Text style={styles.textColor} textBreakStrategy="balanced">
+        <Text style={[styles.textColor, style]} textBreakStrategy="balanced">
           {title}
         </Text>
       </View>

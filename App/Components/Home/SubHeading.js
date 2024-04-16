@@ -1,11 +1,13 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 
-export function SubHeading({ subHeading, lightText, style }) {
+export function SubHeading({ subHeading, lightText, onPress }) {
   return (
-    <View style={(style, styles.captionBox)}>
+    <View style={styles.captionBox}>
       <Text style={styles.captionText}>{subHeading}</Text>
-      <Text style={styles.textColor}>{lightText}</Text>
+      <TouchableOpacity onPress={onPress}>
+        <Text style={styles.textColor}>{lightText}</Text>
+      </TouchableOpacity>
     </View>
   );
 }

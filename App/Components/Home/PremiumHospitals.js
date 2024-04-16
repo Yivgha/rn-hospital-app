@@ -4,9 +4,12 @@ import Colors from "../../../assets/Shared/Colors";
 import GlobalApi from "../../Services/GlobalApi";
 import { SubHeading } from "./SubHeading";
 import { HospitalItem } from "./HospitalItem";
+import { useNavigation } from "@react-navigation/native";
 
 export function PremiumHospitals() {
   const [hospitals, setHospitals] = useState([]);
+
+  const navigation = useNavigation();
 
   if (!hospitals) {
     return null;
@@ -22,17 +25,23 @@ export function PremiumHospitals() {
 
   return (
     <View style={styles.hospitalsBox}>
-      <SubHeading subHeading={"Our premium hospitals"} lightText={"See All"} />
-      <View style={{ flex: 1, flexGrow: 1 }}>
-        <FlatList
-          data={hospitals}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => (
-            <HospitalItem hospital={item} key={index} />
-          )}
-        />
-      </View>
+      <SubHeading
+        subHeading={"Our premium hospitals"}
+        lightText={"See All"}
+        onPress={() => {
+          console.log("pressed all premium");
+          navigation.navigate("PremiumHospitals");
+        }}
+      />
+
+      <FlatList
+        data={hospitals}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item, index }) => (
+          <HospitalItem hospital={item} key={index} />
+        )}
+      />
     </View>
   );
 }

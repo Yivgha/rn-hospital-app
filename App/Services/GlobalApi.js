@@ -40,6 +40,14 @@ const createAppointment = (data) => {
   return AxiosInstance.post(`/appointments`, data);
 };
 
+const getAllHospitals = () => {
+  return AxiosInstance.get("/hospitals?populate=*");
+};
+
+const getAllDoctors = () => {
+  return AxiosInstance.get("/doctors?populate=*");
+};
+
 export default {
   getSlider,
   getCategories,
@@ -47,4 +55,6 @@ export default {
   getHospitalsByCategory,
   getDoctorsByCategory,
   createAppointment,
+  getAllHospitals,
+  getAllDoctors,
 };
