@@ -5,15 +5,13 @@ import { ActionButton } from "./ActionButton";
 import { HorizontalBreakLine } from "../HorizontalBreakLine";
 
 export function HospitalInfo({ hospital }) {
-  const { Address, Description, Email, Name, Phone, categories, Website } =
-    hospital;
   return (
     hospital && (
       <View style={styles.box}>
         <View style={styles.addressBox}>
           <AntDesign name="enviroment" size={21} color={Colors.celestial} />
           <Text style={styles.hospitalAddress} textBreakStrategy="simple">
-            {Address}
+            {hospital?.attributes?.Address}
           </Text>
         </View>
         <View style={styles.addressBox}>
@@ -26,7 +24,7 @@ export function HospitalInfo({ hospital }) {
         <View>
           <Text style={styles.title}>Specializations</Text>
           <FlatList
-            data={categories?.data}
+            data={hospital?.attributes?.categories?.data}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => (
@@ -45,7 +43,9 @@ export function HospitalInfo({ hospital }) {
 
         <View>
           <Text style={styles.title}>About</Text>
-          <Text style={styles.description}>{Description}</Text>
+          <Text style={styles.description}>
+            {hospital?.attributes?.Description}
+          </Text>
         </View>
       </View>
     )

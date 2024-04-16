@@ -20,7 +20,7 @@ export function HospitalDetails() {
 
   const param = useRoute();
   useEffect(() => {
-    setHospital(param.params.hospitalDetails.attributes);
+    setHospital(param.params.hospitalDetails);
   }, []);
 
   if (!hospital) {
@@ -37,7 +37,7 @@ export function HospitalDetails() {
             </View>
 
             <Image
-              source={{ uri: hospital?.Image?.data.attributes.url }}
+              source={{ uri: hospital?.attributes?.Image?.data.attributes.url }}
               style={styles.hospitalImg}
             />
             <View style={styles.detailedBox}>

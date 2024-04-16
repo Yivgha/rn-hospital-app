@@ -25,7 +25,7 @@ export function BookAppointment() {
           <HorizontalBreakLine />
           <ActionButton />
           <HorizontalBreakLine />
-          <BookingSection />
+          <BookingSection hospital={param.hospital} />
         </View>
       </ScrollView>
     </TouchableWithoutFeedback>

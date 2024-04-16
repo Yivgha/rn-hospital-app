@@ -36,10 +36,15 @@ const getDoctorsByCategory = (category) => {
   );
 };
 
+const createAppointment = (data) => {
+  return AxiosInstance.post(`/appointments`, data);
+};
+
 export default {
   getSlider,
   getCategories,
   getPremiumHospitals,
   getHospitalsByCategory,
   getDoctorsByCategory,
+  createAppointment,
 };

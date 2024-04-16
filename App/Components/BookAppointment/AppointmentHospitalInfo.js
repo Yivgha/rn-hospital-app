@@ -7,22 +7,25 @@ export function AppointmentHospitalInfo({ bookHospital }) {
   if (!bookHospital) {
     return <NothingFound />;
   }
+
   return (
     <View style={styles.box}>
       <View style={styles.topInfo}>
         <Image
-          source={{ uri: bookHospital.Image.data.attributes.url }}
+          source={{
+            uri: bookHospital?.attributes?.Image?.data?.attributes?.url,
+          }}
           style={styles.hospitalImage}
         />
         <View style={styles.infoBox}>
-          <Text style={styles.textColor}>{bookHospital.Name}</Text>
+          <Text style={styles.textColor}>{bookHospital?.attributes?.Name}</Text>
           <View style={styles.addressBox}>
             <AntDesign name="enviroment" size={15} color={Colors.celestial} />
             <Text
               style={styles.hospitalAddress}
               textBreakStrategy="highQuality"
             >
-              {bookHospital.Address}
+              {bookHospital?.attributes?.Address}
             </Text>
           </View>
         </View>

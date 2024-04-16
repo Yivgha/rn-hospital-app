@@ -7,21 +7,28 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
+  Dimensions,
 } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 import moment from "moment";
-import { MaterialIcons } from "@expo/vector-icons";
+import { useUser } from "@clerk/clerk-expo";
+import GlobalApi from "../../Services/GlobalApi";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
 const MAX_LENGTH = 320;
 
-export function BookingSection() {
+export function BookingSection({ hospital }) {
+  const { user } = useUser();
+
   const [next7Days, setNext7Days] = useState([]);
   const [selectedDay, setSelectedDay] = useState();
   const [timeList, setTimeList] = useState([]);
   const [selectedTime, setSelectedTime] = useState();
   const [maxTypingLength, setMaxTypingLength] = useState(MAX_LENGTH);
-  const [inputValue, setInputValue] = useState("");
-  const [submitData, setSubmitData] = useState([]);
+  const [notes, setNotes] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const getDay = () => {
     const today = moment.parseZone(new Date()).local(true).format();
@@ -70,9 +77,42 @@ export function BookingSection() {
     const remainingSymbols = MAX_LENGTH - value.length;
     if (remainingSymbols >= 0) {
       setMaxTypingLength(remainingSymbols);
-      setInputValue(value);
+      setNotes(value);
     }
   };
+
+  const bookAppointment = () => {
+    const data = {
+      data: {
+        hospitals: hospital?.id,
+        UserName: user.fullName,
+        Email: user.primaryEmailAddress.emailAddress,
+        Date: selectedDay,
+        Time: selectedTime,
+        Note: notes,
+      },
+    };
+
+    setIsLoading(true);
+
+    GlobalApi.createAppointment(data).then((res) => {
+      if (res.status === 200) {
+        console.log("submitted", res.data.data);
+        setIsLoading(false);
+        setIsSuccessful(true);
+        setTimeout(() => {
+          setIsSuccessful(false);
+        }, 3000);
+      } else {
+        setIsLoading(false);
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
+      }
+    });
+  };
+
   return (
     <View style={styles.box}>
       <Text style={styles.title}>Book Appointment</Text>
@@ -165,21 +205,17 @@ export function BookingSection() {
           placeholderTextColor={Colors.gray}
           maxLength={320}
           autoGrow
-          value={inputValue}
+          value={notes}
           style={styles.textInput}
           onChangeText={(value) => handleMaxLength(value)}
-          onSubmit={() => {
-            Keyboard.dismiss();
-            setMaxTypingLength(MAX_LENGTH);
-          }}
         />
 
-        {inputValue.length > 0 && (
+        {notes.length > 0 && (
           <TouchableOpacity
             style={{ position: "absolute", bottom: "30%", right: 10 }}
             onPress={() => {
               setMaxTypingLength(MAX_LENGTH);
-              setInputValue("");
+              setNotes("");
               Keyboard.dismiss();
             }}
           >
@@ -189,18 +225,49 @@ export function BookingSection() {
       </View>
       <TouchableOpacity
         style={styles.bookBtn}
+        disabled={isLoading && true}
         onPress={() => {
-          console.log("pressed submit", submitData);
+          bookAppointment();
+          setMaxTypingLength(MAX_LENGTH);
+          setNotes("");
         }}
       >
         <Text style={styles.bookBtnText}>Submit</Text>
       </TouchableOpacity>
+      {!isLoading && isSuccessful === true && (
+        <View style={styles.alertBox}>
+          <AntDesign name="checkcircle" size={24} color={Colors.success} />
+          <Text style={[styles.basicAlertText, { color: Colors.success }]}>
+            Submitted
+          </Text>
+        </View>
+      )}
+      {!isLoading && isError === true && (
+        <View style={styles.alertBox}>
+          <MaterialIcons name="error" size={24} color={Colors.error} />
+          <Text style={[styles.basicAlertText, { color: Colors.error }]}>
+            Something wrong
+          </Text>
+        </View>
+      )}
+      {isLoading && (
+        <View style={styles.alertBox}>
+          <AntDesign name="clockcircleo" size={24} color={Colors.white} />
+          <Text style={[styles.basicAlertText, { color: Colors.white }]}>
+            Loading
+          </Text>
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  box: { flexDirection: "column", gap: 15 },
+  box: {
+    flexDirection: "column",
+    gap: 15,
+    position: "relative",
+  },
   title: {
     fontFamily: "appfontBold",
     fontSize: 18,
@@ -282,5 +349,24 @@ const styles = StyleSheet.create({
     fontFamily: "appfontSemibold",
     fontSize: 14,
     color: Colors.white,
+  },
+  alertBox: {
+    position: "absolute",
+    bottom: 60,
+    flexDirection: "row",
+    backgroundColor: Colors.gray,
+    padding: 15,
+    width: Dimensions.get("screen").width * 0.5,
+    paddingHorizontal: "auto",
+    borderRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+    alignSelf: "center",
+    borderColor: Colors.gray,
+  },
+  basicAlertText: {
+    fontFamily: "appfontSemibold",
+    fontSize: 16,
   },
 });

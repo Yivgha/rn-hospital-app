@@ -7,4 +7,6 @@ export default {
   lightGray: "#F1EEEC",
   sky: "#CFEFFF",
   peach: "#FFE1CF",
+  success: "#14d94b",
+  error: "#d91414",
 };
