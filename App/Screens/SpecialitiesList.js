@@ -30,7 +30,7 @@ export function SpecialitiesList() {
 
           <FlatList
             horizontal={false}
-            scrollEnabled={false}
+            scrollEnabled={false} 
             contentContainerStyle={{ flexDirection: "column", gap: 15 }}
             data={param.specialities}
             renderItem={({ item, index }) => (

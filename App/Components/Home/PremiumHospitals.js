@@ -29,7 +29,6 @@ export function PremiumHospitals() {
         subHeading={"Our premium hospitals"}
         lightText={"See All"}
         onPress={() => {
-          console.log("pressed all premium");
           navigation.navigate("PremiumHospitals");
         }}
       />

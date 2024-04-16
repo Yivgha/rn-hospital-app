@@ -1,8 +1,8 @@
 import { View, StyleSheet } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 
-export function HorizontalBreakLine() {
-  return <View style={styles.lineStyle}></View>;
+export function HorizontalBreakLine({ style }) {
+  return <View style={[styles.lineStyle, style]}></View>;
 }
 
 const styles = StyleSheet.create({

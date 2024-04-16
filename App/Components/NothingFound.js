@@ -3,10 +3,11 @@ import { GoBackBtn } from "./GoBackBtn";
 import Colors from "../../assets/Shared/Colors";
 import NothingIcon from "../../assets/icons/nothing.png";
 
-export function NothingFound() {
+export function NothingFound({ buttonBack = true }) {
   return (
     <View style={styles.nothingBox}>
-      <GoBackBtn />
+      {buttonBack && <GoBackBtn />}
+
       <View style={styles.iconBox}>
         <Image source={NothingIcon} style={styles.nothingIcon} />
         <Text style={styles.nothingText}>Nothing Found</Text>
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightGray,
     paddingTop: 19,
     paddingHorizontal: 10,
+    paddingBottom: 10,
   },
   iconBox: {
     flexDirection: "column",

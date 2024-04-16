@@ -54,6 +54,18 @@ const getUserAppointments = (email) => {
   );
 };
 
+const getDoctorsBySearchName = (searchName) => {
+  return AxiosInstance.get(
+    `/doctors?filters[Name][$contains]=${searchName}&populate=*`
+  );
+};
+
+const getHospitalsBySearchName = (searchName) => {
+  return AxiosInstance.get(
+    `/hospitals?filters[Name][$contains]=${searchName}&populate=*`
+  );
+};
+
 export default {
   getSlider,
   getCategories,
@@ -64,4 +76,6 @@ export default {
   getAllHospitals,
   getAllDoctors,
   getUserAppointments,
+  getDoctorsBySearchName,
+  getHospitalsBySearchName,
 };

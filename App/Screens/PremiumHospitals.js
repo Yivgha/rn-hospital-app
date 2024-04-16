@@ -43,6 +43,7 @@ export function PremiumHospitals() {
             data={premiumHospitals}
             contentContainerStyle={{ gap: 15, width: "100%" }}
             horizontal={false}
+            scrollEnabled={false}
             renderItem={({ item, index }) => (
               <TouchableOpacity
                 key={index}

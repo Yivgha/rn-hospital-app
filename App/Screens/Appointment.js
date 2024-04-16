@@ -28,6 +28,8 @@ export function Appointment() {
         <View style={styles.innerBox}>
           <PageHeader title={"Appointments"} style={{ color: Colors.white }} />
           <FlatList
+            horizontal={false}
+            scrollEnabled={false}
             data={selectedAppointments}
             contentContainerStyle={{ gap: 15 }}
             renderItem={({ item, index }) => (

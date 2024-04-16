@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, FlatList, Image, Dimensions } from "react-native";
 import GlobalApi from "../../Services/GlobalApi";
 import { SubHeading } from "./SubHeading";
 

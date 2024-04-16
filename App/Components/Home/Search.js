@@ -9,10 +9,11 @@ import { useState } from "react";
 import Colors from "../../../assets/Shared/Colors";
 import { Fontisto } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-export function Search({ setSearchText }) {
+export function Search({ setSearchText, searchText }) {
   const [searchValue, setSearchValue] = useState("");
-
+  const navigation = useNavigation();
   return (
     <View>
       <View style={styles.searchBox}>
@@ -35,6 +36,11 @@ export function Search({ setSearchText }) {
           onPress={() => {
             setSearchText(searchValue);
             Keyboard.dismiss();
+            if (searchValue.length > 0) {
+              navigation.navigate("SearchQueryScreen", {
+                searchText: searchText,
+              });
+            }
           }}
         >
           <Fontisto name="search" size={24} color={Colors.white} />
