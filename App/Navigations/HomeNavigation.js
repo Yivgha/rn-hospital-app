@@ -6,6 +6,7 @@ import { HospitalDetails } from "../Screens/HospitalDetails";
 import { BookAppointment } from "../Screens/BookAppointment";
 import { DoctorDetails } from "../Screens/DoctorDetails";
 import { PremiumHospitals } from "../Screens/PremiumHospitals";
+import { SpecialitiesList } from "../Screens/SpecialitiesList";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export function HomeNavigation() {
         name="HospitalDoctorsListScreen"
         component={HospitalDoctorsListScreen}
       />
+      <Stack.Screen name="SpecialitiesList" component={SpecialitiesList} />
       <Stack.Screen name="HospitalDetails" component={HospitalDetails} />
       <Stack.Screen name="PremiumHospitals" component={PremiumHospitals} />
       <Stack.Screen name="DoctorDetails" component={DoctorDetails} />

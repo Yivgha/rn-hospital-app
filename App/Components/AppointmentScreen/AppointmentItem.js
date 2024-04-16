@@ -14,14 +14,7 @@ export default function AppointmentItem({ appointment }) {
       }}
     >
       <View style={styles.appointmentItemBox}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "flex-start",
-            justifyContent: "space-evenly",
-            gap: 19,
-          }}
-        >
+        <View style={styles.infoBlock}>
           <View style={{ flexDirection: "column", width: "50%", gap: 10 }}>
             <Text style={styles.appointmentTitle}>
               {isHospital > 0 &&
@@ -29,13 +22,7 @@ export default function AppointmentItem({ appointment }) {
               {isDoctor &&
                 appointment.attributes.doctors?.data[0].attributes.Name}
             </Text>
-            <View
-              style={{
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-              }}
-            >
+            <View style={styles.dateBlock}>
               <Text style={[styles.textColor, { fontSize: 18 }]}>
                 {moment
                   .parseZone(appointment.attributes.Date)
@@ -66,13 +53,7 @@ export default function AppointmentItem({ appointment }) {
               </Text>
             </View>
           </View>
-          <View
-            style={{
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <View style={styles.imageBlock}>
             {isHospital && (
               <Image
                 style={styles.hospitalImage}
@@ -116,7 +97,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: Colors.celestial,
   },
-
+  infoBlock: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-evenly",
+    gap: 19,
+  },
+  dateBlock: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+  },
+  imageBlock: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   textColor: {
     fontSize: 16,
     color: Colors.gray,

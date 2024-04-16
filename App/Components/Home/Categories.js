@@ -1,16 +1,9 @@
 import { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import Colors from "../../../assets/Shared/Colors";
+import { View, StyleSheet, FlatList } from "react-native";
 import GlobalApi from "../../Services/GlobalApi";
 import { SubHeading } from "./SubHeading";
 import { useNavigation } from "@react-navigation/native";
+import { CategoryItem } from "../CategoryItem";
 
 export function Categories() {
   const navigation = useNavigation();
@@ -30,33 +23,19 @@ export function Categories() {
 
   return (
     <View style={styles.categoriesBox}>
-      <SubHeading subHeading={"Doctors' Specialities"} lightText={"See All"} />
+      <SubHeading
+        subHeading={"Doctors' Specialities"}
+        lightText={"See All"}
+        onPress={() =>
+          navigation.navigate("SpecialitiesList", { specialities: categories })
+        }
+      />
       <FlatList
         data={categories}
         numColumns={4}
         columnWrapperStyle={styles.columnWrapperStyle}
         renderItem={({ item, index }) =>
-          index < 4 && (
-            <TouchableOpacity
-              key={index}
-              style={styles.flatListWrapper}
-              onPress={() =>
-                navigation.navigate("HospitalDoctorsListScreen", {
-                  categoryName: item?.attributes.Name,
-                  categoryId: item?.id,
-                  categoryIcon: item?.attributes.Icon.data.attributes.url,
-                })
-              }
-            >
-              <View style={styles.innerWrapper}>
-                <Image
-                  source={{ uri: item?.attributes.Icon.data.attributes.url }}
-                  style={{ height: 30, width: 30 }}
-                />
-              </View>
-              <Text style={styles.categoryText}>{item?.attributes.Name}</Text>
-            </TouchableOpacity>
-          )
+          index < 4 && <CategoryItem key={index} category={item} />
         }
       />
     </View>
@@ -68,25 +47,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 7,
   },
-  categoryText: {
-    fontFamily: "appfont",
-    color: Colors.peach,
-    fontSize: 14,
-  },
+
   columnWrapperStyle: {
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
-  },
-  flatListWrapper: {
-    alignItems: "center",
-  },
-  innerWrapper: {
-    backgroundColor: Colors.white,
-    alignItems: "center",
-    borderRadius: 50,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    minWidth: 70,
   },
 });
