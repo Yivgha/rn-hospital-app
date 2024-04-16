@@ -108,8 +108,6 @@ export function BookingSection({ hospital, doctor }) {
       };
     }
 
-    console.log("data", data);
-
     setIsLoading(true);
 
     GlobalApi.createAppointment(data).then((res) => {
@@ -118,13 +116,13 @@ export function BookingSection({ hospital, doctor }) {
         setIsSuccessful(true);
         setTimeout(() => {
           setIsSuccessful(false);
-        }, 3000);
+        }, 1500);
       } else {
         setIsLoading(false);
         setIsError(true);
         setTimeout(() => {
           setIsError(false);
-        }, 3000);
+        }, 1500);
       }
     });
   };
@@ -146,8 +144,7 @@ export function BookingSection({ hospital, doctor }) {
               selectedDay === item.date ? styles.activeBtn : styles.inactiveBtn,
             ]}
             onPress={() => {
-              console.log("pressed", item.formattedDate),
-                setSelectedDay(item.date);
+              setSelectedDay(item.date);
             }}
           >
             <Text

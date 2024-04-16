@@ -15,28 +15,36 @@ export function DoctorCardItem({ doctorInfo }) {
   const { Name, categories, Years_Of_Experience } = doctorInfo.attributes;
   return (
     <View style={styles.hospitalCardBox}>
-      <Image
-        source={{ uri: doctorInfo.attributes.Image.data.attributes.url }}
-        style={styles.hospitalImg}
-      />
-      <View style={styles.innerBox}>
-        <Text style={styles.hospitalTitle}>{Name}</Text>
-        <Text style={styles.yearsText}>
-          Years of experience: {Years_Of_Experience}
-        </Text>
-        <FlatList
-          data={categories.data}
-          horizontal={false}
-          showsHorizontalScrollIndicator={false}
-          numColumns={3}
-          contentContainerStyle={{ flexDirection: "row" }}
-          renderItem={({ item, index }) => (
-            <Text key={index} style={styles.categoriesText}>
-              {item.attributes.Name}
-            </Text>
-          )}
+      <TouchableOpacity
+        style={{ gap: 10, paddingBottom: 5 }}
+        onPress={() => {
+          console.log("pressed", doctorInfo.attributes.Name),
+            navigation.navigate("DoctorDetails", { doctor: doctorInfo });
+        }}
+      >
+        <Image
+          source={{ uri: doctorInfo.attributes.Image.data.attributes.url }}
+          style={styles.hospitalImg}
         />
-      </View>
+        <View style={styles.innerBox}>
+          <Text style={styles.hospitalTitle}>{Name}</Text>
+          <Text style={styles.yearsText}>
+            Years of experience: {Years_Of_Experience}
+          </Text>
+          <FlatList
+            data={categories.data}
+            horizontal={false}
+            showsHorizontalScrollIndicator={false}
+            numColumns={3}
+            contentContainerStyle={{ flexDirection: "row" }}
+            renderItem={({ item, index }) => (
+              <Text key={index} style={styles.categoriesText}>
+                {item.attributes.Name}
+              </Text>
+            )}
+          />
+        </View>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.appointmentBtn}
         onPress={() =>
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   hospitalImg: {
-    height: 170,
+    height: 190,
     width: "100%",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,

@@ -4,14 +4,14 @@ import { AntDesign } from "@expo/vector-icons";
 import { ActionButton } from "./ActionButton";
 import { HorizontalBreakLine } from "../HorizontalBreakLine";
 
-export function HospitalInfo({ hospital }) {
+export function DoctorInfo({ doctor }) {
   return (
-    hospital && (
+    doctor && (
       <View style={styles.box}>
         <View style={styles.addressBox}>
           <AntDesign name="enviroment" size={21} color={Colors.celestial} />
           <Text style={styles.hospitalAddress} textBreakStrategy="simple">
-            {hospital?.attributes?.Address}
+            {doctor?.attributes?.Address}
           </Text>
         </View>
         <View style={styles.addressBox}>
@@ -24,7 +24,7 @@ export function HospitalInfo({ hospital }) {
         <View>
           <Text style={styles.title}>Specializations</Text>
           <FlatList
-            data={hospital?.attributes?.categories?.data}
+            data={doctor?.attributes?.categories?.data}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => (
@@ -44,8 +44,8 @@ export function HospitalInfo({ hospital }) {
         <View>
           <Text style={styles.title}>About</Text>
           <Text style={styles.description}>
-            {hospital?.attributes?.Description?.length > 0
-              ? hospital?.attributes?.Description
+            {doctor?.attributes?.Description?.length > 0
+              ? doctor?.attributes?.Description
               : "No info provided"}
           </Text>
         </View>
