@@ -1,17 +1,33 @@
-import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 import { CustomHospitalInfoBlock } from "./CustomHospitalInfoBlock";
+import { useNavigation } from "@react-navigation/native";
 
 export function HospitalItem({ hospital }) {
+  const navigation = useNavigation();
   return (
-    <View style={styles.hospital}>
-      <Image
-        source={{ uri: hospital?.attributes.Image.data.attributes.url }}
-        style={styles.hospitalImage}
-      />
-      <Text style={styles.hospitalCaption}>{hospital?.attributes.Name}</Text>
-      <CustomHospitalInfoBlock text={hospital?.attributes.Address} />
-    </View>
+    <TouchableOpacity
+      onPress={() => {
+        console.log("pressed premium hospital", hospital);
+        navigation.navigate("HospitalDetails", { hospitalDetails: hospital });
+      }}
+    >
+      <View style={styles.hospital}>
+        <Image
+          source={{ uri: hospital?.attributes.Image.data.attributes.url }}
+          style={styles.hospitalImage}
+        />
+        <Text style={styles.hospitalCaption}>{hospital?.attributes.Name}</Text>
+        <CustomHospitalInfoBlock text={hospital?.attributes.Address} />
+      </View>
+    </TouchableOpacity>
   );
 }
 
