@@ -1,35 +1,62 @@
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import { View, Text, Image, StyleSheet, FlatList } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Colors from "../../../assets/Shared/Colors";
 import { NothingFound } from "../NothingFound";
 
-export function AppointmentHospitalInfo({ bookHospital }) {
-  if (!bookHospital) {
+export function AppointmentHospitalInfo({ bookHospital, doctor }) {
+  if (!bookHospital && !doctor) {
     return <NothingFound />;
   }
 
   return (
     <View style={styles.box}>
-      <View style={styles.topInfo}>
-        <Image
-          source={{
-            uri: bookHospital?.attributes?.Image?.data?.attributes?.url,
-          }}
-          style={styles.hospitalImage}
-        />
-        <View style={styles.infoBox}>
-          <Text style={styles.textColor}>{bookHospital?.attributes?.Name}</Text>
-          <View style={styles.addressBox}>
-            <AntDesign name="enviroment" size={15} color={Colors.celestial} />
-            <Text
-              style={styles.hospitalAddress}
-              textBreakStrategy="highQuality"
-            >
-              {bookHospital?.attributes?.Address}
+      {!!bookHospital && (
+        <View style={styles.topInfo}>
+          <Image
+            source={{
+              uri: bookHospital?.attributes?.Image?.data?.attributes?.url,
+            }}
+            style={styles.hospitalImage}
+          />
+          <View style={styles.infoBox}>
+            <Text style={styles.textColor}>
+              {bookHospital?.attributes?.Name}
             </Text>
+
+            <View style={styles.addressBox}>
+              <AntDesign name="enviroment" size={15} color={Colors.celestial} />
+              <Text
+                style={styles.hospitalAddress}
+                textBreakStrategy="highQuality"
+              >
+                {bookHospital?.attributes?.Address}
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
+      )}
+      {!!doctor && (
+        <View style={styles.topInfo}>
+          <Image
+            source={{
+              uri: doctor?.attributes?.Image?.data?.attributes?.url,
+            }}
+            style={styles.hospitalImage}
+          />
+          <View style={styles.infoBox}>
+            <Text style={styles.textColor}>{doctor?.attributes?.Name}</Text>
+            <View style={styles.addressBox}>
+              <AntDesign name="enviroment" size={15} color={Colors.celestial} />
+              <Text
+                style={styles.hospitalAddress}
+                textBreakStrategy="highQuality"
+              >
+                {doctor?.attributes?.Address}
+              </Text>
+            </View>
+          </View>
+        </View>
+      )}
     </View>
   );
 }

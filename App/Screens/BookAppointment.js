@@ -18,14 +18,17 @@ export function BookAppointment() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <ScrollView vertical>
+      <ScrollView horizontal={false} vertical={true}>
         <View style={styles.pageBox}>
           <PageHeader title={"Book Appointment"} />
-          <AppointmentHospitalInfo bookHospital={param.hospital} />
+          <AppointmentHospitalInfo
+            bookHospital={param.hospital}
+            doctor={param.doctor}
+          />
           <HorizontalBreakLine />
           <ActionButton />
           <HorizontalBreakLine />
-          <BookingSection hospital={param.hospital} />
+          <BookingSection hospital={param.hospital} doctor={param.doctor} />
         </View>
       </ScrollView>
     </TouchableWithoutFeedback>

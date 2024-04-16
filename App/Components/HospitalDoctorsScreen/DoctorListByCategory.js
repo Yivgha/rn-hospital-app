@@ -3,7 +3,7 @@ import { DoctorCardItem } from "../DoctorCardItem";
 
 export function DoctorListByCategory({ selectedDoctors }) {
   return (
-    <ScrollView style={styles.doctorListBox} horizontal={false}>
+    <ScrollView style={styles.doctorListBox} horizontal={false} vertical={true}>
       <FlatList
         horizontal={false}
         scrollEnabled={false}

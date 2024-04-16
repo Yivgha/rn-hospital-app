@@ -30,7 +30,7 @@ export function HospitalDetails() {
   return (
     hospital && (
       <View style={styles.hospitalBox}>
-        <ScrollView horizontal={false}>
+        <ScrollView horizontal={false} vertical={true}>
           <View style={styles.infoBox}>
             <View style={styles.pageHeader}>
               <PageHeader title={hospital.Name} />

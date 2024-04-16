@@ -7,8 +7,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Colors from "../../assets/Shared/Colors";
+import { useNavigation } from "@react-navigation/native";
 
 export function DoctorCardItem({ doctorInfo }) {
+  const navigation = useNavigation();
+
   const { Name, categories, Years_Of_Experience } = doctorInfo.attributes;
   return (
     <View style={styles.hospitalCardBox}>
@@ -36,7 +39,9 @@ export function DoctorCardItem({ doctorInfo }) {
       </View>
       <TouchableOpacity
         style={styles.appointmentBtn}
-        onPress={() => console.log("clicked", Name)}
+        onPress={() =>
+          navigation.navigate("BookAppointment", { doctor: doctorInfo })
+        }
       >
         <Text style={styles.appointmentBtnText}>Make an appointment</Text>
       </TouchableOpacity>

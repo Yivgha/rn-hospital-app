@@ -22,7 +22,7 @@ export default function App() {
       publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}
     >
       <SafeAreaView style={styles.container}>
-        {/* <StatusBar hidden /> */}
+        <StatusBar hidden />
         <SignedIn>
           <NavigationContainer>
             <TabNavigation />

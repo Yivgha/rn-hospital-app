@@ -13,7 +13,7 @@ export function Home() {
   return (
     <View style={styles.homeBox}>
       <Header />
-      <ScrollView horizontal={false}>
+      <ScrollView horizontal={false} vertical={true}>
         <View style={{ gap: 25 }}>
           <Search setSearchText={setSearchText} />
           {searchText.length > 0 && (

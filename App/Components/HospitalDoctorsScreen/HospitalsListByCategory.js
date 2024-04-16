@@ -11,7 +11,11 @@ export function HospitalsListByCategory({ selectedHospitals }) {
   const navigation = useNavigation();
 
   return (
-    <ScrollView style={styles.hospitalsListBox} horizontal={false}>
+    <ScrollView
+      style={styles.hospitalsListBox}
+      horizontal={false}
+      vertical={true}
+    >
       <FlatList
         horizontal={false}
         scrollEnabled={false}

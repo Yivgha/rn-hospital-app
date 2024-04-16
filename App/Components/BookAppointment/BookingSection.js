@@ -17,7 +17,7 @@ import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
 const MAX_LENGTH = 320;
 
-export function BookingSection({ hospital }) {
+export function BookingSection({ hospital, doctor }) {
   const { user } = useUser();
 
   const [next7Days, setNext7Days] = useState([]);
@@ -82,22 +82,38 @@ export function BookingSection({ hospital }) {
   };
 
   const bookAppointment = () => {
-    const data = {
-      data: {
-        hospitals: hospital?.id,
-        UserName: user.fullName,
-        Email: user.primaryEmailAddress.emailAddress,
-        Date: selectedDay,
-        Time: selectedTime,
-        Note: notes,
-      },
-    };
+    let data = {};
+    if (hospital) {
+      data = {
+        data: {
+          hospitals: hospital?.id,
+          UserName: user.fullName,
+          Email: user.primaryEmailAddress.emailAddress,
+          Date: selectedDay,
+          Time: selectedTime,
+          Note: notes,
+        },
+      };
+    }
+    if (doctor) {
+      data = {
+        data: {
+          doctors: doctor?.id,
+          UserName: user.fullName,
+          Email: user.primaryEmailAddress.emailAddress,
+          Date: selectedDay,
+          Time: selectedTime,
+          Note: notes,
+        },
+      };
+    }
+
+    console.log("data", data);
 
     setIsLoading(true);
 
     GlobalApi.createAppointment(data).then((res) => {
       if (res.status === 200) {
-        console.log("submitted", res.data.data);
         setIsLoading(false);
         setIsSuccessful(true);
         setTimeout(() => {
