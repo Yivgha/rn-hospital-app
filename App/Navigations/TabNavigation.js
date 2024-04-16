@@ -44,7 +44,7 @@ export function TabNavigation() {
         name="Appointment"
         component={Appointment}
         options={{
-          tabBarLabel: "Appointment",
+          tabBarLabel: "Appointments",
           tabBarIcon: ({ color, size }) => (
             <Ionicons
               name="calendar-number-outline"

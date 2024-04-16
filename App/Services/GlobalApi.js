@@ -48,6 +48,12 @@ const getAllDoctors = () => {
   return AxiosInstance.get("/doctors?populate=*");
 };
 
+const getUserAppointments = (email) => {
+  return AxiosInstance.get(
+    `/appointments?filters[Email][$eq]=${email}&populate[hospitals][populate]=*&populate[doctors][populate]=*`
+  );
+};
+
 export default {
   getSlider,
   getCategories,
@@ -57,4 +63,5 @@ export default {
   createAppointment,
   getAllHospitals,
   getAllDoctors,
+  getUserAppointments,
 };
