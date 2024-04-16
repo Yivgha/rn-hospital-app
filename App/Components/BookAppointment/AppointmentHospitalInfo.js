@@ -32,6 +32,17 @@ export function AppointmentHospitalInfo({ bookHospital, doctor }) {
                 {bookHospital?.attributes?.Address}
               </Text>
             </View>
+            <View style={styles.addressBox}>
+              <AntDesign
+                name="clockcircle"
+                size={15}
+                color={Colors.celestial}
+              />
+              <Text style={styles.hospitalAddress}>
+                Mon-Sun, {bookHospital?.attributes?.Start_Time.slice(0, 5)} -{" "}
+                {bookHospital?.attributes?.End_Time.slice(0, 5)}
+              </Text>
+            </View>
           </View>
         </View>
       )}
@@ -52,6 +63,17 @@ export function AppointmentHospitalInfo({ bookHospital, doctor }) {
                 textBreakStrategy="highQuality"
               >
                 {doctor?.attributes?.Address}
+              </Text>
+            </View>
+            <View style={styles.addressBox}>
+              <AntDesign
+                name="clockcircle"
+                size={15}
+                color={Colors.celestial}
+              />
+              <Text style={styles.hospitalAddress}>
+                Mon-Sun, {doctor?.attributes?.Start_Time.slice(0, 5)} -{" "}
+                {doctor?.attributes?.End_Time.slice(0, 5)}
               </Text>
             </View>
           </View>
@@ -81,6 +103,7 @@ const styles = StyleSheet.create({
   infoBox: {
     flexWrap: "wrap",
     flexDirection: "column",
+    gap: 10,
   },
   textColor: {
     fontFamily: "appfontBold",

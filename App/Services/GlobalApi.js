@@ -56,13 +56,13 @@ const getUserAppointments = (email) => {
 
 const getDoctorsBySearchName = (searchName) => {
   return AxiosInstance.get(
-    `/doctors?filters[Name][$contains]=${searchName}&populate=*`
+    `/doctors?filters[$or][0][Name][$contains]=${searchName}&filters[$or][1][Address][$contains]=${searchName}&populate=*`
   );
 };
 
 const getHospitalsBySearchName = (searchName) => {
   return AxiosInstance.get(
-    `/hospitals?filters[Name][$contains]=${searchName}&populate=*`
+    `/hospitals?filters[$or][0][Name][$contains]=${searchName}&filters[$or][1][Address][$contains]=${searchName}&populate=*`
   );
 };
 

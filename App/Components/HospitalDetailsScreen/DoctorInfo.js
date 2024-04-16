@@ -16,7 +16,10 @@ export function DoctorInfo({ doctor }) {
         </View>
         <View style={styles.addressBox}>
           <AntDesign name="clockcircle" size={20} color={Colors.celestial} />
-          <Text style={styles.hospitalAddress}>Mon-Sun, 10:00-18:00</Text>
+          <Text style={styles.hospitalAddress}>
+            Mon-Sun, {doctor?.attributes?.Start_Time.slice(0, 5)} -{" "}
+            {doctor?.attributes?.End_Time.slice(0, 5)}
+          </Text>
         </View>
 
         <HorizontalBreakLine />
