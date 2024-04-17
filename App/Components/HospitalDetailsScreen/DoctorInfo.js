@@ -1,10 +1,18 @@
+import { useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 import { AntDesign } from "@expo/vector-icons";
 import { ActionButton } from "./ActionButton";
 import { HorizontalBreakLine } from "../HorizontalBreakLine";
+import { ContactsModal } from "../ContactsModal";
 
 export function DoctorInfo({ doctor }) {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [actionContentType, setActionContentType] = useState("");
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     doctor && (
       <View style={styles.box}>
@@ -40,18 +48,27 @@ export function DoctorInfo({ doctor }) {
 
         <HorizontalBreakLine />
 
-        <ActionButton />
+        <ActionButton
+          toggleModal={toggleModal}
+          setActionContentType={setActionContentType}
+        />
 
         <HorizontalBreakLine />
 
         <View>
           <Text style={styles.title}>About</Text>
           <Text style={styles.description}>
-            {doctor?.attributes?.Description?.length > 0
-              ? doctor?.attributes?.Description
+            {doctor?.attributes?.About?.length > 0
+              ? doctor?.attributes?.About
               : "No info provided"}
           </Text>
         </View>
+        <ContactsModal
+          toggleModal={toggleModal}
+          modalVisible={isModalVisible}
+          actionContentType={actionContentType}
+          doctorInfo={doctor}
+        />
       </View>
     )
   );

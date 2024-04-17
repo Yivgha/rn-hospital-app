@@ -1,16 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  FlatList,
-  Alert,
-  Pressable,
-  Text,
-  Modal,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, FlatList, Text } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { PageHeader } from "../Components/PageHeader";
 import { useUser } from "@clerk/clerk-expo";
@@ -40,43 +29,38 @@ export function Appointment() {
     setModalVisible(!modalVisible);
   };
 
-  useEffect(() => {
-    getUserAppointments();
-  }, [appointmentID, selectedAppointments.length]);
-
   return (
     <View style={styles.homeBox}>
-      <ScrollView horizontal={false}>
-        <View style={styles.innerBox}>
-          <PageHeader title={"Appointments"} style={{ color: Colors.white }} />
+      <View style={styles.innerBox}>
+        <PageHeader title={"Appointments"} style={{ color: Colors.white }} />
 
-          <FlatList
-            horizontal={false}
-            scrollEnabled={false}
-            data={selectedAppointments}
-            extraData={selectedAppointments}
-            contentContainerStyle={{ gap: 15 }}
-            renderItem={({ item, index }) => (
-              <AppointmentItem
-                key={index}
-                appointment={item}
-                setAppointmentId={setAppointmentId}
-                toggleModal={toggleModal}
-              />
-            )}
-          />
-          {selectedAppointments.length === 0 && (
-            <Text style={styles.noInfoText}>
-              You don't have any appointments yet
-            </Text>
+        <FlatList
+          horizontal={false}
+          scrollEnabled={true}
+          data={selectedAppointments}
+          extraData={selectedAppointments.length}
+          contentContainerStyle={{ gap: 15 }}
+          renderItem={({ item, index }) => (
+            <AppointmentItem
+              key={index}
+              appointment={item}
+              setAppointmentId={setAppointmentId}
+              toggleModal={toggleModal}
+            />
           )}
-          <DeleteAppointmentModal
-            appointmentID={appointmentID}
-            toggleModal={toggleModal}
-            modalVisible={modalVisible}
-          />
-        </View>
-      </ScrollView>
+        />
+        {selectedAppointments.length === 0 && (
+          <Text style={styles.noInfoText}>
+            You don't have any appointments yet
+          </Text>
+        )}
+        <DeleteAppointmentModal
+          appointmentID={appointmentID}
+          toggleModal={toggleModal}
+          modalVisible={modalVisible}
+          getUserAppointments={getUserAppointments}
+        />
+      </View>
     </View>
   );
 }
@@ -86,7 +70,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingTop: 15,
+    paddingBottom: 55,
     backgroundColor: Colors.celestial,
     position: "relative",
   },

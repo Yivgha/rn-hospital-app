@@ -35,7 +35,9 @@ export function PremiumHospitals() {
 
       <FlatList
         data={hospitals}
+        extraData={hospitals.length}
         horizontal
+        contentContainerStyle={{ gap: 10 }}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <HospitalItem hospital={item} key={index} />
@@ -48,7 +50,7 @@ export function PremiumHospitals() {
 const styles = StyleSheet.create({
   hospitalsBox: {
     flexDirection: "column",
-    gap: 5,
+    gap: 15,
   },
   textColor: {
     fontFamily: "appfont",

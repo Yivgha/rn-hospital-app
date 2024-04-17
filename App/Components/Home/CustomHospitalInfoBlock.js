@@ -9,7 +9,7 @@ export function CustomHospitalInfoBlock({ title, text, icon = false }) {
       {icon === true && (
         <AntDesign name="enviroment" size={19} color={Colors.celestial} />
       )}
-      <Text style={styles.hospitalText} textBreakStrategy={"simple"}>
+      <Text style={styles.hospitalText} textBreakStrategy={"balanced"}>
         {text}
       </Text>
     </View>
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 5,
     alignItems: "center",
+    paddingHorizontal: 10,
   },
   infoTitle: {
     fontFamily: "appfontSemibold",
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     fontFamily: "appfontLight",
     fontStyle: "italic",
     opacity: 0.7,
-    fontSize: 16,
+    fontSize: 15,
     color: Colors.celestial,
   },
 });

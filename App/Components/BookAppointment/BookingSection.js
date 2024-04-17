@@ -110,21 +110,28 @@ export function BookingSection({ hospital, doctor }) {
 
     setIsLoading(true);
 
-    GlobalApi.createAppointment(data).then((res) => {
-      if (res.status === 200) {
-        setIsLoading(false);
-        setIsSuccessful(true);
-        setTimeout(() => {
-          setIsSuccessful(false);
-        }, 1500);
-      } else {
-        setIsLoading(false);
-        setIsError(true);
-        setTimeout(() => {
-          setIsError(false);
-        }, 1500);
-      }
-    });
+    GlobalApi.createAppointment(data)
+      .then((res) => {
+        if (res.status === 200) {
+          setIsLoading(false);
+          setIsSuccessful(true);
+          setTimeout(() => {
+            setIsSuccessful(false);
+          }, 1500);
+        } else {
+          setIsLoading(false);
+          setIsError(true);
+          setTimeout(() => {
+            setIsError(false);
+          }, 1500);
+        }
+      })
+      .catch((err) => console.log(err));
+
+    const userEmail = user.primaryEmailAddress.emailAddress;
+    GlobalApi.getUserAppointments(userEmail)
+      .then((res) => console.log("refreshed appointments"))
+      .catch((err) => console.log(err));
   };
 
   return (

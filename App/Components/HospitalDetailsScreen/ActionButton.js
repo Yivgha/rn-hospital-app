@@ -8,7 +8,7 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import Colors from "../../../assets/Shared/Colors";
 
-export function ActionButton() {
+export function ActionButton({ toggleModal, setActionContentType }) {
   const actionButtonList = [
     {
       id: 1,
@@ -17,7 +17,7 @@ export function ActionButton() {
     },
     {
       id: 2,
-      name: "Mail",
+      name: "Email",
       icon: "mail",
     },
     {
@@ -46,7 +46,10 @@ export function ActionButton() {
         renderItem={({ item, index }) => (
           <TouchableOpacity
             key={index}
-            onPress={() => console.log("pressed", item.name)}
+            onPress={() => {
+              setActionContentType(item.name);
+              toggleModal();
+            }}
           >
             <View style={styles.listBox}>
               <AntDesign size={18} name={item.icon} color={Colors.celestial} />

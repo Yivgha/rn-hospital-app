@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 20,
-    paddingVertical: 30,
-    gap: 25,
+    paddingVertical: 15,
+    gap: 15,
     backgroundColor: Colors.celestial,
   },
 });

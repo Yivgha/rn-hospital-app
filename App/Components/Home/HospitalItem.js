@@ -36,16 +36,15 @@ export function HospitalItem({ hospital }) {
 const styles = StyleSheet.create({
   hospital: {
     flexDirection: "column",
-    gap: 5,
+    gap: 1,
     alignItems: "baseline",
     justifyContent: "flex-start",
     width: Dimensions.get("screen").width * 0.7,
-    marginRight: 5,
     backgroundColor: Colors.white,
-    paddingHorizontal: 10,
-    paddingTop: 5,
-    paddingBottom: 10,
     borderRadius: 10,
+    paddingBottom: 10,
+    flexGrow: 1,
+    flex: 1,
   },
   hospitalImage: {
     width: "100%",

@@ -7,24 +7,77 @@ import {
   Pressable,
   Alert,
   Dimensions,
+  Linking,
+  Platform,
 } from "react-native";
 import Colors from "../../assets/Shared/Colors";
-import GlobalApi from "../Services/GlobalApi";
 import { AntDesign } from "@expo/vector-icons";
 
-export function DeleteAppointmentModal({
+export function ContactsModal({
   toggleModal,
   modalVisible,
-  appointmentID,
-  getUserAppointments,
+  actionContentType,
+  doctorInfo,
+  hospitalInfo,
 }) {
-  const handleDeleteAppointment = (itemId) => {
-    GlobalApi.deleteAppointment(itemId)
-      .then((res) => console.log("deleted", itemId))
-      .catch((err) => console.log(err));
+  let actionInfo = "Default";
+  let actionText = "Default";
 
-    getUserAppointments();
+  const dialCall = (number) => {
+    let phoneNumber = "";
+    if (Platform.OS === "android") {
+      phoneNumber = `tel:${number}`;
+    } else {
+      phoneNumber = `telprompt:${number}`;
+    }
+    Linking.openURL(phoneNumber);
   };
+
+  const sendEmail = (email) => {
+    Linking.openURL(`mailto:${email}`);
+  };
+
+  const openSite = (url) => {
+    Linking.openURL(`https://${url}/`);
+  };
+
+  if (doctorInfo) {
+    switch (actionContentType) {
+      case "Phone":
+        actionInfo = doctorInfo?.attributes?.Phone;
+        actionText = "Call";
+        break;
+      case "Email":
+        actionInfo = doctorInfo?.attributes?.Email;
+        actionText = "Send";
+        break;
+      case "Website":
+        actionInfo = doctorInfo?.attributes?.Website;
+        actionText = "Open";
+        break;
+      default:
+        return null;
+    }
+  }
+  if (hospitalInfo) {
+    switch (actionContentType) {
+      case "Phone":
+        actionInfo = hospitalInfo?.attributes?.Phone;
+        actionText = "Call";
+        break;
+      case "Email":
+        actionInfo = hospitalInfo?.attributes?.Email;
+        actionText = "Send";
+        break;
+      case "Website":
+        actionInfo = hospitalInfo?.attributes?.Website;
+        actionText = "Open";
+        break;
+      default:
+        return null;
+    }
+  }
+
   return (
     <View onTouchEnd={toggleModal}>
       <Modal
@@ -43,16 +96,22 @@ export function DeleteAppointmentModal({
               <AntDesign name="close" size={20} color={Colors.gray} />
             </TouchableOpacity>
             <Text style={styles.modalText}>
-              Do you want to cancel this appointment?
+              {actionContentType}: {actionInfo}
             </Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => {
-                handleDeleteAppointment(appointmentID);
                 toggleModal();
+                if (actionContentType === "Phone") {
+                  dialCall(actionInfo);
+                } else if (actionContentType === "Email") {
+                  sendEmail(actionInfo);
+                } else if (actionContentType === "Website") {
+                  openSite(actionInfo);
+                }
               }}
             >
-              <Text style={styles.textStyle}>Delete</Text>
+              <Text style={styles.textStyle}>{actionText}</Text>
             </Pressable>
           </View>
         </View>

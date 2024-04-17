@@ -1,10 +1,18 @@
+import { useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 import { AntDesign } from "@expo/vector-icons";
 import { ActionButton } from "./ActionButton";
 import { HorizontalBreakLine } from "../HorizontalBreakLine";
+import { ContactsModal } from "../ContactsModal";
 
 export function HospitalInfo({ hospital }) {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [actionContentType, setActionContentType] = useState("");
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     hospital && (
       <View style={styles.box}>
@@ -41,7 +49,10 @@ export function HospitalInfo({ hospital }) {
 
         <HorizontalBreakLine />
 
-        <ActionButton />
+        <ActionButton
+          toggleModal={toggleModal}
+          setActionContentType={setActionContentType}
+        />
 
         <HorizontalBreakLine />
 
@@ -53,6 +64,12 @@ export function HospitalInfo({ hospital }) {
               : "No info provided"}
           </Text>
         </View>
+        <ContactsModal
+          toggleModal={toggleModal}
+          modalVisible={isModalVisible}
+          actionContentType={actionContentType}
+          hospitalInfo={hospital}
+        />
       </View>
     )
   );
