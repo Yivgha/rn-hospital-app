@@ -25,7 +25,10 @@ export function HospitalItem({ hospital }) {
           style={styles.hospitalImage}
         />
         <Text style={styles.hospitalCaption}>{hospital?.attributes.Name}</Text>
-        <CustomHospitalInfoBlock text={hospital?.attributes.Address} />
+        <CustomHospitalInfoBlock
+          text={hospital?.attributes.Address}
+          icon={true}
+        />
       </View>
     </TouchableOpacity>
   );

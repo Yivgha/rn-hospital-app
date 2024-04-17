@@ -3,7 +3,8 @@ import Colors from "../../assets/Shared/Colors";
 import { AntDesign } from "@expo/vector-icons";
 
 export function HospitalCardItem({ hospitalInfo }) {
-  const { Address, Name, categories } = hospitalInfo.attributes;
+  const { Address, Name, categories, Views } = hospitalInfo.attributes;
+
   return (
     <View style={styles.hospitalCardBox}>
       <Image
@@ -16,10 +17,10 @@ export function HospitalCardItem({ hospitalInfo }) {
           <AntDesign name="enviroment" size={21} color={Colors.celestial} />
           <Text style={styles.hospitalAddress}>{Address}</Text>
         </View>
-        <View style={styles.addressBox}>
+        {/* <View style={styles.addressBox}>
           <AntDesign name="eye" size={21} color={Colors.celestial} />
-          <Text style={styles.hospitalAddress}>number of Views</Text>
-        </View>
+          <Text style={styles.hospitalAddress}>{Views}</Text>
+        </View> */}
 
         <FlatList
           data={categories.data}

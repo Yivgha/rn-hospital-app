@@ -66,6 +66,14 @@ const getHospitalsBySearchName = (searchName) => {
   );
 };
 
+const addHospitalViews = (data) => {
+  return AxiosInstance.put(`/hospitals/1`, data);
+};
+
+const deleteAppointment = (id) => {
+  return AxiosInstance.delete(`/appointments/${id}`)
+}
+
 export default {
   getSlider,
   getCategories,
@@ -78,4 +86,6 @@ export default {
   getUserAppointments,
   getDoctorsBySearchName,
   getHospitalsBySearchName,
+  addHospitalViews,
+  deleteAppointment,
 };

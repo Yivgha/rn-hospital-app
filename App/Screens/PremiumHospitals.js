@@ -63,7 +63,10 @@ export function PremiumHospitals() {
                   <Text style={styles.hospitalCaption}>
                     {item?.attributes.Name}
                   </Text>
-                  <CustomHospitalInfoBlock text={item?.attributes.Address} />
+                  <CustomHospitalInfoBlock
+                    text={item?.attributes.Address}
+                    icon={true}
+                  />
                 </View>
               </TouchableOpacity>
             )}
