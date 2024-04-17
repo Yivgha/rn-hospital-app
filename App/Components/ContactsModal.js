@@ -41,6 +41,12 @@ export function ContactsModal({
     Linking.openURL(`https://${url}/`);
   };
 
+  const showOnMap = (url) => {
+    const encodedAddress = encodeURIComponent(url);
+    const encodedUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+    Linking.openURL(encodedUrl);
+  };
+
   if (doctorInfo) {
     switch (actionContentType) {
       case "Phone":
@@ -54,6 +60,14 @@ export function ContactsModal({
       case "Website":
         actionInfo = doctorInfo?.attributes?.Website;
         actionText = "Open";
+        break;
+      case "Location":
+        actionInfo = doctorInfo?.attributes?.Address;
+        actionText = "Show on map";
+        break;
+      case "Share":
+        actionInfo = "Try to share";
+        actionText = "Share";
         break;
       default:
         return null;
@@ -72,6 +86,14 @@ export function ContactsModal({
       case "Website":
         actionInfo = hospitalInfo?.attributes?.Website;
         actionText = "Open";
+        break;
+      case "Location":
+        actionInfo = hospitalInfo?.attributes?.Address;
+        actionText = "Show on map";
+        break;
+      case "Share":
+        actionInfo = "Try to share";
+        actionText = "Share";
         break;
       default:
         return null;
@@ -108,6 +130,8 @@ export function ContactsModal({
                   sendEmail(actionInfo);
                 } else if (actionContentType === "Website") {
                   openSite(actionInfo);
+                } else if (actionContentType === "Location") {
+                  showOnMap(actionInfo);
                 }
               }}
             >

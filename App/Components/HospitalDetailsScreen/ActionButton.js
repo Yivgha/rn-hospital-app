@@ -27,7 +27,7 @@ export function ActionButton({ toggleModal, setActionContentType }) {
     },
     {
       id: 4,
-      name: "Direction",
+      name: "Location",
       icon: "enviromento",
     },
     {
