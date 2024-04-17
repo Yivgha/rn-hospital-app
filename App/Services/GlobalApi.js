@@ -71,8 +71,12 @@ const addHospitalViews = (data) => {
 };
 
 const deleteAppointment = (id) => {
-  return AxiosInstance.delete(`/appointments/${id}`)
-}
+  return AxiosInstance.delete(`/appointments/${id}`);
+};
+
+const addFavouriteDoctor = (data) => {
+  return AxiosInstance.post("/favourites", { data });
+};
 
 export default {
   getSlider,
@@ -88,4 +92,5 @@ export default {
   getHospitalsBySearchName,
   addHospitalViews,
   deleteAppointment,
+  addFavouriteDoctor,
 };

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,11 +9,36 @@ import {
 } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
+import GlobalApi from "../Services/GlobalApi";
+import { useUser } from "@clerk/clerk-expo";
 
 export function DoctorCardItem({ doctorInfo }) {
   const navigation = useNavigation();
+  const { user } = useUser();
+
+  const [pressedHeart, setPressedHeart] = useState(false);
 
   const { Name, categories, Years_Of_Experience } = doctorInfo.attributes;
+
+  // const handleFavourite = (item) => {
+  //   let data = {};
+  //   if (doctorInfo) {
+  //     data = {
+  //       data: {
+  //         doctors: item?.id,
+  //         UserName: user.fullName,
+  //         UserEmail: user.primaryEmailAddress.emailAddress,
+  //         isFavourite: true,
+  //       },
+  //     };
+  //   }
+
+  //   GlobalApi.addFavouriteDoctor(data).then((res) =>
+  //     console.log(res.data.data)
+  //   );
+  // };
+
   return (
     <View style={styles.hospitalCardBox}>
       <TouchableOpacity
@@ -26,23 +52,48 @@ export function DoctorCardItem({ doctorInfo }) {
           source={{ uri: doctorInfo.attributes.Image.data.attributes.url }}
           style={styles.hospitalImg}
         />
-        <View style={styles.innerBox}>
-          <Text style={styles.hospitalTitle}>{Name}</Text>
-          <Text style={styles.yearsText}>
-            Years of experience: {Years_Of_Experience}
-          </Text>
-          <FlatList
-            data={categories.data}
-            horizontal={false}
-            showsHorizontalScrollIndicator={false}
-            numColumns={3}
-            contentContainerStyle={{ flexDirection: "row" }}
-            renderItem={({ item, index }) => (
-              <Text key={index} style={styles.categoriesText}>
-                {item.attributes.Name}
-              </Text>
-            )}
-          />
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingRight: 15,
+          }}
+        >
+          <View style={styles.innerBox}>
+            <Text style={styles.hospitalTitle}>{Name}</Text>
+            <Text style={styles.yearsText}>
+              Years of experience: {Years_Of_Experience}
+            </Text>
+            <FlatList
+              data={categories.data}
+              horizontal={false}
+              showsHorizontalScrollIndicator={false}
+              numColumns={3}
+              contentContainerStyle={{ flexDirection: "row" }}
+              renderItem={({ item, index }) => (
+                <Text key={index} style={styles.categoriesText}>
+                  {item.attributes.Name}
+                </Text>
+              )}
+            />
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                console.log("pressed heart", doctorInfo.id);
+                setPressedHeart(!pressedHeart);
+                // handleFavourite(doctorInfo);
+              }}
+            >
+              {pressedHeart === false && (
+                <AntDesign name="hearto" size={24} color={Colors.celestial} />
+              )}
+              {pressedHeart === true && (
+                <AntDesign name="heart" size={24} color={Colors.celestial} />
+              )}
+            </TouchableOpacity>
+          </View>
         </View>
       </TouchableOpacity>
       <TouchableOpacity

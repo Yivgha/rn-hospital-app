@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     alignSelf: "flex-start",
     left: 10,
+    width: "80%",
   },
   hospitalImage: {
     width: 130,

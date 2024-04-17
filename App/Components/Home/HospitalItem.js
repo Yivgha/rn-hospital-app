@@ -15,7 +15,6 @@ export function HospitalItem({ hospital }) {
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log("pressed premium hospital", hospital);
         navigation.navigate("HospitalDetails", { hospitalDetails: hospital });
       }}
     >
