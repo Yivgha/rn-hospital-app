@@ -66,16 +66,8 @@ const getHospitalsBySearchName = (searchName) => {
   );
 };
 
-const addHospitalViews = (data) => {
-  return AxiosInstance.put(`/hospitals/1`, data);
-};
-
 const deleteAppointment = (id) => {
   return AxiosInstance.delete(`/appointments/${id}`);
-};
-
-const addFavouriteDoctor = (data) => {
-  return AxiosInstance.post("/favourites", { data });
 };
 
 export default {
@@ -90,7 +82,5 @@ export default {
   getUserAppointments,
   getDoctorsBySearchName,
   getHospitalsBySearchName,
-  addHospitalViews,
   deleteAppointment,
-  addFavouriteDoctor,
 };

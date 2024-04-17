@@ -21,24 +21,6 @@ export function DoctorCardItem({ doctorInfo }) {
 
   const { Name, categories, Years_Of_Experience } = doctorInfo.attributes;
 
-  // const handleFavourite = (item) => {
-  //   let data = {};
-  //   if (doctorInfo) {
-  //     data = {
-  //       data: {
-  //         doctors: item?.id,
-  //         UserName: user.fullName,
-  //         UserEmail: user.primaryEmailAddress.emailAddress,
-  //         isFavourite: true,
-  //       },
-  //     };
-  //   }
-
-  //   GlobalApi.addFavouriteDoctor(data).then((res) =>
-  //     console.log(res.data.data)
-  //   );
-  // };
-
   return (
     <View style={styles.hospitalCardBox}>
       <TouchableOpacity

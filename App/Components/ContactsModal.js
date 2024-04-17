@@ -9,6 +9,7 @@ import {
   Dimensions,
   Linking,
   Platform,
+  Share,
 } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { AntDesign } from "@expo/vector-icons";
@@ -47,6 +48,22 @@ export function ContactsModal({
     Linking.openURL(encodedUrl);
   };
 
+  const shareInfo = (id) => {
+    let shareUrl;
+    if (doctorInfo) {
+      shareUrl = `http://needtocreate-fe-route/doctors/${id}`;
+    }
+    if (hospitalInfo) {
+      shareUrl = `http://needtocreate-fe-route/hospitals/${id}`;
+    }
+
+    const message = "Check out this info: " + shareUrl;
+
+    Share.share({
+      message: message,
+    });
+  };
+
   if (doctorInfo) {
     switch (actionContentType) {
       case "Phone":
@@ -66,7 +83,7 @@ export function ContactsModal({
         actionText = "Show on map";
         break;
       case "Share":
-        actionInfo = "Try to share";
+        actionInfo = `${doctorInfo?.attributes?.Name} page`;
         actionText = "Share";
         break;
       default:
@@ -92,7 +109,7 @@ export function ContactsModal({
         actionText = "Show on map";
         break;
       case "Share":
-        actionInfo = "Try to share";
+        actionInfo = `${hospitalInfo?.attributes?.Name} page`;
         actionText = "Share";
         break;
       default:
@@ -132,6 +149,14 @@ export function ContactsModal({
                   openSite(actionInfo);
                 } else if (actionContentType === "Location") {
                   showOnMap(actionInfo);
+                } else if (actionContentType === "Share") {
+                  if (doctorInfo) {
+                    const doctorId = doctorInfo?.id;
+                    shareInfo(doctorId);
+                  } else if (hospitalInfo) {
+                    const hospitalId = hospitalInfo?.id;
+                    shareInfo(hospitalId);
+                  }
                 }
               }}
             >
