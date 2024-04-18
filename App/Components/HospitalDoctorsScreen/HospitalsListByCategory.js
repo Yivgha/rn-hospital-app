@@ -1,4 +1,4 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ScrollView,
   FlatList,
@@ -11,6 +11,14 @@ import { useNavigation } from "@react-navigation/native";
 
 export function HospitalsListByCategory({ selectedHospitals }) {
   const navigation = useNavigation();
+
+  const [hospitals, setHospitals] = useState([]);
+
+  useEffect(() => {
+    if (!!selectedHospitals) {
+      setHospitals(selectedHospitals);
+    }
+  }, []);
   return (
     <ScrollView
       style={styles.hospitalsListBox}
@@ -20,9 +28,9 @@ export function HospitalsListByCategory({ selectedHospitals }) {
       <FlatList
         horizontal={false}
         scrollEnabled={false}
-        data={selectedHospitals}
-        // extraData={selectedHospitals}
-        // refreshing={true}
+        data={hospitals}
+        extraData={hospitals}
+        refreshing={true}
         renderItem={({ item, index }) => (
           <TouchableOpacity
             key={index}

@@ -9,9 +9,13 @@ import {
 import Colors from "../../../assets/Shared/Colors";
 import { CustomHospitalInfoBlock } from "./CustomHospitalInfoBlock";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export function HospitalItem({ hospital }) {
   const navigation = useNavigation();
+
+  const isPremium = hospital.attributes.Premium;
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -19,6 +23,14 @@ export function HospitalItem({ hospital }) {
       }}
     >
       <View style={styles.hospital}>
+        {isPremium && (
+          <MaterialIcons
+            name="workspace-premium"
+            size={24}
+            color={Colors.celestial}
+            style={styles.premiumBadge}
+          />
+        )}
         <Image
           source={{ uri: hospital?.attributes.Image.data.attributes.url }}
           style={styles.hospitalImage}
@@ -45,12 +57,14 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     flexGrow: 1,
     flex: 1,
+    position: "relative",
   },
   hospitalImage: {
     width: "100%",
-    minHeight: 170,
+    minHeight: 130,
     borderRadius: 10,
   },
+  premiumBadge: { position: "absolute", top: 10, left: 10, zIndex: 3 },
   hospitalCaption: {
     fontFamily: "appfontBold",
     fontSize: 18,

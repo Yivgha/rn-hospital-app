@@ -3,9 +3,9 @@ import { GoBackBtn } from "./GoBackBtn";
 import Colors from "../../assets/Shared/Colors";
 import NothingIcon from "../../assets/icons/nothing.png";
 
-export function NothingFound({ buttonBack = true }) {
+export function NothingFound({ buttonBack = true, style }) {
   return (
-    <View style={styles.nothingBox}>
+    <View style={[styles.nothingBox, style]}>
       {buttonBack && <GoBackBtn />}
 
       <View style={styles.iconBox}>

@@ -27,7 +27,7 @@ export function SpecialitiesList() {
         <FlatList
           horizontal={false}
           scrollEnabled={true}
-          contentContainerStyle={{ flexDirection: "column", gap: 15 }}
+          contentContainerStyle={styles.flatList}
           data={param.specialities}
           renderItem={({ item, index }) => (
             <TouchableOpacity
@@ -64,16 +64,22 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: Colors.celestial,
     paddingHorizontal: 10,
-    paddingVertical: 15,
+    paddingTop: 15,
+    paddingBottom: 80,
   },
   innerBox: {
-    gap: 35,
+    gap: 19,
   },
   flatListWrapper: {
     paddingHorizontal: 30,
     paddingVertical: 15,
     backgroundColor: Colors.lightGray,
     borderRadius: 10,
+  },
+  flatList: {
+    flexDirection: "column",
+    gap: 15,
+    paddingVertical: 5,
   },
   innerWrapper: {
     flexDirection: "row",

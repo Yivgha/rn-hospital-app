@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { DoctorCardItem } from "../DoctorCardItem";
 
@@ -6,12 +7,21 @@ export function DoctorListByCategory({
   setSelectedDoctors,
   categoryName,
 }) {
+  const [doctors, setDoctors] = useState([]);
+
+  useEffect(() => {
+    if (!!selectedDoctors) {
+      setDoctors(selectedDoctors);
+    }
+  }, []);
+
   return (
     <FlatList
       horizontal={false}
       scrollEnabled={true}
-      data={selectedDoctors}
-      extraData={selectedDoctors}
+      data={doctors}
+      extraData={doctors}
+      refreshing={true}
       contentContainerStyle={styles.doctorListBox}
       renderItem={({ item, index }) => (
         <DoctorCardItem

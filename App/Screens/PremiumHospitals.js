@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
-  ScrollView,
   FlatList,
   Text,
   TouchableOpacity,
@@ -14,6 +13,7 @@ import { PageHeader } from "../Components/PageHeader";
 import GlobalApi from "../Services/GlobalApi";
 import { useNavigation } from "@react-navigation/native";
 import { CustomHospitalInfoBlock } from "../Components/Home/CustomHospitalInfoBlock";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export function PremiumHospitals() {
   const [premiumHospitals, setPremiumHospitals] = useState([]);
@@ -34,6 +34,8 @@ export function PremiumHospitals() {
     fetchHospitals();
   }, []);
 
+  const isPremium = premiumHospitals?.attributes?.Premium;
+
   return (
     <SafeAreaView style={styles.pageBox}>
       <View style={styles.innerBox}>
@@ -41,6 +43,7 @@ export function PremiumHospitals() {
 
         <FlatList
           data={premiumHospitals}
+          extraData={premiumHospitals}
           contentContainerStyle={{ gap: 15, width: "100%" }}
           horizontal={false}
           scrollEnabled={true}
@@ -54,6 +57,18 @@ export function PremiumHospitals() {
               }}
             >
               <View style={styles.hospitalBox}>
+                <MaterialIcons
+                  name="workspace-premium"
+                  size={24}
+                  color={Colors.celestial}
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    left: 10,
+                    zIndex: 3,
+                  }}
+                />
+
                 <Image
                   source={{
                     uri: item?.attributes.Image.data.attributes.url,
@@ -96,6 +111,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: 10,
     borderRadius: 10,
+    position: "relative",
   },
   hospitalImage: {
     width: "100%",

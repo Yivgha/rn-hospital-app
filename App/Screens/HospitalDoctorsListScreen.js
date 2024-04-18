@@ -7,6 +7,7 @@ import { HospitalDoctorTab } from "../Components/HospitalDoctorsScreen/HospitalD
 import { HospitalsListByCategory } from "../Components/HospitalDoctorsScreen/HospitalsListByCategory";
 import { DoctorListByCategory } from "../Components/HospitalDoctorsScreen/DoctorListByCategory";
 import GlobalApi from "../Services/GlobalApi";
+import { NothingFound } from "../Components/NothingFound";
 
 export function HospitalDoctorsListScreen() {
   const param = useRoute();
@@ -40,11 +41,7 @@ export function HospitalDoctorsListScreen() {
       <HospitalDoctorTab activeTab={(value) => setActiveTab(value)} />
 
       {!selectedDoctors?.length ? (
-        <ActivityIndicator
-          size={"large"}
-          color={Colors.celestial}
-          style={{ marginTop: "50%" }}
-        />
+        <NothingFound buttonBack={false} style={{ paddingTop: 100 }} />
       ) : activeTab === "Doctors" ? (
         <DoctorListByCategory
           selectedDoctors={selectedDoctors}
