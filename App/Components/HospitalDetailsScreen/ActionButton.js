@@ -41,7 +41,7 @@ export function ActionButton({ toggleModal, setActionContentType }) {
       <FlatList
         numColumns={5}
         columnWrapperStyle={{ flex: 1, justifyContent: "space-between" }}
-        showsHorizontalScrollIndicator={false}
+        scrollEnabled={false}
         data={actionButtonList}
         renderItem={({ item, index }) => (
           <TouchableOpacity

@@ -33,6 +33,7 @@ export function Categories() {
       <FlatList
         data={categories}
         numColumns={4}
+        scrollEnabled={false}
         columnWrapperStyle={styles.columnWrapperStyle}
         renderItem={({ item, index }) =>
           index < 4 && <CategoryItem key={index} category={item} />

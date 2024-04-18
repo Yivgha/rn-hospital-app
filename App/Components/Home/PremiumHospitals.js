@@ -39,6 +39,7 @@ export function PremiumHospitals() {
         horizontal
         contentContainerStyle={{ gap: 10 }}
         showsHorizontalScrollIndicator={false}
+        maxToRenderPerBatch={5}
         renderItem={({ item, index }) => (
           <HospitalItem hospital={item} key={index} />
         )}

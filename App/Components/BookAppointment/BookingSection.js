@@ -131,9 +131,15 @@ export function BookingSection({ hospital, doctor }) {
       .catch((err) => console.log(err));
 
     const userEmail = user.primaryEmailAddress.emailAddress;
-    GlobalApi.getUserAppointments(userEmail)
-      .then((res) => navigation.navigate('Appointment', {setSelectedAppointments: res.data.data}))
-      .catch((err) => console.log(err));
+    setTimeout(() => {
+      GlobalApi.getUserAppointments(userEmail)
+        .then((res) =>
+          navigation.navigate("Appointment", {
+            setSelectedAppointments: res.data.data,
+          })
+        )
+        .catch((err) => console.log(err));
+    }, 1500);
   };
 
   return (
@@ -143,6 +149,7 @@ export function BookingSection({ hospital, doctor }) {
       <FlatList
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        maxToRenderPerBatch={5}
         contentContainerStyle={{ gap: 5 }}
         data={next7Days}
         renderItem={({ item, index }) => (

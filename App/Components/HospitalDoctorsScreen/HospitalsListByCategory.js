@@ -11,24 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 
 export function HospitalsListByCategory({ selectedHospitals }) {
   const navigation = useNavigation();
-  // const [hospitals, setHospitals] = useState([]);
-
-  // const handleEditViews = (item) => {
-  //   const data = {
-  //     data: {
-  //       Views: item?.attributes.Views + 1,
-  //     },
-  //   };
-  //   GlobalApi.addHospitalViews(data)
-  //     .then((res) => {
-  //       if (res.status === 200) {
-  //         setHospitals(res.data.data);
-  //         console.log(hospitals.attributes.Views);
-  //       }
-  //     })
-  //     .catch((err) => console.log("error fetch", err));
-  // };
-
   return (
     <ScrollView
       style={styles.hospitalsListBox}

@@ -46,7 +46,11 @@ export function HospitalDoctorsListScreen() {
           style={{ marginTop: "50%" }}
         />
       ) : activeTab === "Doctors" ? (
-        <DoctorListByCategory selectedDoctors={selectedDoctors} />
+        <DoctorListByCategory
+          selectedDoctors={selectedDoctors}
+          setSelectedDoctors={setSelectedDoctors}
+          categoryName={categoryName}
+        />
       ) : (
         <HospitalsListByCategory selectedHospitals={selectedHospitals} />
       )}

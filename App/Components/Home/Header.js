@@ -4,14 +4,14 @@ import SignOutGoogle from "../SignOutGoogle";
 import Colors from "../../../assets/Shared/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export function Header() {
+export function Header({ style }) {
   const { isLoaded, isSignedIn, user } = useUser();
   if (!isLoaded || !isSignedIn) {
     return null;
   }
 
   return (
-    <View style={styles.headerBox}>
+    <View style={[styles.headerBox, style]}>
       <View style={styles.userInfo}>
         <Image
           source={{ uri: user.imageUrl }}

@@ -12,7 +12,7 @@ export function Home() {
   return (
     <SafeAreaView style={styles.homeBox}>
       <Header />
-      <ScrollView horizontal={false} vertical={true}>
+      <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
         <View style={{ gap: 25 }}>
           <Search setSearchText={setSearchText} searchText={searchText} />
 

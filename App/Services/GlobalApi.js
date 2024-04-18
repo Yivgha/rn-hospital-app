@@ -73,6 +73,12 @@ const toggleFavouriteDoctor = (id, data) => {
   return AxiosInstance.put(`/doctors/${id}`, data);
 };
 
+const getAllFavouritesDoctors = () => {
+  return AxiosInstance.get(
+    `/doctors?filters[isFavourite][$eq]=true&populate=*`
+  );
+};
+
 export default {
   getSlider,
   getCategories,
@@ -87,4 +93,5 @@ export default {
   getHospitalsBySearchName,
   deleteAppointment,
   toggleFavouriteDoctor,
+  getAllFavouritesDoctors,
 };

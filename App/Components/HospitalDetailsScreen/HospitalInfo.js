@@ -38,7 +38,6 @@ export function HospitalInfo({ hospital }) {
             data={hospital?.attributes?.categories?.data}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            scrollEnabled={true}
             renderItem={({ item, index }) => (
               <Text key={index} style={styles.categoriesText}>
                 {item.attributes.Name}

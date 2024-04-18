@@ -1,7 +1,16 @@
-import { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Image, Dimensions } from "react-native";
+import { useEffect, useState, useRef } from "react";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Image,
+  Dimensions,
+  Animated,
+} from "react-native";
 import GlobalApi from "../../Services/GlobalApi";
 import { SubHeading } from "./SubHeading";
+
+const ITEM_WIDTH = Dimensions.get("screen").width * 0.8;
 
 export function Slider() {
   const [sliderData, setSliderData] = useState([]);
@@ -25,12 +34,12 @@ export function Slider() {
         data={sliderData}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ gap: 5 }}
         renderItem={({ item, index }) => (
           <Image
             source={{ uri: item?.attributes.Image.data.attributes.url }}
             alt={item.name}
             style={styles.sliderImg}
-            key={index}
           />
         )}
       />
@@ -45,8 +54,7 @@ const styles = StyleSheet.create({
   },
   sliderImg: {
     height: 170,
-    width: Dimensions.get("screen").width * 0.8,
+    width: ITEM_WIDTH,
     borderRadius: 10,
-    marginRight: 3,
   },
 });

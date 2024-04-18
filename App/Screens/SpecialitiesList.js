@@ -21,44 +21,39 @@ export function SpecialitiesList() {
   }
   return (
     <View style={styles.pageBox}>
-      <ScrollView vertical horizontal={false}>
-        <View style={styles.innerBox}>
-          <PageHeader
-            title={"All categories"}
-            style={{ color: Colors.white }}
-          />
+      <View style={styles.innerBox}>
+        <PageHeader title={"All categories"} style={{ color: Colors.white }} />
 
-          <FlatList
-            horizontal={false}
-            scrollEnabled={false} 
-            contentContainerStyle={{ flexDirection: "column", gap: 15 }}
-            data={param.specialities}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.flatListWrapper}
-                onPress={() =>
-                  navigation.navigate("HospitalDoctorsListScreen", {
-                    categoryName: item?.attributes.Name,
-                    categoryId: item?.id,
-                    categoryIcon: item?.attributes.Icon.data.attributes.url,
-                  })
-                }
-              >
-                <View style={styles.innerWrapper}>
-                  <Image
-                    source={{
-                      uri: item?.attributes.Icon.data.attributes.url,
-                    }}
-                    style={styles.imageStyle}
-                  />
-                  <Text style={styles.textColor}>{item?.attributes.Name}</Text>
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-      </ScrollView>
+        <FlatList
+          horizontal={false}
+          scrollEnabled={true}
+          contentContainerStyle={{ flexDirection: "column", gap: 15 }}
+          data={param.specialities}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.flatListWrapper}
+              onPress={() =>
+                navigation.navigate("HospitalDoctorsListScreen", {
+                  categoryName: item?.attributes.Name,
+                  categoryId: item?.id,
+                  categoryIcon: item?.attributes.Icon.data.attributes.url,
+                })
+              }
+            >
+              <View style={styles.innerWrapper}>
+                <Image
+                  source={{
+                    uri: item?.attributes.Icon.data.attributes.url,
+                  }}
+                  style={styles.imageStyle}
+                />
+                <Text style={styles.textColor}>{item?.attributes.Name}</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     </View>
   );
 }

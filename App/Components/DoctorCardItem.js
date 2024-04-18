@@ -13,19 +13,21 @@ import { AntDesign } from "@expo/vector-icons";
 import GlobalApi from "../Services/GlobalApi";
 import { useUser } from "@clerk/clerk-expo";
 
-export function DoctorCardItem({ doctorInfo, setSelectedDoctors }) {
+export function DoctorCardItem({
+  doctorInfo,
+  setSelectedDoctors,
+  setAllDoctors,
+  categoryName,
+}) {
   const navigation = useNavigation();
   const { user } = useUser();
 
-  const isDoctorFav = doctorInfo?.attributes.isFavourite;
-
   const [pressedHeart, setPressedHeart] = useState(false);
 
+  const isDoctorFav = doctorInfo?.attributes.isFavourite;
   const { Name, categories, Years_Of_Experience } = doctorInfo.attributes;
 
   useEffect(() => {
-    // setSelectedDoctors();
-
     if (doctorInfo?.attributes.isFavourite === true) {
       setPressedHeart(true);
     } else if (doctorInfo?.attributes.isFavourite === false) {
@@ -33,46 +35,58 @@ export function DoctorCardItem({ doctorInfo, setSelectedDoctors }) {
     }
   }, [doctorInfo]);
 
-  // console.log(doctorInfo.attributes.isFavourite);
-
   const toggleFavourite = (id) => {
     if (user) {
       let data;
-      if (isDoctorFav === null) {
-        data = {
-          data: {
-            isFavourite: true,
-          },
-        };
-      }
-      if (isDoctorFav === true) {
-        data = {
-          data: {
-            isFavourite: false,
-          },
-        };
-      }
-      if (isDoctorFav === false) {
-        data = {
-          data: {
-            isFavourite: true,
-          },
-        };
+      let heartChangeTo;
+
+      switch (isDoctorFav) {
+        case null:
+          data = {
+            data: {
+              isFavourite: true,
+            },
+          };
+          heartChangeTo = true;
+          break;
+        case false:
+          data = {
+            data: {
+              isFavourite: true,
+            },
+          };
+          heartChangeTo = true;
+          break;
+
+        case true:
+          data = {
+            data: {
+              isFavourite: false,
+            },
+          };
+          heartChangeTo = false;
+          break;
+
+        default:
+          break;
       }
 
       GlobalApi.toggleFavouriteDoctor(id, data)
-        .then((res) =>
-          console.log(
-            "toggle fav",
-            doctorInfo?.attributes.Name,
-            doctorInfo?.attributes.isFavourite
-          )
-        )
+        .then((res) => {
+          setPressedHeart(heartChangeTo);
+        })
         .catch((err) => console.log(err));
 
-      GlobalApi.getAllDoctors()
-        .then((res) => setSelectedDoctors(res.data.data))
-        .catch((err) => console.log(err));
+      if (!!setAllDoctors) {
+        GlobalApi.getAllDoctors()
+          .then((res) => setAllDoctors(res.data.data))
+          .catch((err) => console.log(err));
+      }
+      if (!!setSelectedDoctors) {
+        GlobalApi.getDoctorsByCategory(categoryName).then((res) =>
+          setSelectedDoctors(res.data.data)
+        );
+      }
     }
   };
 
@@ -81,22 +95,14 @@ export function DoctorCardItem({ doctorInfo, setSelectedDoctors }) {
       <TouchableOpacity
         style={{ gap: 10, paddingBottom: 5 }}
         onPress={() => {
-          console.log("pressed", doctorInfo.attributes.Name),
-            navigation.navigate("DoctorDetails", { doctor: doctorInfo });
+          navigation.navigate("DoctorDetails", { doctor: doctorInfo });
         }}
       >
         <Image
           source={{ uri: doctorInfo.attributes.Image.data.attributes.url }}
           style={styles.hospitalImg}
         />
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            paddingRight: 15,
-          }}
-        >
+        <View style={styles.infoWrapper}>
           <View style={styles.innerBox}>
             <Text style={styles.hospitalTitle}>{Name}</Text>
             <Text style={styles.yearsText}>
@@ -104,9 +110,15 @@ export function DoctorCardItem({ doctorInfo, setSelectedDoctors }) {
             </Text>
             <FlatList
               data={categories.data}
-              extraData={[categories.data, isDoctorFav]}
+              extraData={[
+                categories.data,
+                isDoctorFav,
+                doctorInfo,
+                setAllDoctors,
+                setSelectedDoctors,
+              ]}
               horizontal={false}
-              showsHorizontalScrollIndicator={false}
+              scrollEnabled={false}
               numColumns={3}
               contentContainerStyle={{ flexDirection: "row" }}
               renderItem={({ item, index }) => (
@@ -116,20 +128,18 @@ export function DoctorCardItem({ doctorInfo, setSelectedDoctors }) {
               )}
             />
           </View>
-          <View>
-            <TouchableOpacity
-              onPress={() => {
-                console.log("pressed heart", doctorInfo.attributes.Name);
-                toggleFavourite(doctorInfo.id);
-              }}
-            >
-              {isDoctorFav === false ? (
-                <AntDesign name="hearto" size={24} color={Colors.celestial} />
-              ) : (
-                <AntDesign name="heart" size={24} color={Colors.celestial} />
-              )}
-            </TouchableOpacity>
-          </View>
+
+          <TouchableOpacity
+            onPress={() => {
+              toggleFavourite(doctorInfo.id);
+            }}
+          >
+            {isDoctorFav === false ? (
+              <AntDesign name="hearto" size={24} color={Colors.celestial} />
+            ) : (
+              <AntDesign name="heart" size={24} color={Colors.celestial} />
+            )}
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
       <TouchableOpacity
@@ -175,6 +185,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: Colors.gray,
     marginRight: 10,
+  },
+  infoWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingRight: 15,
   },
   innerBox: {
     paddingHorizontal: 10,

@@ -25,7 +25,7 @@ export function HospitalCardItem({ hospitalInfo }) {
         <FlatList
           data={categories.data}
           horizontal={false}
-          showsHorizontalScrollIndicator={false}
+          scrollEnabled={false}
           numColumns={3}
           contentContainerStyle={{ flexDirection: "row" }}
           renderItem={({ item, index }) => (

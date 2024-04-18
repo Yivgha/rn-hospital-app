@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import { View, StyleSheet, FlatList, Text, SafeAreaView } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { PageHeader } from "../Components/PageHeader";
 import { useUser } from "@clerk/clerk-expo";
@@ -13,7 +13,7 @@ export function Appointment() {
   const param = useRoute().params;
 
   const [selectedAppointments, setSelectedAppointments] = useState(
-    param.selectedAppointments || []
+    param?.selectedAppointments ?? []
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [appointmentID, setAppointmentId] = useState();
@@ -34,7 +34,7 @@ export function Appointment() {
   };
 
   return (
-    <View style={styles.homeBox}>
+    <SafeAreaView style={styles.homeBox}>
       <View style={styles.innerBox}>
         <PageHeader title={"Appointments"} style={{ color: Colors.white }} />
 
@@ -65,7 +65,7 @@ export function Appointment() {
           getUserAppointments={getUserAppointments}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

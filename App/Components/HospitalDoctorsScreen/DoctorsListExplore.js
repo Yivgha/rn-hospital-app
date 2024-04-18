@@ -1,23 +1,18 @@
 import { FlatList, StyleSheet } from "react-native";
 import { DoctorCardItem } from "../DoctorCardItem";
 
-export function DoctorListByCategory({
-  selectedDoctors,
-  setSelectedDoctors,
-  categoryName,
-}) {
+export function DoctorListExplore({ allDoctors, setAllDoctors }) {
   return (
     <FlatList
       horizontal={false}
       scrollEnabled={true}
-      data={selectedDoctors}
-      extraData={selectedDoctors}
+      data={allDoctors}
+      extraData={allDoctors}
       contentContainerStyle={styles.doctorListBox}
       renderItem={({ item, index }) => (
         <DoctorCardItem
           doctorInfo={item}
-          categoryName={categoryName}
-          setSelectedDoctors={setSelectedDoctors}
+          setAllDoctors={setAllDoctors}
           key={index}
           style={styles.doctorItem}
         />
