@@ -14,11 +14,13 @@ import moment from "moment";
 import { useUser } from "@clerk/clerk-expo";
 import GlobalApi from "../../Services/GlobalApi";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const MAX_LENGTH = 320;
 
 export function BookingSection({ hospital, doctor }) {
   const { user } = useUser();
+  const navigation = useNavigation();
 
   const [next7Days, setNext7Days] = useState([]);
   const [selectedDay, setSelectedDay] = useState();
@@ -130,7 +132,7 @@ export function BookingSection({ hospital, doctor }) {
 
     const userEmail = user.primaryEmailAddress.emailAddress;
     GlobalApi.getUserAppointments(userEmail)
-      .then((res) => console.log("refreshed appointments"))
+      .then((res) => navigation.navigate('Appointment', {setSelectedAppointments: res.data.data}))
       .catch((err) => console.log(err));
   };
 

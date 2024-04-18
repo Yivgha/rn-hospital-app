@@ -27,9 +27,19 @@ export function Explores() {
     GlobalApi.getAllDoctors().then((res) => setSelectedDoctors(res.data.data));
   };
 
+  // useEffect(() => {
+  //   getAllFavDoctors();
+  // }, []);
+
+  // const getAllFavDoctors = () => {
+  //   GlobalApi.getAllFavouritesDoctors()
+  //     .then((res) => setAllFavouritesDoctors(res.data.data))
+  //     .catch((err) => console.log(err));
+  // };
+
   return (
-    <View style={styles.pageBox} vertical={true} horizontal={false}>
-      <ScrollView>
+    <View style={styles.pageBox}>
+      <ScrollView vertical={true} horizontal={false}>
         <View style={styles.innerBox}>
           <PageHeader title={"Explores"} />
           <HospitalDoctorTab activeTab={(value) => setActiveTab(value)} />
@@ -40,7 +50,10 @@ export function Explores() {
               style={{ marginTop: "50%" }}
             />
           ) : activeTab === "Doctors" ? (
-            <DoctorListByCategory selectedDoctors={selectedDoctors} />
+            <DoctorListByCategory
+              selectedDoctors={selectedDoctors}
+              setSelectedDoctors={setSelectedDoctors}
+            />
           ) : (
             <HospitalsListByCategory selectedHospitals={selectedHospitals} />
           )}

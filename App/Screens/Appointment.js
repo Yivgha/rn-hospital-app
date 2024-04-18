@@ -6,11 +6,15 @@ import { useUser } from "@clerk/clerk-expo";
 import GlobalApi from "../Services/GlobalApi";
 import AppointmentItem from "../Components/AppointmentScreen/AppointmentItem";
 import { DeleteAppointmentModal } from "../Components/DeleteAppointmentModal";
+import { useRoute } from "@react-navigation/native";
 
 export function Appointment() {
   const { user } = useUser();
+  const param = useRoute().params;
 
-  const [selectedAppointments, setSelectedAppointments] = useState([]);
+  const [selectedAppointments, setSelectedAppointments] = useState(
+    param.selectedAppointments || []
+  );
   const [modalVisible, setModalVisible] = useState(false);
   const [appointmentID, setAppointmentId] = useState();
 

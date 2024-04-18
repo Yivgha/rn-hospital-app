@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -30,7 +31,7 @@ export function DoctorDetails() {
 
   return (
     doctor && (
-      <View style={styles.hospitalBox}>
+      <SafeAreaView style={styles.hospitalBox}>
         <ScrollView horizontal={false} vertical={true}>
           <View style={styles.infoBox}>
             <View style={styles.pageHeader}>
@@ -54,7 +55,7 @@ export function DoctorDetails() {
         >
           <Text style={styles.bookBtnText}>Book Appointment</Text>
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     )
   );
 }

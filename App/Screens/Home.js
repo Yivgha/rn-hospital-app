@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { useState } from "react";
 import Colors from "../../assets/Shared/Colors";
 import { Header } from "../Components/Home/Header";
@@ -10,7 +10,7 @@ export function Home() {
   const [searchText, setSearchText] = useState("");
 
   return (
-    <View style={styles.homeBox}>
+    <SafeAreaView style={styles.homeBox}>
       <Header />
       <ScrollView horizontal={false} vertical={true}>
         <View style={{ gap: 25 }}>
@@ -22,7 +22,7 @@ export function Home() {
           <PremiumHospitals />
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

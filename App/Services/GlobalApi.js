@@ -69,6 +69,10 @@ const deleteAppointment = (id) => {
   return AxiosInstance.delete(`/appointments/${id}`);
 };
 
+const toggleFavouriteDoctor = (id, data) => {
+  return AxiosInstance.put(`/doctors/${id}`, data);
+};
+
 export default {
   getSlider,
   getCategories,
@@ -82,4 +86,5 @@ export default {
   getDoctorsBySearchName,
   getHospitalsBySearchName,
   deleteAppointment,
+  toggleFavouriteDoctor,
 };

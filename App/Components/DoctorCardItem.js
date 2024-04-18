@@ -13,13 +13,68 @@ import { AntDesign } from "@expo/vector-icons";
 import GlobalApi from "../Services/GlobalApi";
 import { useUser } from "@clerk/clerk-expo";
 
-export function DoctorCardItem({ doctorInfo }) {
+export function DoctorCardItem({ doctorInfo, setSelectedDoctors }) {
   const navigation = useNavigation();
   const { user } = useUser();
+
+  const isDoctorFav = doctorInfo?.attributes.isFavourite;
 
   const [pressedHeart, setPressedHeart] = useState(false);
 
   const { Name, categories, Years_Of_Experience } = doctorInfo.attributes;
+
+  useEffect(() => {
+    // setSelectedDoctors();
+
+    if (doctorInfo?.attributes.isFavourite === true) {
+      setPressedHeart(true);
+    } else if (doctorInfo?.attributes.isFavourite === false) {
+      setPressedHeart(false);
+    }
+  }, [doctorInfo]);
+
+  // console.log(doctorInfo.attributes.isFavourite);
+
+  const toggleFavourite = (id) => {
+    if (user) {
+      let data;
+      if (isDoctorFav === null) {
+        data = {
+          data: {
+            isFavourite: true,
+          },
+        };
+      }
+      if (isDoctorFav === true) {
+        data = {
+          data: {
+            isFavourite: false,
+          },
+        };
+      }
+      if (isDoctorFav === false) {
+        data = {
+          data: {
+            isFavourite: true,
+          },
+        };
+      }
+
+      GlobalApi.toggleFavouriteDoctor(id, data)
+        .then((res) =>
+          console.log(
+            "toggle fav",
+            doctorInfo?.attributes.Name,
+            doctorInfo?.attributes.isFavourite
+          )
+        )
+        .catch((err) => console.log(err));
+
+      GlobalApi.getAllDoctors()
+        .then((res) => setSelectedDoctors(res.data.data))
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
     <View style={styles.hospitalCardBox}>
@@ -49,6 +104,7 @@ export function DoctorCardItem({ doctorInfo }) {
             </Text>
             <FlatList
               data={categories.data}
+              extraData={[categories.data, isDoctorFav]}
               horizontal={false}
               showsHorizontalScrollIndicator={false}
               numColumns={3}
@@ -63,15 +119,13 @@ export function DoctorCardItem({ doctorInfo }) {
           <View>
             <TouchableOpacity
               onPress={() => {
-                console.log("pressed heart", doctorInfo.id);
-                setPressedHeart(!pressedHeart);
-                // handleFavourite(doctorInfo);
+                console.log("pressed heart", doctorInfo.attributes.Name);
+                toggleFavourite(doctorInfo.id);
               }}
             >
-              {pressedHeart === false && (
+              {isDoctorFav === false ? (
                 <AntDesign name="hearto" size={24} color={Colors.celestial} />
-              )}
-              {pressedHeart === true && (
+              ) : (
                 <AntDesign name="heart" size={24} color={Colors.celestial} />
               )}
             </TouchableOpacity>
