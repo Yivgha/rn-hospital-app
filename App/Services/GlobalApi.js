@@ -1,9 +1,8 @@
 import axios from "axios";
 
-const { EXPO_PUBLIC_IP_ADDRESS, EXPO_PUBLIC_STRAPI_API_KEY } = process.env;
+const API_KEY = process.env.EXPO_PUBLIC_STRAPI_API_KEY;
 
-const BASE_URL = `http://192.168.31.234:1337/api`;
-const API_KEY = `${EXPO_PUBLIC_STRAPI_API_KEY}`;
+const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
 
 const AxiosInstance = axios.create({
   baseURL: BASE_URL,

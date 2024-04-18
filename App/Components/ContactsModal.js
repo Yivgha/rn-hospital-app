@@ -21,6 +21,8 @@ export function ContactsModal({
   doctorInfo,
   hospitalInfo,
 }) {
+  const IP_ADDRESS = process.env.EXPO_PUBLIC_IP_ADDRESS;
+
   let actionInfo = "Default";
   let actionText = "Default";
 
@@ -50,11 +52,12 @@ export function ContactsModal({
 
   const shareInfo = (id) => {
     let shareUrl;
+
     if (doctorInfo) {
-      shareUrl = `http://needtocreate-fe-route/doctors/${id}`;
+      shareUrl = `http://${IP_ADDRESS}/api/doctors/${id}`;
     }
     if (hospitalInfo) {
-      shareUrl = `http://needtocreate-fe-route/hospitals/${id}`;
+      shareUrl = `http://${IP_ADDRESS}/api/hospitals/${id}`;
     }
 
     const message = "Check out this info: " + shareUrl;
