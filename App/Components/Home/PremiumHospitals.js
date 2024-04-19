@@ -35,7 +35,9 @@ export function PremiumHospitals() {
 
       <FlatList
         data={hospitals}
-        extraData={hospitals.length}
+        extraData={hospitals}
+        refreshing={false}
+        onRefresh={() => fetchHospitals()}
         horizontal
         contentContainerStyle={{ gap: 10 }}
         showsHorizontalScrollIndicator={false}

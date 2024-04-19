@@ -117,6 +117,19 @@ export function DoctorCardItem({
                 setAllDoctors,
                 setSelectedDoctors,
               ]}
+              refreshing={false}
+              onRefresh={() => {
+                if (!!setAllDoctors) {
+                  GlobalApi.getAllDoctors()
+                    .then((res) => setAllDoctors(res.data.data))
+                    .catch((err) => console.log(err));
+                }
+                if (!!setSelectedDoctors) {
+                  GlobalApi.getDoctorsByCategory(categoryName).then((res) =>
+                    setSelectedDoctors(res.data.data)
+                  );
+                }
+              }}
               horizontal={false}
               scrollEnabled={false}
               numColumns={3}

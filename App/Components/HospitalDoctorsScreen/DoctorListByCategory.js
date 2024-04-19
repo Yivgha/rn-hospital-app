@@ -21,7 +21,8 @@ export function DoctorListByCategory({
       scrollEnabled={true}
       data={doctors}
       extraData={doctors}
-      refreshing={true}
+      refreshing={false}
+      onRefresh={() => setDoctors(selectedDoctors)}
       contentContainerStyle={styles.doctorListBox}
       renderItem={({ item, index }) => (
         <DoctorCardItem

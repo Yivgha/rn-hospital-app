@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  ScrollView,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { HospitalCardItem } from "../HospitalCardItem";
 import { useNavigation } from "@react-navigation/native";
 // import GlobalApi from "../../Services/GlobalApi";
@@ -20,17 +15,15 @@ export function HospitalsListByCategory({ selectedHospitals }) {
     }
   }, []);
   return (
-    <ScrollView
-      style={styles.hospitalsListBox}
-      horizontal={false}
-      vertical={true}
-    >
+    <View style={styles.hospitalsListBox}>
       <FlatList
         horizontal={false}
-        scrollEnabled={false}
+        scrollEnabled={true}
         data={hospitals}
         extraData={hospitals}
-        refreshing={true}
+        refreshing={false}
+        contentContainerStyle={{ paddingBottom: 30 }}
+        onRefresh={() => setHospitals(selectedHospitals)}
         renderItem={({ item, index }) => (
           <TouchableOpacity
             key={index}
@@ -44,11 +37,11 @@ export function HospitalsListByCategory({ selectedHospitals }) {
           </TouchableOpacity>
         )}
       />
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  hospitalsListBox: { flexDirection: "column" },
+  hospitalsListBox: { flexDirection: "column", paddingBottom: 150 },
   hospitalItem: { marginBottom: 15 },
 });

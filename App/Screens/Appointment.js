@@ -42,7 +42,9 @@ export function Appointment() {
           horizontal={false}
           scrollEnabled={true}
           data={selectedAppointments}
-          extraData={selectedAppointments.length}
+          extraData={selectedAppointments}
+          refreshing={false}
+          onRefresh={() => getUserAppointments()}
           contentContainerStyle={{ gap: 15 }}
           renderItem={({ item, index }) => (
             <AppointmentItem

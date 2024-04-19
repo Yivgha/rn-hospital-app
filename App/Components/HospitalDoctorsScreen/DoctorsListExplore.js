@@ -8,6 +8,8 @@ export function DoctorListExplore({ allDoctors, setAllDoctors }) {
       scrollEnabled={true}
       data={allDoctors}
       extraData={allDoctors}
+      refreshing={false}
+      onRefresh={() => setAllDoctors(allDoctors)}
       contentContainerStyle={styles.doctorListBox}
       renderItem={({ item, index }) => (
         <DoctorCardItem

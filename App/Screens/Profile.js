@@ -29,6 +29,8 @@ export function Profile() {
       <FlatList
         data={favDoctors}
         extraData={favDoctors}
+        refreshing={false}
+        onRefresh={() => getFavDoctors()}
         horizontal={false}
         scrollEnabled={true}
         maxToRenderPerBatch={5}

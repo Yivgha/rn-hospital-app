@@ -47,6 +47,8 @@ export function PremiumHospitals() {
           contentContainerStyle={{ gap: 15, width: "100%" }}
           horizontal={false}
           scrollEnabled={true}
+          refreshing={false}
+          onRefresh={() => fetchHospitals()}
           renderItem={({ item, index }) => (
             <TouchableOpacity
               key={index}

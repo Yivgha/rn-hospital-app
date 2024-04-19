@@ -43,16 +43,14 @@ export default function App() {
     >
       <SafeAreaView style={styles.container}>
         <StatusBar hidden />
-        <SignedIn>
-          <NavigationContainer>
+        <NavigationContainer>
+          <SignedIn>
             <TabNavigation />
-          </NavigationContainer>
-        </SignedIn>
-        <SignedOut>
-          <NavigationContainer>
+          </SignedIn>
+          <SignedOut>
             <SignInNavigation />
-          </NavigationContainer>
-        </SignedOut>
+          </SignedOut>
+        </NavigationContainer>
       </SafeAreaView>
     </ClerkProvider>
   );
