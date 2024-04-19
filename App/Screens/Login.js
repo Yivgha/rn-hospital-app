@@ -1,31 +1,41 @@
-import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  Dimensions,
+} from "react-native";
 import SplashLogo from "../../assets/images/splash.png";
 import Colors from "../../assets/Shared/Colors";
 import SignInWithOAuth from "../Components/SignInWithOAuth";
-// import SignInWithEmail from "../Components/SignInWithEmail";
-// import SignUpScreen from "../Components/SignUpScreen";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Login() {
+export function Login() {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.screenBox}>
+    <SafeAreaView style={styles.screenBox}>
       <Image source={SplashLogo} style={styles.splashImg} />
-      <View>
+      <View style={{ gap: 10 }}>
         <Text style={styles.headingText}>Welcome</Text>
         <Text style={styles.additionalText}>Find your doctor in this app</Text>
       </View>
       <View style={styles.loginBox}>
         <SignInWithOAuth />
-        {/* <Text style={styles.headingText}>or</Text> */}
-        {/* <TouchableOpacity
+        <Text style={styles.headingText}>or</Text>
+        <TouchableOpacity
           style={styles.buttonBox}
-          title="Sign in with Email"
-          // onPress={() => navigation.navigate("SignInWithEmail")}
+          onPress={() => {
+            // navigation.navigate("SignInScreen");
+            console.log("pressed sign in");
+          }}
         >
           <Text style={styles.buttonText}>Sign in with Email</Text>
-        </TouchableOpacity> */}
-        {/* <SignUpScreen /> */}
+        </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -33,25 +43,26 @@ const styles = StyleSheet.create({
   screenBox: {
     flex: 1,
     flexDirection: "column",
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    justifyContent: "center",
-    alignItems: "flex-start",
-    gap: 10,
+    paddingHorizontal: 15,
+    paddingTop: 20,
+    paddingBottom: 10,
+    justifyContent: "flex-start",
+    gap: 25,
     backgroundColor: Colors.celestial,
   },
   splashImg: {
     width: "100%",
-    height: 500,
+    height: Dimensions.get("screen").height * 0.45,
     objectFit: "contain",
   },
   headingText: {
     fontSize: 24,
     color: Colors.white,
     fontFamily: "appfontBold",
+    textTransform: "uppercase",
   },
   additionalText: {
-    fontSize: 16,
+    fontSize: 18,
     color: Colors.white,
     fontFamily: "appfontSemibold",
   },
@@ -59,6 +70,19 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    gap: 5,
+    gap: 10,
+  },
+  buttonBox: {
+    padding: 16,
+    borderRadius: 90,
+    alignItems: "center",
+    width: Dimensions.get("screen").width * 0.8,
+    backgroundColor: Colors.black,
+    alignSelf: "center",
+  },
+  buttonText: {
+    fontSize: 18,
+    color: Colors.white,
+    fontFamily: "appfontLight",
   },
 });

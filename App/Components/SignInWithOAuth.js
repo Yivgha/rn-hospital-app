@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 18,
     color: Colors.white,
     fontFamily: "appfontLight",
   },

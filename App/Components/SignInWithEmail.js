@@ -10,7 +10,7 @@ import {
 import Colors from "../../assets/Shared/Colors";
 import { useSignIn } from "@clerk/clerk-expo";
 
-export default function SignInWithEmail() {
+export function SignInWithEmail() {
   const { signIn, setActive, isLoaded } = useSignIn();
 
   const [emailAddress, setEmailAddress] = useState("");

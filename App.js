@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { TabNavigation } from "./App/Navigations/TabNavigation";
 import Login from "./App/Screens/Login";
 import { useFonts } from "expo-font";
+import * as SecureStore from "expo-secure-store";
+import { SignInNavigation } from "./App/Navigations/SignInNavigation";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -17,9 +19,27 @@ export default function App() {
     return null;
   }
 
+  const tokenCache = {
+    async getToken(key) {
+      try {
+        return SecureStore.getItemAsync(key);
+      } catch (error) {
+        return null;
+      }
+    },
+    async saveToken(key, value) {
+      try {
+        return SecureStore.setItemAsync(key, value);
+      } catch (error) {
+        return;
+      }
+    },
+  };
+
   return (
     <ClerkProvider
       publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      tokenCache={tokenCache}
     >
       <SafeAreaView style={styles.container}>
         <StatusBar hidden />
@@ -29,7 +49,9 @@ export default function App() {
           </NavigationContainer>
         </SignedIn>
         <SignedOut>
-          <Login />
+          <NavigationContainer>
+            <SignInNavigation />
+          </NavigationContainer>
         </SignedOut>
       </SafeAreaView>
     </ClerkProvider>
