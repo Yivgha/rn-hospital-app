@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { PageHeader } from "../Components/PageHeader";
 import Colors from "../../assets/Shared/Colors";
 import { HorizontalBreakLine } from "../Components/HorizontalBreakLine";
 import { HospitalDoctorTab } from "../Components/HospitalDoctorsScreen/HospitalDoctorTab";
-import { DoctorListByCategory } from "../Components/HospitalDoctorsScreen/DoctorListByCategory";
 import { HospitalsListByCategory } from "../Components/HospitalDoctorsScreen/HospitalsListByCategory";
 import GlobalApi from "../Services/GlobalApi";
 import { NothingFound } from "../Components/NothingFound";
@@ -71,7 +70,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.sky,
     flexDirection: "column",
-    paddingVertical: 15,
+    paddingTop: 15,
+    paddingBottom: 60,
     paddingHorizontal: 10,
     gap: 15,
   },

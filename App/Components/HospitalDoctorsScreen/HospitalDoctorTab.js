@@ -58,6 +58,7 @@ export function HospitalDoctorTab({ activeTab }) {
 const styles = StyleSheet.create({
   tabBox: {
     flexDirection: "column",
+    alignItems: "center",
   },
   tabs: {
     flexDirection: "row",

@@ -8,6 +8,7 @@ export function DoctorListExplore({ allDoctors, setAllDoctors }) {
       scrollEnabled={true}
       data={allDoctors}
       extraData={allDoctors}
+      showsVerticalScrollIndicator={false}
       refreshing={false}
       onRefresh={() => setAllDoctors(allDoctors)}
       contentContainerStyle={styles.doctorListBox}

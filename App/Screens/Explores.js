@@ -35,26 +35,24 @@ export function Explores() {
 
   return (
     <SafeAreaView style={styles.pageBox}>
-      <ScrollView vertical={true} horizontal={false}>
-        <View style={styles.innerBox}>
-          <PageHeader title={"Explores"} />
-          <HospitalDoctorTab activeTab={(value) => setActiveTab(value)} />
-          {!allDoctors?.length ? (
-            <ActivityIndicator
-              size={"large"}
-              color={Colors.celestial}
-              style={{ marginTop: "50%" }}
-            />
-          ) : activeTab === "Doctors" ? (
-            <DoctorListExplore
-              allDoctors={allDoctors}
-              setAllDoctors={setAllDoctors}
-            />
-          ) : (
-            <HospitalsListByCategory selectedHospitals={selectedHospitals} />
-          )}
-        </View>
-      </ScrollView>
+      <View style={styles.innerBox}>
+        <PageHeader title={"Explores"} />
+        <HospitalDoctorTab activeTab={(value) => setActiveTab(value)} />
+        {!allDoctors?.length ? (
+          <ActivityIndicator
+            size={"large"}
+            color={Colors.celestial}
+            style={{ marginTop: "50%" }}
+          />
+        ) : activeTab === "Doctors" ? (
+          <DoctorListExplore
+            allDoctors={allDoctors}
+            setAllDoctors={setAllDoctors}
+          />
+        ) : (
+          <HospitalsListByCategory selectedHospitals={selectedHospitals} />
+        )}
+      </View>
     </SafeAreaView>
   );
 }
@@ -63,11 +61,12 @@ const styles = StyleSheet.create({
   pageBox: {
     flex: 1,
     backgroundColor: Colors.sky,
-    paddingVertical: 15,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
+    paddingTop: 10,
+    paddingBottom: 110,
   },
   innerBox: {
     flexDirection: "column",
-    gap: 30,
+    gap: 15,
   },
 });
