@@ -2,12 +2,12 @@ import React from "react";
 import * as WebBrowser from "expo-web-browser";
 import { TouchableOpacity, Text, StyleSheet, Dimensions } from "react-native";
 import { useOAuth } from "@clerk/clerk-expo";
-import { useWarmUpBrowser } from "../../hooks/useWarmUpBrowser";
-import Colors from "../../assets/Shared/Colors";
+import { useWarmUpBrowser } from "../../../hooks/useWarmUpBrowser";
+import Colors from "../../../assets/Shared/Colors";
 
 WebBrowser.maybeCompleteAuthSession();
 
-const SignInWithOAuth = () => {
+export const SignInWithOAuth = () => {
   // Warm up the android browser to improve UX
   // https://docs.expo.dev/guides/authentication/#improving-user-experience
   useWarmUpBrowser();
@@ -39,7 +39,6 @@ const SignInWithOAuth = () => {
     </TouchableOpacity>
   );
 };
-export default SignInWithOAuth;
 
 const styles = StyleSheet.create({
   buttonBox: {

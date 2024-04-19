@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { TouchableOpacity, Text, View, TextInput } from "react-native";
-import Colors from "../../assets/Shared/Colors";
+import Colors from "../../../assets/Shared/Colors";
 import { useSignIn } from "@clerk/clerk-expo";
-import SignInStyles from "../../assets/Shared/SignInStyles";
+import SignInStyles from "../../../assets/Shared/SignInStyles";
 
 export function SignInWithEmail() {
   const { signIn, setActive, isLoaded } = useSignIn();

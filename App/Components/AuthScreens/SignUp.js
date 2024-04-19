@@ -1,14 +1,8 @@
 import { useState } from "react";
-import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-} from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
-import Colors from "../../assets/Shared/Colors";
-import SignInStyles from "../../assets/Shared/SignInStyles";
+import Colors from "../../../assets/Shared/Colors";
+import SignInStyles from "../../../assets/Shared/SignInStyles";
 
 export function SignUp() {
   const { isLoaded, signUp, setActive } = useSignUp();

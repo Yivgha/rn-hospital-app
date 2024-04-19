@@ -8,8 +8,8 @@ import {
   Alert,
   Dimensions,
 } from "react-native";
-import Colors from "../../assets/Shared/Colors";
-import GlobalApi from "../Services/GlobalApi";
+import Colors from "../../../assets/Shared/Colors";
+import GlobalApi from "../../Services/GlobalApi";
 import { AntDesign } from "@expo/vector-icons";
 
 export function DeleteAppointmentModal({

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import SplashLogo from "../../assets/images/splash.png";
 import Colors from "../../assets/Shared/Colors";
-import SignInWithOAuth from "../Components/SignInWithOAuth";
+import { SignInWithOAuth } from "../Components/AuthScreens/SignInWithOAuth";
 import { useNavigation } from "@react-navigation/native";
 
 export function Login() {
@@ -19,8 +19,8 @@ export function Login() {
     <SafeAreaView style={styles.screenBox}>
       <Image source={SplashLogo} style={styles.splashImg} />
       <View style={{ gap: 10 }}>
-        <Text style={styles.headingText}>Welcome</Text>
-        <Text style={styles.additionalText}>Find your doctor in this app</Text>
+        <Text style={styles.headingText}>Welcome!</Text>
+        <Text style={styles.additionalText}>Find your doctor in this app!</Text>
       </View>
       <View style={styles.loginBox}>
         <SignInWithOAuth />

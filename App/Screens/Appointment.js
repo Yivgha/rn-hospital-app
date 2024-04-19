@@ -5,7 +5,7 @@ import { PageHeader } from "../Components/PageHeader";
 import { useUser } from "@clerk/clerk-expo";
 import GlobalApi from "../Services/GlobalApi";
 import AppointmentItem from "../Components/AppointmentScreen/AppointmentItem";
-import { DeleteAppointmentModal } from "../Components/DeleteAppointmentModal";
+import { DeleteAppointmentModal } from "../Components/AppointmentScreen/DeleteAppointmentModal";
 import { useRoute } from "@react-navigation/native";
 
 export function Appointment() {

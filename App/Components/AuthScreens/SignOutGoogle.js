@@ -1,8 +1,8 @@
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
-import Colors from "../../assets/Shared/Colors";
+import Colors from "../../../assets/Shared/Colors";
 
-export default function SignOutGoogle() {
+export function SignOutGoogle() {
   const { isLoaded, signOut } = useAuth();
   if (!isLoaded) {
     return null;

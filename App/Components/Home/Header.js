@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
-import SignOutGoogle from "../SignOutGoogle";
+import { SignOutGoogle } from "../AuthScreens/SignOutGoogle";
 import Colors from "../../../assets/Shared/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 

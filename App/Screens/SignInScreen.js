@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from "react-native";
-import { SignInWithEmail } from "../Components/SignInWithEmail";
+import { SignInWithEmail } from "../Components/AuthScreens/SignInWithEmail";
 import { useNavigation } from "@react-navigation/native";
 import { GoToLoginBtn } from "../Components/AuthScreens/GoToLoginBtn";
 import SignInStyles from "../../assets/Shared/SignInStyles";
@@ -15,7 +15,7 @@ export function SignInScreen() {
       />
       <SignInWithEmail />
       <View style={SignInStyles.textContainer}>
-        <Text style={SignInStyles.textColor}>Don't have account yet?</Text>
+        <Text style={SignInStyles.textColor}>Don't have an account yet?</Text>
         <Pressable
           onPress={() => {
             navigation.navigate("SignUpScreen");
