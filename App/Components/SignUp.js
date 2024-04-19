@@ -1,6 +1,14 @@
 import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+} from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
+import Colors from "../../assets/Shared/Colors";
+import SignInStyles from "../../assets/Shared/SignInStyles";
 
 export function SignUp() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -54,11 +62,13 @@ export function SignUp() {
   };
 
   return (
-    <View>
+    <View style={SignInStyles.signInForm}>
       {!pendingVerification && (
-        <View>
+        <View style={{ gap: 10 }}>
           <View>
             <TextInput
+              style={SignInStyles.inputForm}
+              placeholderTextColor={Colors.gray}
               autoCapitalize="none"
               value={firstName}
               placeholder="First Name..."
@@ -67,6 +77,8 @@ export function SignUp() {
           </View>
           <View>
             <TextInput
+              style={SignInStyles.inputForm}
+              placeholderTextColor={Colors.gray}
               autoCapitalize="none"
               value={lastName}
               placeholder="Last Name..."
@@ -75,6 +87,8 @@ export function SignUp() {
           </View>
           <View>
             <TextInput
+              style={SignInStyles.inputForm}
+              placeholderTextColor={Colors.gray}
               autoCapitalize="none"
               value={emailAddress}
               placeholder="Email..."
@@ -84,16 +98,29 @@ export function SignUp() {
 
           <View>
             <TextInput
+              style={SignInStyles.inputForm}
+              placeholderTextColor={Colors.gray}
               value={password}
               placeholder="Password..."
-              placeholderTextColor="#000"
               secureTextEntry={true}
               onChangeText={(password) => setPassword(password)}
             />
           </View>
 
-          <TouchableOpacity onPress={onSignUpPress}>
-            <Text>Sign up</Text>
+          <TouchableOpacity
+            // onPress={onSignUpPress}
+            onPress={() => {
+              console.log(
+                "sign up press",
+                firstName,
+                lastName,
+                emailAddress,
+                password
+              );
+            }}
+            style={SignInStyles.buttonBox}
+          >
+            <Text style={SignInStyles.buttonText}>Sign up</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -101,13 +128,18 @@ export function SignUp() {
         <View>
           <View>
             <TextInput
+              style={SignInStyles.inputForm}
+              placeholderTextColor={Colors.gray}
               value={code}
               placeholder="Code..."
               onChangeText={(code) => setCode(code)}
             />
           </View>
-          <TouchableOpacity onPress={onPressVerify}>
-            <Text>Verify Email</Text>
+          <TouchableOpacity
+            onPress={onPressVerify}
+            style={SignInStyles.buttonBox}
+          >
+            <Text style={SignInStyles.buttonText}>Verify Email</Text>
           </TouchableOpacity>
         </View>
       )}

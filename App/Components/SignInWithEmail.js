@@ -1,14 +1,8 @@
 import { useState } from "react";
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  Dimensions,
-  View,
-  TextInput,
-} from "react-native";
+import { TouchableOpacity, Text, View, TextInput } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { useSignIn } from "@clerk/clerk-expo";
+import SignInStyles from "../../assets/Shared/SignInStyles";
 
 export function SignInWithEmail() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -34,44 +28,32 @@ export function SignInWithEmail() {
     }
   };
   return (
-    <View>
+    <View style={SignInStyles.signInForm}>
       <View>
         <TextInput
+          style={SignInStyles.inputForm}
           autoCapitalize="none"
           value={emailAddress}
           placeholder="Email..."
+          placeholderTextColor={Colors.gray}
           onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
         />
       </View>
 
       <View>
         <TextInput
+          style={SignInStyles.inputForm}
           value={password}
           placeholder="Password..."
+          placeholderTextColor={Colors.gray}
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
       </View>
 
-      <TouchableOpacity onPress={onSignInPress}>
-        <Text>Sign in</Text>
+      <TouchableOpacity onPress={onSignInPress} style={SignInStyles.buttonBox}>
+        <Text style={SignInStyles.buttonText}>Sign in</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  buttonBox: {
-    padding: 16,
-    borderRadius: 90,
-    alignItems: "center",
-    marginTop: 20,
-    width: Dimensions.get("screen").width * 0.8,
-    backgroundColor: Colors.black,
-    alignSelf: "center",
-  },
-  buttonText: {
-    fontSize: 16,
-    color: Colors.white,
-  },
-});

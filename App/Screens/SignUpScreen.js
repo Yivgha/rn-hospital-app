@@ -1,14 +1,29 @@
-import { View } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { SignUp } from "../Components/SignUp";
+import { useNavigation } from "@react-navigation/native";
+import { GoToLoginBtn } from "../Components/AuthScreens/GoToLoginBtn";
+import SignInStyles from "../../assets/Shared/SignInStyles";
 
 export function SignUpScreen() {
+  const navigation = useNavigation();
   return (
-    <View>
+    <View style={SignInStyles.pageBox}>
+      <GoToLoginBtn
+        onPress={() => {
+          navigation.navigate("Login");
+        }}
+      />
       <SignUp />
-      <Text>Already have account?</Text>
-      <Pressable onPress={() => console.log("clicked sign in")}>
-        Sign in!
-      </Pressable>
+      <View style={SignInStyles.textContainer}>
+        <Text style={SignInStyles.textColor}>Already have account?</Text>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("SignInScreen");
+          }}
+        >
+          <Text style={SignInStyles.actionText}>Sign in!</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

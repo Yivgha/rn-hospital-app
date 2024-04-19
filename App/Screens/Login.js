@@ -28,8 +28,7 @@ export function Login() {
         <TouchableOpacity
           style={styles.buttonBox}
           onPress={() => {
-            // navigation.navigate("SignInScreen");
-            console.log("pressed sign in");
+            navigation.navigate("SignInScreen");
           }}
         >
           <Text style={styles.buttonText}>Sign in with Email</Text>
