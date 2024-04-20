@@ -4,9 +4,11 @@ import { Profile } from "../Screens/Profile";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { HomeNavigation } from "./HomeNavigation";
 import { Explores } from "../Screens/Explores";
+import { useAuth } from "@clerk/clerk-expo";
 
 export function TabNavigation() {
   const Tab = createBottomTabNavigator();
+  const { isSignedIn } = useAuth();
   return (
     <Tab.Navigator
       screenOptions={{ headerShown: false }}
@@ -25,6 +27,7 @@ export function TabNavigation() {
             fontSize: 14,
           },
         }}
+        redirect={!isSignedIn}
       />
       <Tab.Screen
         name="Explores"
@@ -39,6 +42,7 @@ export function TabNavigation() {
             fontSize: 14,
           },
         }}
+        redirect={!isSignedIn}
       />
       <Tab.Screen
         name="Appointment"
@@ -57,6 +61,7 @@ export function TabNavigation() {
             fontSize: 14,
           },
         }}
+        redirect={!isSignedIn}
       />
       <Tab.Screen
         name="Profile"

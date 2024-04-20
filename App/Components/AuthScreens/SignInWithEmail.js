@@ -20,8 +20,7 @@ export function SignInWithEmail() {
         identifier: emailAddress,
         password,
       });
-      // This is an important step,
-      // This indicates the user is signed in
+
       await setActive({ session: completeSignIn.createdSessionId });
     } catch (err) {
       console.log(err);

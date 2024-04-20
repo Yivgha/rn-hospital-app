@@ -2,7 +2,6 @@ import { StyleSheet, SafeAreaView, StatusBar } from "react-native";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import { NavigationContainer } from "@react-navigation/native";
 import { TabNavigation } from "./App/Navigations/TabNavigation";
-import Login from "./App/Screens/Login";
 import { useFonts } from "expo-font";
 import * as SecureStore from "expo-secure-store";
 import { SignInNavigation } from "./App/Navigations/SignInNavigation";

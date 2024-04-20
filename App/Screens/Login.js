@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   View,
   Image,
@@ -11,9 +12,17 @@ import SplashLogo from "../../assets/images/splash.png";
 import Colors from "../../assets/Shared/Colors";
 import { SignInWithOAuth } from "../Components/AuthScreens/SignInWithOAuth";
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "@clerk/clerk-expo";
 
 export function Login() {
   const navigation = useNavigation();
+  const { isLoaded, isSignedIn } = useAuth();
+
+  useEffect(() => {
+    if (!isLoaded) {
+      return;
+    }
+  }, [isSignedIn]);
 
   return (
     <SafeAreaView style={styles.screenBox}>

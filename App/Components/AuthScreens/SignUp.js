@@ -56,70 +56,73 @@ export function SignUp() {
   };
 
   return (
-    <View style={SignInStyles.signInForm}>
+    <>
       {!pendingVerification && (
-        <View style={{ gap: 10 }}>
-          <View>
-            <TextInput
-              style={SignInStyles.inputForm}
-              placeholderTextColor={Colors.gray}
-              autoCapitalize="none"
-              value={firstName}
-              placeholder="First Name..."
-              onChangeText={(firstName) => setFirstName(firstName)}
-            />
-          </View>
-          <View>
-            <TextInput
-              style={SignInStyles.inputForm}
-              placeholderTextColor={Colors.gray}
-              autoCapitalize="none"
-              value={lastName}
-              placeholder="Last Name..."
-              onChangeText={(lastName) => setLastName(lastName)}
-            />
-          </View>
-          <View>
-            <TextInput
-              style={SignInStyles.inputForm}
-              placeholderTextColor={Colors.gray}
-              autoCapitalize="none"
-              value={emailAddress}
-              placeholder="Email..."
-              onChangeText={(email) => setEmailAddress(email)}
-            />
-          </View>
+        <View style={SignInStyles.signInForm}>
+          <View style={{ gap: 10 }}>
+            <View>
+              <TextInput
+                style={SignInStyles.inputForm}
+                placeholderTextColor={Colors.gray}
+                autoCapitalize="none"
+                value={firstName}
+                placeholder="First Name..."
+                onChangeText={(firstName) => setFirstName(firstName)}
+              />
+            </View>
+            <View>
+              <TextInput
+                style={SignInStyles.inputForm}
+                placeholderTextColor={Colors.gray}
+                autoCapitalize="none"
+                value={lastName}
+                placeholder="Last Name..."
+                onChangeText={(lastName) => setLastName(lastName)}
+              />
+            </View>
+            <View>
+              <TextInput
+                style={SignInStyles.inputForm}
+                placeholderTextColor={Colors.gray}
+                autoCapitalize="none"
+                value={emailAddress}
+                placeholder="Email..."
+                onChangeText={(email) => setEmailAddress(email)}
+              />
+            </View>
 
-          <View>
-            <TextInput
-              style={SignInStyles.inputForm}
-              placeholderTextColor={Colors.gray}
-              value={password}
-              placeholder="Password..."
-              secureTextEntry={true}
-              onChangeText={(password) => setPassword(password)}
-            />
-          </View>
+            <View>
+              <TextInput
+                style={SignInStyles.inputForm}
+                placeholderTextColor={Colors.gray}
+                value={password}
+                placeholder="Password..."
+                secureTextEntry={true}
+                onChangeText={(password) => setPassword(password)}
+              />
+            </View>
 
-          <TouchableOpacity
-            // onPress={onSignUpPress}
-            onPress={() => {
-              console.log(
-                "sign up press",
-                firstName,
-                lastName,
-                emailAddress,
-                password
-              );
-            }}
-            style={SignInStyles.buttonBox}
-          >
-            <Text style={SignInStyles.buttonText}>Sign up</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              // onPress={onSignUpPress}
+              onPress={() => {
+                console.log(
+                  "sign up press",
+                  firstName,
+                  lastName,
+                  emailAddress,
+                  password
+                );
+                onSignUpPress();
+              }}
+              style={SignInStyles.buttonBox}
+            >
+              <Text style={SignInStyles.buttonText}>Sign up</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
       {pendingVerification && (
-        <View>
+        <View style={SignInStyles.signInForm}>
           <View>
             <TextInput
               style={SignInStyles.inputForm}
@@ -137,6 +140,6 @@ export function SignUp() {
           </TouchableOpacity>
         </View>
       )}
-    </View>
+    </>
   );
 }
