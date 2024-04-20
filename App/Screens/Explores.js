@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
-  ScrollView,
   ActivityIndicator,
   SafeAreaView,
 } from "react-native";

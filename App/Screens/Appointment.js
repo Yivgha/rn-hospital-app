@@ -20,9 +20,9 @@ export function Appointment() {
 
   const getUserAppointments = () => {
     const userEmail = user.primaryEmailAddress.emailAddress;
-    GlobalApi.getUserAppointments(userEmail).then((res) =>
-      setSelectedAppointments(res.data.data)
-    );
+    GlobalApi.getUserAppointments(userEmail)
+      .then((res) => setSelectedAppointments(res.data.data))
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {

@@ -18,64 +18,56 @@ export function DoctorCardItem({
   setSelectedDoctors,
   setAllDoctors,
   categoryName,
+  favDoctorsList,
+  favItemId,
 }) {
   const navigation = useNavigation();
   const { user } = useUser();
 
   const [pressedHeart, setPressedHeart] = useState(false);
+  const [favouritesDocs, setFavouritesDocs] = useState(favDoctorsList ?? []);
 
-  const isDoctorFav = doctorInfo?.attributes.isFavourite;
   const { Name, categories, Years_Of_Experience } = doctorInfo.attributes;
 
-  useEffect(() => {
-    if (doctorInfo?.attributes.isFavourite === true) {
-      setPressedHeart(true);
-    } else if (doctorInfo?.attributes.isFavourite === false) {
-      setPressedHeart(false);
-    }
-  }, [doctorInfo]);
+  const filterDoctor = favouritesDocs?.find((el) => el.id === doctorInfo.id);
+  const filteredID = filterDoctor?.id;
 
-  const toggleFavourite = (id) => {
+  // useEffect(() => {
+  //   if (filteredID === doctorInfo.id) {
+  //     setPressedHeart(true);
+  //     console.log("changed heart to true");
+  //   } else {
+  //     setPressedHeart(false);
+  //     console.log("changed heart to false");
+  //   }
+  // }, []);
+
+  const toggleFavourite = (doctorId) => {
     if (user) {
-      let data;
-      let heartChangeTo;
+      const data = {
+        data: {
+          UserName: user.fullName,
+          UserEmail: user.primaryEmailAddress.emailAddress,
+          doctors: doctorId,
+        },
+      };
 
-      switch (isDoctorFav) {
-        case null:
-          data = {
-            data: {
-              isFavourite: true,
-            },
-          };
-          heartChangeTo = true;
-          break;
-        case false:
-          data = {
-            data: {
-              isFavourite: true,
-            },
-          };
-          heartChangeTo = true;
-          break;
-
-        case true:
-          data = {
-            data: {
-              isFavourite: false,
-            },
-          };
-          heartChangeTo = false;
-          break;
-
-        default:
-          break;
+      if (doctorId === filteredID) {
+        console.log("should delete");
+        GlobalApi.deleteFavouriteDoctorByUserEmail(favItemId)
+          .then((res) => {
+            console.log("del favitem", favItemId);
+            setPressedHeart(pressedHeart === false);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        GlobalApi.createFavouriteDoctorByUserEmail(data)
+          .then((res) => {
+            console.log("created new");
+            setPressedHeart(pressedHeart === true);
+          })
+          .catch((err) => console.log(err));
       }
-
-      GlobalApi.toggleFavouriteDoctor(id, data)
-        .then((res) => {
-          setPressedHeart(heartChangeTo);
-        })
-        .catch((err) => console.log(err));
 
       if (!!setAllDoctors) {
         GlobalApi.getAllDoctors()
@@ -88,6 +80,12 @@ export function DoctorCardItem({
         );
       }
     }
+  };
+
+  const fetchFavDocsList = () => {
+    GlobalApi.getUserFavouriteDoctors()
+      .then((res) => setFavouritesDocs(res.data.data))
+      .catch((err) => console.log(err.message));
   };
 
   return (
@@ -110,13 +108,7 @@ export function DoctorCardItem({
             </Text>
             <FlatList
               data={categories.data}
-              extraData={[
-                categories.data,
-                isDoctorFav,
-                doctorInfo,
-                setAllDoctors,
-                setSelectedDoctors,
-              ]}
+              extraData={[categories.data, doctorInfo, favouritesDocs]}
               refreshing={false}
               onRefresh={() => {
                 if (!!setAllDoctors) {
@@ -144,13 +136,14 @@ export function DoctorCardItem({
 
           <TouchableOpacity
             onPress={() => {
+              console.log("pressed heart by doctor id", doctorInfo.id);
               toggleFavourite(doctorInfo.id);
             }}
           >
-            {isDoctorFav === false ? (
-              <AntDesign name="hearto" size={24} color={Colors.celestial} />
-            ) : (
+            {filteredID === doctorInfo.id ? (
               <AntDesign name="heart" size={24} color={Colors.celestial} />
+            ) : (
+              <AntDesign name="hearto" size={24} color={Colors.celestial} />
             )}
           </TouchableOpacity>
         </View>

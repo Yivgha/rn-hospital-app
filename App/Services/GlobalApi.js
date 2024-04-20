@@ -69,13 +69,17 @@ const deleteAppointment = (id) => {
   return AxiosInstance.delete(`/appointments/${id}`);
 };
 
-const toggleFavouriteDoctor = (id, data) => {
-  return AxiosInstance.put(`/doctors/${id}`, data);
+const createFavouriteDoctorByUserEmail = (data) => {
+  return AxiosInstance.post(`/favourites`, data);
 };
 
-const getAllFavouritesDoctors = () => {
+const deleteFavouriteDoctorByUserEmail = (favItemId) => {
+  return AxiosInstance.delete(`/favourites/${favItemId}`);
+};
+
+const getUserFavouriteDoctors = (email) => {
   return AxiosInstance.get(
-    `/doctors?filters[isFavourite][$eq]=true&populate=*`
+    `/favourites?filters[UserEmail][$eq]=${email}&populate[doctors][populate]=*&populate=*`
   );
 };
 
@@ -92,6 +96,7 @@ export default {
   getDoctorsBySearchName,
   getHospitalsBySearchName,
   deleteAppointment,
-  toggleFavouriteDoctor,
-  getAllFavouritesDoctors,
+  createFavouriteDoctorByUserEmail,
+  getUserFavouriteDoctors,
+  deleteFavouriteDoctorByUserEmail,
 };
