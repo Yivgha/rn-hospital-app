@@ -1,6 +1,12 @@
 import React from "react";
 import * as WebBrowser from "expo-web-browser";
-import { TouchableOpacity, Text, StyleSheet, Dimensions } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Alert,
+} from "react-native";
 import { useOAuth } from "@clerk/clerk-expo";
 import { useWarmUpBrowser } from "../../../hooks/useWarmUpBrowser";
 import Colors from "../../../assets/Shared/Colors";
@@ -25,7 +31,13 @@ export const SignInWithOAuth = () => {
         // Use signIn or signUp for next steps such as MFA
       }
     } catch (err) {
-      console.error("OAuth error", err);
+      Alert.alert(
+        "OAuth Error",
+        <Text>
+          An error occurred during the OAuth process: {err.message || err}
+        </Text>
+      );
+      console.error("OAuth error", err.message);
     }
   }, []);
 

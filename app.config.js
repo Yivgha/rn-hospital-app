@@ -1,6 +1,11 @@
 module.exports = {
   name: "hospital-app",
+  slug: "hospital-app",
+  description:
+    "Nice and small app to see doctors and hospitals in Lviv oblast and make appointment with them",
   version: "1.0.0",
+  platforms: ["android"],
+  icon: "/assets/cat-icon.png",
   extra: {
     clerkPublishableKey: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY,
   },

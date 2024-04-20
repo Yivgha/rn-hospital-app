@@ -14,7 +14,6 @@ export function SignUp() {
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
 
-  // start the sign up process.
   const onSignUpPress = async () => {
     if (!isLoaded) {
       return;
@@ -103,15 +102,7 @@ export function SignUp() {
             </View>
 
             <TouchableOpacity
-              // onPress={onSignUpPress}
               onPress={() => {
-                console.log(
-                  "sign up press",
-                  firstName,
-                  lastName,
-                  emailAddress,
-                  password
-                );
                 onSignUpPress();
               }}
               style={SignInStyles.buttonBox}
