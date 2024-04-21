@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { useRoute } from "@react-navigation/native";
 import { PageHeader } from "../Components/PageHeader";
@@ -17,6 +17,8 @@ export function HospitalDoctorsListScreen() {
   const [selectedDoctors, setSelectedDoctors] = useState([]);
 
   const [activeTab, setActiveTab] = useState("Doctors");
+
+  // const [pressedHeart, setPressedHeart] = useState(false);
 
   useEffect(() => {
     getSelectedHospitals();
@@ -40,17 +42,27 @@ export function HospitalDoctorsListScreen() {
       <PageHeader title={categoryName} categoryIcon={categoryIcon} />
       <HospitalDoctorTab activeTab={(value) => setActiveTab(value)} />
 
-      {!selectedDoctors?.length ? (
-        <NothingFound buttonBack={false} style={{ paddingTop: 100 }} />
-      ) : activeTab === "Doctors" ? (
-        <DoctorListByCategory
-          selectedDoctors={selectedDoctors}
-          setSelectedDoctors={setSelectedDoctors}
-          categoryName={categoryName}
-        />
-      ) : (
-        <HospitalsListByCategory selectedHospitals={selectedHospitals} />
-      )}
+      {activeTab === "Doctors" &&
+        ((!selectedDoctors.length && (
+          <NothingFound buttonBack={false} style={{ paddingTop: 100 }} />
+        )) ||
+          (selectedDoctors.length > 0 && (
+            <DoctorListByCategory
+              selectedDoctors={selectedDoctors}
+              setSelectedDoctors={setSelectedDoctors}
+              categoryName={categoryName}
+              // pressedHeart={pressedHeart}
+              // setPressedHeart={setPressedHeart}
+            />
+          )))}
+
+      {activeTab === "Hospitals" &&
+        ((selectedHospitals.length > 0 && (
+          <HospitalsListByCategory selectedHospitals={selectedHospitals} />
+        )) ||
+          (!selectedHospitals.length && (
+            <NothingFound buttonBack={false} style={{ paddingTop: 100 }} />
+          )))}
     </View>
   );
 }

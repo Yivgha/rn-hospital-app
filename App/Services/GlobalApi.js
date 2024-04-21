@@ -25,13 +25,13 @@ const getPremiumHospitals = () => {
 
 const getHospitalsByCategory = (category) => {
   return AxiosInstance.get(
-    `/hospitals?filters[categories][Name][$in]=${category}&populate=*`
+    `/hospitals?filters[categories][Name][$eq]=${category}&populate=*`
   );
 };
 
 const getDoctorsByCategory = (category) => {
   return AxiosInstance.get(
-    `/doctors?filters[categories][Name][$in]=${category}&populate=*`
+    `/doctors?filters[categories][Name][$eq]=${category}&populate=*`
   );
 };
 
@@ -83,6 +83,12 @@ const getUserFavouriteDoctors = (email) => {
   );
 };
 
+// const getUserFavs = (email) => {
+//   return AxiosInstance.get(
+//     `/doctors?filters[favourites][UserEmail][$eq]=${email}&populate=*`
+//   );
+// };
+
 export default {
   getSlider,
   getCategories,
@@ -99,4 +105,5 @@ export default {
   createFavouriteDoctorByUserEmail,
   getUserFavouriteDoctors,
   deleteFavouriteDoctorByUserEmail,
+  // getUserFavs,
 };
