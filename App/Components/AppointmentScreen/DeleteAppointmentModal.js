@@ -17,7 +17,6 @@ export function DeleteAppointmentModal({
   modalVisible,
   appointmentID,
   getUserAppointments,
-  getNotificationsByUserEmail,
 }) {
   const { user } = useUser();
   const userEmail = user.primaryEmailAddress.emailAddress;
@@ -41,8 +40,6 @@ export function DeleteAppointmentModal({
       GlobalApi.createNotificationByUserEmail(data)
         .then((res) => console.log("created notification on apointment"))
         .catch((err) => console.log(err));
-
-      getNotificationsByUserEmail();
     }
   };
   return (

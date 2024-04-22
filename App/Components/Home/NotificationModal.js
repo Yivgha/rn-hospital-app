@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,30 +5,27 @@ import {
   Dimensions,
   Modal,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import Colors from "../../../assets/Shared/Colors";
 import moment from "moment";
 import GlobalApi from "../../Services/GlobalApi";
-import { useUser } from "@clerk/clerk-expo";
-import { useNavigation } from "@react-navigation/native";
 
 export function NotificationModal({
   toggleNotificationModal,
   isModalOpen,
   userNotifications,
 }) {
-  const { user } = useUser();
-  const navigation = useNavigation();
-
-  const formattedDate = (inputDate) => moment(inputDate).format("HH:mm DD MMM");
+  const formattedDate = (inputDate) =>
+    moment(inputDate).local().format("HH:mm DD MMM");
 
   const deleteNotification = (id) => {
     GlobalApi.deleteNotificationByUserEmail(id)
       .then((res) => {
         console.log("deleted notification with id", id);
+
         toggleNotificationModal();
-        navigation.navigate("Home");
       })
       .catch((err) => console.log(err));
   };
@@ -42,7 +38,6 @@ export function NotificationModal({
       visible={isModalOpen}
       onRequestClose={() => {
         toggleNotificationModal();
-        console.log("close modal");
       }}
     >
       <View style={styles.centeredView}>
@@ -58,43 +53,26 @@ export function NotificationModal({
               ? "You don't have notifications yet"
               : "Your last notifications"}
           </Text>
-          {userNotifications.map((el, index) => (
-            <View
-              key={index}
-              style={{
-                flexDirection: "row",
-                padding: 10,
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "column",
-                  padding: 3,
-                  gap: 3,
-                  flex: 1,
-                }}
-              >
-                <Text style={styles.textStyle}>
-                  {formattedDate(el.attributes.createdAt)}
-                </Text>
-                <Text style={styles.textStyle}>
-                  {el.attributes.NotificationText}
-                </Text>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ maxHeight: 400 }}
+          >
+            {userNotifications.map((el, index) => (
+              <View key={index} style={styles.notificationBox}>
+                <View style={styles.notificationText}>
+                  <Text style={styles.textStyle}>
+                    {formattedDate(el.attributes.createdAt)}
+                  </Text>
+                  <Text style={styles.textStyle}>
+                    {el.attributes.NotificationText}
+                  </Text>
+                </View>
+                <TouchableOpacity onPress={() => deleteNotification(el.id)}>
+                  <AntDesign name="delete" size={24} color={Colors.gray} />
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                onPress={() => {
-                  console.log("pressed delete");
-                  if (user) {
-                    deleteNotification(el.id);
-                  }
-                }}
-              >
-                <AntDesign name="delete" size={24} color={Colors.gray} />
-              </TouchableOpacity>
-            </View>
-          ))}
+            ))}
+          </ScrollView>
         </View>
       </View>
     </Modal>
@@ -150,5 +128,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.error,
     borderRadius: 20,
     padding: 15,
+  },
+  notificationBox: {
+    flexDirection: "row",
+    padding: 10,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  notificationText: {
+    flexDirection: "column",
+    padding: 3,
+    gap: 3,
+    flex: 1,
   },
 });

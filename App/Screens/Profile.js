@@ -13,6 +13,7 @@ import GlobalApi from "../Services/GlobalApi";
 import { useUser } from "@clerk/clerk-expo";
 import { Feather } from "@expo/vector-icons";
 import { DoctorCardItem } from "../Components/DoctorCardItem";
+import { NotificationModal } from "../Components/Home/NotificationModal";
 
 export function Profile() {
   const { user } = useUser();
@@ -20,6 +21,9 @@ export function Profile() {
 
   const [favDoctors, setFavDoctors] = useState([]);
   const [favItems, setFavItems] = useState([]);
+
+  const [userNotifications, setUserNotifications] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getFavDoctors = () => {
     GlobalApi.getDoctorFavsByEmail(userEmail)
@@ -40,9 +44,45 @@ export function Profile() {
     getFavItems();
   }, []);
 
+  const toggleNotificationModal = () => {
+    setIsModalOpen(!isModalOpen);
+    markNotificationsAsRead();
+  };
+
+  const getNotifications = () => {
+    GlobalApi.getNotificationsByUserEmail(userEmail)
+      .then((res) => {
+        const notificationsWithReadProperty = res.data.data.map(
+          (notification) => ({
+            ...notification,
+            read: false,
+          })
+        );
+        setUserNotifications(notificationsWithReadProperty);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
+
+  const markNotificationsAsRead = () => {
+    // Update the 'read' property of each notification object to true
+    const updatedNotifications = userNotifications.map((notification) => ({
+      ...notification,
+      read: true,
+    }));
+    setUserNotifications(updatedNotifications);
+  };
+
   return (
     <SafeAreaView style={styles.homeBox}>
-      <Header style={{ paddingHorizontal: 10 }} />
+      <Header
+        style={{ paddingHorizontal: 10 }}
+        toggleNotificationModal={toggleNotificationModal}
+        userNotifications={userNotifications}
+      />
 
       <View style={styles.textBox}>
         {!favDoctors?.length ? (
@@ -61,9 +101,12 @@ export function Profile() {
         <View style={styles.favDocBox}>
           <FlatList
             data={favDoctors}
-            extraData={[favDoctors, favItems]}
+            extraData={[favDoctors, favItems, userNotifications]}
             refreshing={false}
-            onRefresh={getFavDoctors}
+            onRefresh={() => {
+              getNotifications();
+              getFavDoctors();
+            }}
             horizontal={false}
             scrollEnabled={true}
             maxToRenderPerBatch={5}
@@ -74,6 +117,15 @@ export function Profile() {
             )}
           />
         </View>
+      )}
+      {isModalOpen && (
+        <NotificationModal
+          toggleNotificationModal={toggleNotificationModal}
+          isModalOpen={isModalOpen}
+          userNotifications={userNotifications}
+          markNotificationsAsRead={markNotificationsAsRead}
+          getNotifications={getNotifications}
+        />
       )}
     </SafeAreaView>
   );

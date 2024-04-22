@@ -16,22 +16,24 @@ const getSlider = () => {
 };
 
 const getCategories = () => {
-  return AxiosInstance.get("/categories?populate=*");
+  return AxiosInstance.get("/categories?sort=Name:asc&populate=*");
 };
 
 const getPremiumHospitals = () => {
-  return AxiosInstance.get("/hospitals?filters[Premium][$eq]=true&populate=*");
+  return AxiosInstance.get(
+    "/hospitals?filters[Premium][$eq]=true&sort=Name:asc&populate=*"
+  );
 };
 
 const getHospitalsByCategory = (category) => {
   return AxiosInstance.get(
-    `/hospitals?filters[categories][Name][$eq]=${category}&populate=*`
+    `/hospitals?filters[categories][Name][$eq]=${category}&sort=Name:asc&populate=*`
   );
 };
 
 const getDoctorsByCategory = (category) => {
   return AxiosInstance.get(
-    `/doctors?filters[categories][Name][$eq]=${category}&populate=*`
+    `/doctors?filters[categories][Name][$eq]=${category}&sort=Name:asc&populate=*`
   );
 };
 
@@ -40,11 +42,11 @@ const createAppointment = (data) => {
 };
 
 const getAllHospitals = () => {
-  return AxiosInstance.get("/hospitals?populate=*");
+  return AxiosInstance.get("/hospitals?sort=Name:asc&populate=*");
 };
 
 const getAllDoctors = () => {
-  return AxiosInstance.get("/doctors?populate=*");
+  return AxiosInstance.get("/doctors?sort=Name:asc&populate=*");
 };
 
 const getUserAppointments = (email) => {
@@ -55,13 +57,13 @@ const getUserAppointments = (email) => {
 
 const getDoctorsBySearchName = (searchName) => {
   return AxiosInstance.get(
-    `/doctors?filters[Name][$contains]=${searchName}&populate=*`
+    `/doctors?filters[Name][$contains]=${searchName}&sort=Name:asc&populate=*`
   );
 };
 
 const getHospitalsBySearchName = (searchName) => {
   return AxiosInstance.get(
-    `hospitals?filters[Name][$contains]=${searchName}&populate=*`
+    `hospitals?filters[Name][$contains]=${searchName}&sort=Name:asc&populate=*`
   );
 };
 
@@ -85,7 +87,7 @@ const getUserFavouriteDoctors = (email) => {
 
 const getDoctorFavsByEmail = (email) => {
   return AxiosInstance.get(
-    `/doctors?filters[favourites][UserEmail][$eq]=${email}&populate=*`
+    `/doctors?filters[favourites][UserEmail][$eq]=${email}&sort=Name:asc&populate=*`
   );
 };
 
@@ -99,7 +101,7 @@ const deleteNotificationByUserEmail = (notId) => {
 
 const getNotificationsByUserEmail = (email) => {
   return AxiosInstance.get(
-    `/notifications?filters[UserEmail][$eq]=${email}&populate=*`
+    `/notifications?filters[UserEmail][$eq]=${email}&sort=createdAt:desc&populate=*`
   );
 };
 
