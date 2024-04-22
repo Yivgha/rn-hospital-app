@@ -20,6 +20,7 @@ const MAX_LENGTH = 320;
 
 export function BookingSection({ hospital, doctor }) {
   const { user } = useUser();
+  const userEmail = user.primaryEmailAddress.emailAddress;
   const navigation = useNavigation();
 
   const [next7Days, setNext7Days] = useState([]);
@@ -84,7 +85,6 @@ export function BookingSection({ hospital, doctor }) {
   };
 
   const bookAppointment = () => {
-    const userEmail = user.primaryEmailAddress.emailAddress;
     let data = {};
     if (hospital) {
       data = {
@@ -160,6 +160,8 @@ export function BookingSection({ hospital, doctor }) {
       .then((res) => console.log("created notification"))
       .catch((err) => console.log(err));
 
+    fetchNotifications();
+
     setTimeout(() => {
       GlobalApi.getUserAppointments(userEmail)
         .then((res) =>
@@ -169,6 +171,12 @@ export function BookingSection({ hospital, doctor }) {
         )
         .catch((err) => console.log(err));
     }, 1500);
+  };
+
+  const fetchNotifications = () => {
+    GlobalApi.getNotificationsByUserEmail(userEmail).catch((err) =>
+      console.log(err)
+    );
   };
 
   return (

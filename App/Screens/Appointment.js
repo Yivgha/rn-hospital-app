@@ -10,6 +10,7 @@ import { useRoute } from "@react-navigation/native";
 
 export function Appointment() {
   const { user } = useUser();
+  const userEmail = user?.primaryEmailAddress.emailAddress;
   const param = useRoute().params;
 
   const [selectedAppointments, setSelectedAppointments] = useState(
@@ -17,16 +18,23 @@ export function Appointment() {
   );
   const [modalVisible, setModalVisible] = useState(false);
   const [appointmentID, setAppointmentId] = useState();
+  const [notifications, setNotifications] = useState([]);
 
   const getUserAppointments = () => {
-    const userEmail = user?.primaryEmailAddress.emailAddress;
     GlobalApi.getUserAppointments(userEmail)
       .then((res) => setSelectedAppointments(res.data.data))
       .catch((err) => console.log(err));
   };
 
+  const getUserNotifications = () => {
+    GlobalApi.getNotificationsByUserEmail(userEmail)
+      .then((res) => setNotifications(res.data.data))
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getUserAppointments();
+    getUserNotifications();
   }, []);
 
   const toggleModal = () => {
@@ -65,6 +73,7 @@ export function Appointment() {
           toggleModal={toggleModal}
           modalVisible={modalVisible}
           getUserAppointments={getUserAppointments}
+          getUserNotifications={getUserNotifications}
         />
       </View>
     </SafeAreaView>
