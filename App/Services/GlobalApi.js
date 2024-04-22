@@ -79,15 +79,15 @@ const deleteFavouriteDoctorByUserEmail = (favItemId) => {
 
 const getUserFavouriteDoctors = (email) => {
   return AxiosInstance.get(
-    `/favourites?filters[UserEmail][$eq]=${email}&populate[doctors][populate]=*&populate=*`
+    `/favourites?filters[UserEmail][$eq]=${email}&populate=*`
   );
 };
 
-// const getUserFavs = (email) => {
-//   return AxiosInstance.get(
-//     `/doctors?filters[favourites][UserEmail][$eq]=${email}&populate=*`
-//   );
-// };
+const getDoctorFavsByEmail = (email) => {
+  return AxiosInstance.get(
+    `/doctors?filters[favourites][UserEmail][$eq]=${email}&populate=*`
+  );
+};
 
 export default {
   getSlider,
@@ -105,5 +105,5 @@ export default {
   createFavouriteDoctorByUserEmail,
   getUserFavouriteDoctors,
   deleteFavouriteDoctorByUserEmail,
-  // getUserFavs,
+  getDoctorFavsByEmail,
 };

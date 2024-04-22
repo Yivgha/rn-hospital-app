@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { useNavigation } from "@react-navigation/native";
@@ -13,79 +14,80 @@ import { AntDesign } from "@expo/vector-icons";
 import GlobalApi from "../Services/GlobalApi";
 import { useUser } from "@clerk/clerk-expo";
 
-export function DoctorCardItem({
-  doctorInfo,
-  setSelectedDoctors,
-  setAllDoctors,
-  categoryName,
-  favDoctorsList,
-  favItemId,
-}) {
+export function DoctorCardItem({ doctorInfo }) {
   const navigation = useNavigation();
   const { user } = useUser();
 
-  const [pressedHeart, setPressedHeart] = useState(false);
-  const [favouritesDocs, setFavouritesDocs] = useState(favDoctorsList ?? []);
+  const [favs, setFavsList] = useState([]);
+  const [isDoctorInFavorites, setIsDoctorInFavorites] = useState(false);
 
   const { Name, categories, Years_Of_Experience } = doctorInfo.attributes;
 
-  const filterDoctor = favouritesDocs?.find((el) => el.id === doctorInfo.id);
-  const filteredID = filterDoctor?.id;
+  useEffect(() => {
+    getUserFavDoctors();
+  }, []);
 
-  // useEffect(() => {
-  //   if (filteredID === doctorInfo.id) {
-  //     setPressedHeart(true);
-  //     console.log("changed heart to true");
-  //   } else {
-  //     setPressedHeart(false);
-  //     console.log("changed heart to false");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (user && favs) {
+      const isAlreadyInFavorites = favs.some((favorite) =>
+        favorite.attributes.doctors.data.some(
+          (doctor) => doctor.id === doctorInfo.id
+        )
+      );
+      setIsDoctorInFavorites(isAlreadyInFavorites);
+    }
+  }, [favs]);
 
-  const toggleFavourite = (doctorId) => {
+  const toggleFavDoctor = (doctorId) => {
     if (user) {
-      const data = {
-        data: {
-          UserName: user.fullName,
-          UserEmail: user.primaryEmailAddress.emailAddress,
-          doctors: doctorId,
-        },
-      };
+      if (isDoctorInFavorites) {
+        const favDoctorId = favs.find((favorite) =>
+          favorite.attributes.doctors.data.find(
+            (doctor) => doctor.id === doctorId
+          )
+        ).id;
+        deleteFavouriteDoctorByEmail(favDoctorId);
 
-      if (doctorId === filteredID) {
-        console.log("should delete");
-        GlobalApi.deleteFavouriteDoctorByUserEmail(favItemId)
-          .then((res) => {
-            console.log("del favitem", favItemId);
-            setPressedHeart(pressedHeart === false);
-          })
-          .catch((err) => console.log(err));
+        console.log("deleted favitem", favDoctorId);
+        getUserFavDoctors();
+      } else if (!isDoctorInFavorites) {
+        const data = {
+          data: {
+            UserName: user.fullName,
+            UserEmail: user.primaryEmailAddress.emailAddress,
+            doctors: doctorId,
+          },
+        };
+        createFavouriteDoctorByEmail(data);
+
+        console.log("create fav doc with data", data);
+        getUserFavDoctors();
       } else {
-        GlobalApi.createFavouriteDoctorByUserEmail(data)
-          .then((res) => {
-            console.log("created new");
-            setPressedHeart(pressedHeart === true);
-          })
-          .catch((err) => console.log(err));
-      }
-
-      if (!!setAllDoctors) {
-        GlobalApi.getAllDoctors()
-          .then((res) => setAllDoctors(res.data.data))
-          .catch((err) => console.log(err));
-      }
-      if (!!setSelectedDoctors) {
-        GlobalApi.getDoctorsByCategory(categoryName).then((res) =>
-          setSelectedDoctors(res.data.data)
-        );
+        Alert.alert("Some error occured, reload page");
       }
     }
   };
 
-  const fetchFavDocsList = () => {
-    GlobalApi.getUserFavouriteDoctors()
-      .then((res) => setFavouritesDocs(res.data.data))
-      .catch((err) => console.log(err.message));
+  const getUserFavDoctors = () => {
+    GlobalApi.getUserFavouriteDoctors(user.primaryEmailAddress.emailAddress)
+      .then((res) => setFavsList(res.data.data))
+      .catch((err) => console.log(err));
+  };
+
+  const createFavouriteDoctorByEmail = (data) => {
+    GlobalApi.createFavouriteDoctorByUserEmail(data)
+      .then((res) => {
+        console.log("created new favitem", res.data.data.id);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const deleteFavouriteDoctorByEmail = (favItemId) => {
+    GlobalApi.deleteFavouriteDoctorByUserEmail(favItemId)
+      .then((res) => {
+        console.log("del favitem", favItemId);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -108,20 +110,7 @@ export function DoctorCardItem({
             </Text>
             <FlatList
               data={categories.data}
-              extraData={[categories.data, doctorInfo, favouritesDocs]}
               refreshing={false}
-              onRefresh={() => {
-                if (!!setAllDoctors) {
-                  GlobalApi.getAllDoctors()
-                    .then((res) => setAllDoctors(res.data.data))
-                    .catch((err) => console.log(err));
-                }
-                if (!!setSelectedDoctors) {
-                  GlobalApi.getDoctorsByCategory(categoryName).then((res) =>
-                    setSelectedDoctors(res.data.data)
-                  );
-                }
-              }}
               horizontal={false}
               scrollEnabled={false}
               numColumns={3}
@@ -137,10 +126,11 @@ export function DoctorCardItem({
           <TouchableOpacity
             onPress={() => {
               console.log("pressed heart by doctor id", doctorInfo.id);
-              toggleFavourite(doctorInfo.id);
+
+              toggleFavDoctor(doctorInfo.id);
             }}
           >
-            {filteredID === doctorInfo.id ? (
+            {isDoctorInFavorites === true ? (
               <AntDesign name="heart" size={24} color={Colors.celestial} />
             ) : (
               <AntDesign name="hearto" size={24} color={Colors.celestial} />

@@ -11,15 +11,25 @@ import { HospitalDoctorTab } from "../Components/HospitalDoctorsScreen/HospitalD
 import { DoctorListExplore } from "../Components/HospitalDoctorsScreen/DoctorsListExplore";
 import { HospitalsListByCategory } from "../Components/HospitalDoctorsScreen/HospitalsListByCategory";
 import GlobalApi from "../Services/GlobalApi";
+import { useUser } from "@clerk/clerk-expo";
 
 export function Explores() {
+  const { user } = useUser();
+  const userEmail = user.primaryEmailAddress.emailAddress;
   const [selectedHospitals, setSelectedHospitals] = useState([]);
   const [allDoctors, setAllDoctors] = useState([]);
+
+  const [favDocs, setFavDocs] = useState([]);
+  const [favItems, setFavItems] = useState([]);
+
+  // console.log("fav docs on explore", favDocs);
 
   const [activeTab, setActiveTab] = useState("Doctors");
   useEffect(() => {
     getAllHospitals();
     getAllDoctors();
+    fetchFavDocsList();
+    getFavItems();
   }, []);
 
   const getAllHospitals = () => {
@@ -28,8 +38,21 @@ export function Explores() {
     );
   };
 
+  const getFavItems = () => {
+    GlobalApi.getUserFavouriteDoctors(userEmail)
+      .then((res) => setFavItems(res.data.data))
+      .catch((err) => console.log(err));
+  };
+
   const getAllDoctors = () => {
     GlobalApi.getAllDoctors().then((res) => setAllDoctors(res.data.data));
+  };
+
+  const fetchFavDocsList = () => {
+    const userEmail = user.primaryEmailAddress.emailAddress;
+    GlobalApi.getDoctorFavsByEmail(userEmail)
+      .then((res) => setFavDocs(res.data.data))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -46,7 +69,9 @@ export function Explores() {
         ) : activeTab === "Doctors" ? (
           <DoctorListExplore
             allDoctors={allDoctors}
-            setAllDoctors={setAllDoctors}
+            favDocs={favDocs}
+            favItems={favItems}
+            getAllDoctors={getAllDoctors}
           />
         ) : (
           <HospitalsListByCategory selectedHospitals={selectedHospitals} />

@@ -11,29 +11,39 @@ import Colors from "../../assets/Shared/Colors";
 import { Header } from "../Components/Home/Header";
 import GlobalApi from "../Services/GlobalApi";
 import { useUser } from "@clerk/clerk-expo";
-import { FavouriteDoctorsList } from "../Components/ProfileScreen/FavouriteDoctorsList";
 import { Feather } from "@expo/vector-icons";
+import { DoctorCardItem } from "../Components/DoctorCardItem";
 
 export function Profile() {
-  const [favDoctors, setFavDoctors] = useState([]);
   const { user } = useUser();
+  const userEmail = user.primaryEmailAddress.emailAddress;
+
+  const [favDoctors, setFavDoctors] = useState([]);
+  const [favItems, setFavItems] = useState([]);
 
   const getFavDoctors = () => {
-    const userEmail = user.primaryEmailAddress.emailAddress;
-    GlobalApi.getUserFavouriteDoctors(userEmail)
+    GlobalApi.getDoctorFavsByEmail(userEmail)
       .then((res) => {
         setFavDoctors(res?.data?.data);
       })
       .catch((err) => console.log(err));
   };
 
+  const getFavItems = () => {
+    GlobalApi.getUserFavouriteDoctors(userEmail)
+      .then((res) => setFavItems(res.data.data))
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getFavDoctors();
+    getFavItems();
   }, []);
 
   return (
     <SafeAreaView style={styles.homeBox}>
       <Header style={{ paddingHorizontal: 10 }} />
+
       <View style={styles.textBox}>
         {!favDoctors?.length ? (
           <Text style={[styles.textColor, styles.additionalInfo]}>
@@ -51,7 +61,7 @@ export function Profile() {
         <View style={styles.favDocBox}>
           <FlatList
             data={favDoctors}
-            extraData={favDoctors}
+            extraData={[favDoctors, favItems]}
             refreshing={false}
             onRefresh={getFavDoctors}
             horizontal={false}
@@ -59,7 +69,9 @@ export function Profile() {
             maxToRenderPerBatch={5}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.flatListStyles}
-            renderItem={({ item }) => <FavouriteDoctorsList favList={item} />}
+            renderItem={({ item }) => (
+              <DoctorCardItem doctorInfo={item} favDoctorsList={favDoctors} />
+            )}
           />
         </View>
       )}

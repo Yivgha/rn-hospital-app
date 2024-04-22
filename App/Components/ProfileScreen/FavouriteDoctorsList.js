@@ -17,6 +17,7 @@ export function FavouriteDoctorsList({ favList }) {
           doctorInfo={item}
           favDoctorsList={gotDoctors}
           favItemId={favList.id}
+          favList={favList}
         />
       )}
     />

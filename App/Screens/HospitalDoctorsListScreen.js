@@ -8,21 +8,23 @@ import { HospitalsListByCategory } from "../Components/HospitalDoctorsScreen/Hos
 import { DoctorListByCategory } from "../Components/HospitalDoctorsScreen/DoctorListByCategory";
 import GlobalApi from "../Services/GlobalApi";
 import { NothingFound } from "../Components/NothingFound";
+import { useUser } from "@clerk/clerk-expo";
 
 export function HospitalDoctorsListScreen() {
+  const { user } = useUser();
   const param = useRoute();
   const { categoryName, categoryIcon } = param?.params;
 
   const [selectedHospitals, setSelectedHospitals] = useState([]);
   const [selectedDoctors, setSelectedDoctors] = useState([]);
+  const [favDocs, setFavDocs] = useState([]);
 
   const [activeTab, setActiveTab] = useState("Doctors");
-
-  // const [pressedHeart, setPressedHeart] = useState(false);
 
   useEffect(() => {
     getSelectedHospitals();
     getSelectedDoctors();
+    fetchFavDocsList();
   }, []);
 
   const getSelectedHospitals = () => {
@@ -37,6 +39,15 @@ export function HospitalDoctorsListScreen() {
     );
   };
 
+  const fetchFavDocsList = () => {
+    const userEmail = user.primaryEmailAddress.emailAddress;
+    GlobalApi.getDoctorFavsByEmail(userEmail)
+      .then((res) => setFavDocs(res.data.data))
+      .catch((err) => console.log(err));
+  };
+
+  // console.log("fav docs on common list", favDocs);
+
   return (
     <View style={styles.pageBox}>
       <PageHeader title={categoryName} categoryIcon={categoryIcon} />
@@ -50,9 +61,9 @@ export function HospitalDoctorsListScreen() {
             <DoctorListByCategory
               selectedDoctors={selectedDoctors}
               setSelectedDoctors={setSelectedDoctors}
+              favDocs={favDocs}
+              setFavDocs={setFavDocs}
               categoryName={categoryName}
-              // pressedHeart={pressedHeart}
-              // setPressedHeart={setPressedHeart}
             />
           )))}
 
