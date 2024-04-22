@@ -89,6 +89,20 @@ const getDoctorFavsByEmail = (email) => {
   );
 };
 
+const createNotificationByUserEmail = (data) => {
+  return AxiosInstance.post(`/notifications`, data);
+};
+
+const deleteNotificationByUserEmail = (notId) => {
+  return AxiosInstance.delete(`/notifications/${notId}`);
+};
+
+const getNotificationsByUserEmail = (email) => {
+  return AxiosInstance.get(
+    `/notifications?filters[UserEmail][$eq]=${email}&populate=*`
+  );
+};
+
 export default {
   getSlider,
   getCategories,
@@ -106,4 +120,7 @@ export default {
   getUserFavouriteDoctors,
   deleteFavouriteDoctorByUserEmail,
   getDoctorFavsByEmail,
+  createNotificationByUserEmail,
+  getNotificationsByUserEmail,
+  deleteNotificationByUserEmail,
 };

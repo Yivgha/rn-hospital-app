@@ -84,6 +84,7 @@ export function BookingSection({ hospital, doctor }) {
   };
 
   const bookAppointment = () => {
+    const userEmail = user.primaryEmailAddress.emailAddress;
     let data = {};
     if (hospital) {
       data = {
@@ -130,7 +131,35 @@ export function BookingSection({ hospital, doctor }) {
       })
       .catch((err) => console.log(err));
 
-    const userEmail = user.primaryEmailAddress.emailAddress;
+    const notificationDoctor = !!doctor && doctor.attributes.Name;
+    const notificationHospital = !!hospital && hospital.attributes.Name;
+
+    let notificationText;
+
+    if (!!doctor) {
+      notificationText = {
+        data: {
+          UserEmail: userEmail,
+          UserName: user.fullName,
+          NotificationText: `You created an appointment with doctor ${notificationDoctor}`,
+        },
+      };
+    }
+
+    if (!!hospital) {
+      notificationText = {
+        data: {
+          UserEmail: userEmail,
+          UserName: user.fullName,
+          NotificationText: `You created an appointment in ${notificationHospital}`,
+        },
+      };
+    }
+
+    GlobalApi.createNotificationByUserEmail(notificationText)
+      .then((res) => console.log("created notification"))
+      .catch((err) => console.log(err));
+
     setTimeout(() => {
       GlobalApi.getUserAppointments(userEmail)
         .then((res) =>

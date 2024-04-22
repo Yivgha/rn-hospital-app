@@ -1,10 +1,18 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { useUser } from "@clerk/clerk-expo";
 import { SignOutGoogle } from "../AuthScreens/SignOutGoogle";
 import Colors from "../../../assets/Shared/Colors";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export function Header({ style }) {
+export function Header({ style, toggleNotificationModal, userNotifications }) {
   const { isLoaded, isSignedIn, user } = useUser();
   if (!isLoaded || !isSignedIn) {
     return null;
@@ -19,7 +27,13 @@ export function Header({ style }) {
         />
         <Text style={styles.textColor}>{user.fullName}</Text>
       </View>
-      <MaterialIcons name="notifications-none" size={30} color={Colors.white} />
+      <TouchableOpacity onPress={toggleNotificationModal}>
+        <MaterialIcons
+          name="notifications-none"
+          size={30}
+          color={Colors.white}
+        />
+      </TouchableOpacity>
       <SignOutGoogle />
     </View>
   );

@@ -5,25 +5,45 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-  Alert,
   Dimensions,
 } from "react-native";
 import Colors from "../../../assets/Shared/Colors";
 import GlobalApi from "../../Services/GlobalApi";
 import { AntDesign } from "@expo/vector-icons";
+import { useUser } from "@clerk/clerk-expo";
 
 export function DeleteAppointmentModal({
   toggleModal,
   modalVisible,
   appointmentID,
   getUserAppointments,
+  getNotificationsByUserEmail,
 }) {
-  const handleDeleteAppointment = (itemId) => {
-    GlobalApi.deleteAppointment(itemId)
-      .then((res) => console.log("deleted", itemId))
-      .catch((err) => console.log(err));
+  const { user } = useUser();
+  const userEmail = user.primaryEmailAddress.emailAddress;
 
-    getUserAppointments();
+  const handleDeleteAppointment = (itemId) => {
+    if (user) {
+      GlobalApi.deleteAppointment(itemId)
+        .then((res) => console.log("deleted", itemId))
+        .catch((err) => console.log(err));
+
+      getUserAppointments();
+
+      const data = {
+        data: {
+          UserEmail: userEmail,
+          UserName: user.fullName,
+          NotificationText: `You deleted an appointment #${itemId}`,
+        },
+      };
+
+      GlobalApi.createNotificationByUserEmail(data)
+        .then((res) => console.log("created notification on apointment"))
+        .catch((err) => console.log(err));
+
+      getNotificationsByUserEmail();
+    }
   };
   return (
     <View onTouchEnd={toggleModal}>
@@ -33,7 +53,6 @@ export function DeleteAppointmentModal({
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           toggleModal();
         }}
       >
