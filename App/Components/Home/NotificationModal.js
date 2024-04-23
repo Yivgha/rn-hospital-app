@@ -18,16 +18,14 @@ export function NotificationModal({
   userNotifications,
 }) {
   const formattedDate = (inputDate) =>
-    moment(inputDate).local().format("HH:mm DD MMM");
+    moment(inputDate).local("uk-UA").format("HH:mm DD MMM");
 
-  const deleteNotification = (id) => {
-    GlobalApi.deleteNotificationByUserEmail(id)
-      .then((res) => {
-        console.log("deleted notification with id", id);
-
-        toggleNotificationModal();
-      })
-      .catch((err) => console.log(err));
+  const deleteAllNotifications = () => {
+    userNotifications.map((el) =>
+      GlobalApi.deleteNotificationByUserEmail(el.id)
+        .then((res) => console.log("deleted notification", el.id))
+        .catch((err) => console.log(err))
+    );
   };
 
   return (
@@ -38,12 +36,16 @@ export function NotificationModal({
       visible={isModalOpen}
       onRequestClose={() => {
         toggleNotificationModal();
+        deleteAllNotifications();
       }}
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <TouchableOpacity
-            onPress={toggleNotificationModal}
+            onPress={() => {
+              toggleNotificationModal();
+              deleteAllNotifications();
+            }}
             style={styles.cancelBtn}
           >
             <AntDesign name="close" size={20} color={Colors.gray} />
@@ -67,9 +69,6 @@ export function NotificationModal({
                     {el.attributes.NotificationText}
                   </Text>
                 </View>
-                <TouchableOpacity onPress={() => deleteNotification(el.id)}>
-                  <AntDesign name="delete" size={24} color={Colors.gray} />
-                </TouchableOpacity>
               </View>
             ))}
           </ScrollView>

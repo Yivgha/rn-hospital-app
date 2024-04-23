@@ -1,4 +1,10 @@
-import { View, StyleSheet, ScrollView, SafeAreaView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  RefreshControl,
+} from "react-native";
 import { useState, useCallback, useEffect } from "react";
 import Colors from "../../assets/Shared/Colors";
 import { Header } from "../Components/Home/Header";
@@ -9,7 +15,6 @@ import { PremiumHospitals } from "../Components/Home/PremiumHospitals";
 import { NotificationModal } from "../Components/Home/NotificationModal";
 import GlobalApi from "../Services/GlobalApi";
 import { useUser } from "@clerk/clerk-expo";
-import { useFocusEffect } from "@react-navigation/native";
 
 export function Home() {
   const { user } = useUser();
@@ -18,10 +23,18 @@ export function Home() {
   const [searchText, setSearchText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userNotifications, setUserNotifications] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    getNotifications();
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 100);
+  }, []);
 
   const toggleNotificationModal = () => {
     setIsModalOpen(!isModalOpen);
-    markNotificationsAsRead();
   };
 
   const getNotifications = () => {
@@ -33,6 +46,7 @@ export function Home() {
             read: false,
           })
         );
+
         setUserNotifications(notificationsWithReadProperty);
       })
       .catch((err) => console.log(err));
@@ -42,22 +56,19 @@ export function Home() {
     getNotifications();
   }, []);
 
-  const markNotificationsAsRead = () => {
-    // Update the 'read' property of each notification object to true
-    const updatedNotifications = userNotifications.map((notification) => ({
-      ...notification,
-      read: true,
-    }));
-    setUserNotifications(updatedNotifications);
-  };
-
   return (
     <SafeAreaView style={styles.homeBox}>
       <Header
         toggleNotificationModal={toggleNotificationModal}
         userNotifications={userNotifications}
       />
-      <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        horizontal={false}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View style={{ gap: 25 }}>
           <Search setSearchText={setSearchText} searchText={searchText} />
 
@@ -71,8 +82,6 @@ export function Home() {
             toggleNotificationModal={toggleNotificationModal}
             isModalOpen={isModalOpen}
             userNotifications={userNotifications}
-            markNotificationsAsRead={markNotificationsAsRead}
-            getNotifications={getNotifications}
           />
         )}
       </ScrollView>

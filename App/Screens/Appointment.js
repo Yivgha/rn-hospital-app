@@ -52,7 +52,10 @@ export function Appointment() {
           data={selectedAppointments}
           extraData={selectedAppointments}
           refreshing={false}
-          onRefresh={() => getUserAppointments()}
+          onRefresh={() => {
+            getUserAppointments();
+            getUserNotifications();
+          }}
           contentContainerStyle={{ gap: 15 }}
           renderItem={({ item, index }) => (
             <AppointmentItem

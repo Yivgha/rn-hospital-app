@@ -25,7 +25,7 @@ export function DeleteAppointmentModal({
   const handleDeleteAppointment = (itemId) => {
     if (user) {
       GlobalApi.deleteAppointment(itemId)
-        .then((res) => console.log("deleted", itemId))
+        .then((res) => console.log("deleted appointment", itemId))
         .catch((err) => console.log(err));
 
       getUserAppointments();
@@ -71,7 +71,7 @@ export function DeleteAppointmentModal({
                 toggleModal();
               }}
             >
-              <Text style={styles.textStyle}>Delete</Text>
+              <Text style={styles.textStyle}>Delete #{appointmentID}</Text>
             </Pressable>
           </View>
         </View>

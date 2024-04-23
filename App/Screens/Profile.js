@@ -39,16 +39,6 @@ export function Profile() {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    getFavDoctors();
-    getFavItems();
-  }, []);
-
-  const toggleNotificationModal = () => {
-    setIsModalOpen(!isModalOpen);
-    markNotificationsAsRead();
-  };
-
   const getNotifications = () => {
     GlobalApi.getNotificationsByUserEmail(userEmail)
       .then((res) => {
@@ -58,22 +48,20 @@ export function Profile() {
             read: false,
           })
         );
+
         setUserNotifications(notificationsWithReadProperty);
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
+    getFavDoctors();
+    getFavItems();
     getNotifications();
   }, []);
 
-  const markNotificationsAsRead = () => {
-    // Update the 'read' property of each notification object to true
-    const updatedNotifications = userNotifications.map((notification) => ({
-      ...notification,
-      read: true,
-    }));
-    setUserNotifications(updatedNotifications);
+  const toggleNotificationModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   return (
@@ -92,7 +80,15 @@ export function Profile() {
         ) : (
           <Text style={styles.textColor}>Your favourite doctors:</Text>
         )}
-        <Pressable onPress={() => getFavDoctors()} style={styles.refreshBtn}>
+        <Pressable
+          onPress={() => {
+            console.log("clicked refresh");
+            getFavDoctors();
+            getFavItems();
+            getNotifications();
+          }}
+          style={styles.refreshBtn}
+        >
           <Feather name="refresh-cw" size={24} color={Colors.lightGray} />
         </Pressable>
       </View>
@@ -106,6 +102,7 @@ export function Profile() {
             onRefresh={() => {
               getNotifications();
               getFavDoctors();
+              getFavItems();
             }}
             horizontal={false}
             scrollEnabled={true}
@@ -123,8 +120,6 @@ export function Profile() {
           toggleNotificationModal={toggleNotificationModal}
           isModalOpen={isModalOpen}
           userNotifications={userNotifications}
-          markNotificationsAsRead={markNotificationsAsRead}
-          getNotifications={getNotifications}
         />
       )}
     </SafeAreaView>

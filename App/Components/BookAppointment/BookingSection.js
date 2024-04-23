@@ -157,10 +157,8 @@ export function BookingSection({ hospital, doctor }) {
     }
 
     GlobalApi.createNotificationByUserEmail(notificationText)
-      .then((res) => console.log("created notification"))
+      .then((res) => console.log("created notifications"))
       .catch((err) => console.log(err));
-
-    fetchNotifications();
 
     setTimeout(() => {
       GlobalApi.getUserAppointments(userEmail)
@@ -173,11 +171,11 @@ export function BookingSection({ hospital, doctor }) {
     }, 1500);
   };
 
-  const fetchNotifications = () => {
-    GlobalApi.getNotificationsByUserEmail(userEmail).catch((err) =>
-      console.log(err)
-    );
-  };
+  // const fetchNotifications = () => {
+  //   GlobalApi.getNotificationsByUserEmail(userEmail).catch((err) =>
+  //     console.log(err)
+  //   );
+  // };
 
   return (
     <View style={styles.box}>
