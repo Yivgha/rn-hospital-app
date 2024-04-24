@@ -41,6 +41,7 @@ export default {
     paddingVertical: 4,
     backgroundColor: Colors.sky,
     fontFamily: "appfont",
+    width: "100%",
   },
   buttonBox: {
     paddingVertical: 13,
@@ -54,5 +55,16 @@ export default {
     fontSize: 16,
     color: Colors.white,
     fontFamily: "appfontLight",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    position: "relative",
+  },
+  toggleButton: {
+    padding: 10,
+    position: "absolute",
+    right: 10,
   },
 };

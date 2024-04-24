@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useSignUp } from "@clerk/clerk-expo";
-import Colors from "../../../assets/Shared/Colors";
 import SignInStyles from "../../../assets/Shared/SignInStyles";
+import { CustomInput } from "./CustomInput";
 
 export function SignUp() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -13,6 +13,11 @@ export function SignUp() {
   const [password, setPassword] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
+  const [secureTextEntry, setSecureTextEntry] = useState(false);
+
+  const toggleSecureEntry = () => {
+    setSecureTextEntry(!secureTextEntry);
+  };
 
   const onSignUpPress = async () => {
     if (!isLoaded) {
@@ -59,47 +64,32 @@ export function SignUp() {
       {!pendingVerification && (
         <View style={SignInStyles.signInForm}>
           <View style={{ gap: 10 }}>
-            <View>
-              <TextInput
-                style={SignInStyles.inputForm}
-                placeholderTextColor={Colors.gray}
-                autoCapitalize="none"
-                value={firstName}
-                placeholder="First Name..."
-                onChangeText={(firstName) => setFirstName(firstName)}
-              />
-            </View>
-            <View>
-              <TextInput
-                style={SignInStyles.inputForm}
-                placeholderTextColor={Colors.gray}
-                autoCapitalize="none"
-                value={lastName}
-                placeholder="Last Name..."
-                onChangeText={(lastName) => setLastName(lastName)}
-              />
-            </View>
-            <View>
-              <TextInput
-                style={SignInStyles.inputForm}
-                placeholderTextColor={Colors.gray}
-                autoCapitalize="none"
-                value={emailAddress}
-                placeholder="Email..."
-                onChangeText={(email) => setEmailAddress(email)}
-              />
-            </View>
+            <CustomInput
+              value={firstName}
+              setValue={setFirstName}
+              toggleSecureEntry={toggleSecureEntry}
+              placeholder={"First name..."}
+            />
+            <CustomInput
+              value={lastName}
+              setValue={setLastName}
+              toggleSecureEntry={toggleSecureEntry}
+              placeholder={"Last name..."}
+            />
+            <CustomInput
+              value={emailAddress}
+              setValue={setEmailAddress}
+              toggleSecureEntry={toggleSecureEntry}
+              placeholder={"Email..."}
+            />
 
-            <View>
-              <TextInput
-                style={SignInStyles.inputForm}
-                placeholderTextColor={Colors.gray}
-                value={password}
-                placeholder="Password..."
-                secureTextEntry={true}
-                onChangeText={(password) => setPassword(password)}
-              />
-            </View>
+            <CustomInput
+              value={password}
+              setValue={setPassword}
+              secureTextEntry={secureTextEntry}
+              toggleSecureEntry={toggleSecureEntry}
+              placeholder={"Password..."}
+            />
 
             <TouchableOpacity
               onPress={() => {
@@ -114,15 +104,14 @@ export function SignUp() {
       )}
       {pendingVerification && (
         <View style={SignInStyles.signInForm}>
-          <View>
-            <TextInput
-              style={SignInStyles.inputForm}
-              placeholderTextColor={Colors.gray}
-              value={code}
-              placeholder="Code..."
-              onChangeText={(code) => setCode(code)}
-            />
-          </View>
+          <CustomInput
+            value={code}
+            setValue={setCode}
+            secureTextEntry={secureTextEntry}
+            toggleSecureEntry={toggleSecureEntry}
+            placeholder={"Code..."}
+          />
+
           <TouchableOpacity
             onPress={onPressVerify}
             style={SignInStyles.buttonBox}

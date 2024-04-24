@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { TouchableOpacity, Text, View, TextInput } from "react-native";
-import Colors from "../../../assets/Shared/Colors";
+import { TouchableOpacity, Text, View } from "react-native";
 import { useSignIn } from "@clerk/clerk-expo";
 import SignInStyles from "../../../assets/Shared/SignInStyles";
+import { CustomInput } from "./CustomInput";
 
 export function SignInWithEmail() {
   const { signIn, setActive, isLoaded } = useSignIn();
 
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
+  const [secureTextEntry, setSecureTextEntry] = useState(false);
+
+  const toggleSecureEntry = () => {
+    setSecureTextEntry(!secureTextEntry);
+  };
 
   const onSignInPress = async () => {
     if (!isLoaded) {
@@ -28,27 +33,19 @@ export function SignInWithEmail() {
   };
   return (
     <View style={SignInStyles.signInForm}>
-      <View>
-        <TextInput
-          style={SignInStyles.inputForm}
-          autoCapitalize="none"
-          value={emailAddress}
-          placeholder="Email..."
-          placeholderTextColor={Colors.gray}
-          onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-        />
-      </View>
+      <CustomInput
+        value={emailAddress}
+        setValue={setEmailAddress}
+        placeholder={"Email..."}
+      />
 
-      <View>
-        <TextInput
-          style={SignInStyles.inputForm}
-          value={password}
-          placeholder="Password..."
-          placeholderTextColor={Colors.gray}
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        />
-      </View>
+      <CustomInput
+        value={password}
+        setValue={setPassword}
+        secureTextEntry={secureTextEntry}
+        toggleSecureEntry={toggleSecureEntry}
+        placeholder={"Password..."}
+      />
 
       <TouchableOpacity onPress={onSignInPress} style={SignInStyles.buttonBox}>
         <Text style={SignInStyles.buttonText}>Sign in</Text>
