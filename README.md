@@ -6,28 +6,18 @@
 
 Hospital App is a React Native Android application made on Expo. User can register and login with real email and good password (verification required) or use personal Google Account.
 
-![Starting screen](./assets/about/login.jpg)
+![Starting screen](./assets/about/login.jpg) ![Register screen](./assets/about/register.jpg)
 
-![Register screen](./assets/about/register.jpg)
+This application shows list of doctors and hospitals in choosen area, detailed info about each of them and ability to create appointment.
 
-This applications shows list of doctors and hospitals in choosen area, detailed info about each of them.
-
-![Main screen](./assets/about/main.jpg)
-
-![Profile screen](./assets/about/profile.jpg)
+![Main screen](./assets/about/main.jpg) ![Profile screen](./assets/about/profile.jpg)
 
 You can add doctors to favourites list and contact with them via phone or email. Also you can see their working location on Google maps, visit their provided website or share personal page with friends.
 
-![Booking screen](./assets/about/booking.jpg)
+![Booking screen](./assets/about/booking.jpg) ![Doctor screen](./assets/about/doctor.jpg) ![Appointment screen](./assets/about/appointments.jpg)
 
 In this app you can book appointment with doctor or hospital in general: choose day of the current week and time, add some notes and doctor will be notified about this with your account name and email. User is free to delete appointment they made in Appointments screen. After you create or delete appointment, on your main page appears notification badge, and after reading new notifications they will be deleted.
 
-![Appointment screen](./assets/about/appointment.jpg)
-
-Also you can search doctors or hospitals by their names via search bar or by specialities in categories screen.
-
-![Dcotor screen](./assets/about/doctor.jpg)
-
-On main page user can see the list of premium hospitals with special badge (advertisement) and look on animated slider with image that can contain info about discounts in hospitals and contests etc.
+Also you can search doctors or hospitals by their names via search bar or by specialities in categories screen. On main page user can see the list of premium hospitals with special badge (advertisement) and look on animated slider with image that can contain info about discounts in hospitals and contests etc.
 
 This is only pet project for training and showing my skills, so it isn't deployed on Google Play.
