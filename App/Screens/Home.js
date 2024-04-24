@@ -69,7 +69,7 @@ export function Home() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <View style={{ gap: 25 }}>
+        <View style={{ gap: 15 }}>
           <Search setSearchText={setSearchText} searchText={searchText} />
 
           <Slider />
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingTop: 15,
     gap: 15,
     backgroundColor: Colors.celestial,
   },

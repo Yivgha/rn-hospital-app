@@ -42,6 +42,6 @@ export function HospitalsListByCategory({ selectedHospitals }) {
 }
 
 const styles = StyleSheet.create({
-  hospitalsListBox: { flexDirection: "column", paddingBottom: 100 },
+  hospitalsListBox: { flexDirection: "column", paddingBottom: 150 },
   hospitalItem: { marginBottom: 15 },
 });

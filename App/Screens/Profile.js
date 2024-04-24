@@ -5,7 +5,7 @@ import {
   SafeAreaView,
   FlatList,
   View,
-  Pressable,
+  TouchableOpacity,
 } from "react-native";
 import Colors from "../../assets/Shared/Colors";
 import { Header } from "../Components/Home/Header";
@@ -80,9 +80,8 @@ export function Profile() {
         ) : (
           <Text style={styles.textColor}>Your favourite doctors:</Text>
         )}
-        <Pressable
+        <TouchableOpacity
           onPress={() => {
-            console.log("clicked refresh");
             getFavDoctors();
             getFavItems();
             getNotifications();
@@ -90,7 +89,7 @@ export function Profile() {
           style={styles.refreshBtn}
         >
           <Feather name="refresh-cw" size={24} color={Colors.lightGray} />
-        </Pressable>
+        </TouchableOpacity>
       </View>
 
       {favDoctors?.length > 0 && (

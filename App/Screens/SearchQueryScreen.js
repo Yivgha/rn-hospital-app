@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.sky,
     flexDirection: "column",
     paddingTop: 15,
-    paddingBottom: 60,
+    paddingBottom: 10,
     paddingHorizontal: 10,
     gap: 15,
   },
