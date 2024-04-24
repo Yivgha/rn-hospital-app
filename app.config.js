@@ -11,6 +11,14 @@ module.exports = {
   },
   expo: {
     scheme: "hospital-app",
+    android: {
+      package: "com.yivgha.hospitalapp",
+    },
+    extra: {
+      eas: {
+        projectId: "212e3173-d32c-40da-b0fb-14e337b0a534",
+      },
+    },
   },
   assets: ["./assets/fonts"],
   plugins: ["expo-font", "expo-secure-store"],
